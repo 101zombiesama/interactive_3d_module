@@ -54,7 +54,7 @@ var teethModel;
 function initModel(){
     var loader = new THREE.OBJLoader();
     loader.load(
-        "/models/teeth.obj",
+        "./models/teeth.obj",
         function ( object ) {
             teethModel = object;
 
