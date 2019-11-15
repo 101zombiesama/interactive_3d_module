@@ -21,29 +21,29 @@ function initViews(){
 // Matreials
 var mat_master = new THREE.MeshStandardMaterial({
     // color: new THREE.Color('hsl(240, 50%, 75%)'),
-    map: new THREE.TextureLoader().load( "models/teeth/Albedo(AO).png" ),
+    map: new THREE.TextureLoader().load( "./assets/models/teeth/Albedo(AO).png" ),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "models/teeth/Normal.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "models/teeth/Roughness.png" ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
     side: THREE.DoubleSide
 });
 var mat_gums = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load( "models/gum_COL.png" ),
+    map: new THREE.TextureLoader().load( "./assets/models/gum_COL.png" ),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "models/gum_NRM.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/gum_NRM.png" ),
     normalScale: new THREE.Vector2( 1, 1 ),
     roughness: 0.25,
     side: THREE.DoubleSide
 });
 var mat_botteeth = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load( "models/botteeth_COL.png" ),
+    map: new THREE.TextureLoader().load( "./assets/models/botteeth_COL.png" ),
     metalness: 0,
     roughness: 0.3,
     side: THREE.DoubleSide
 });
 var mat_topteeth = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load( "models/topteeth_COL.png" ),
+    map: new THREE.TextureLoader().load( "./assets/models/topteeth_COL.png" ),
     metalness: 0,
     roughness: 0.3,
     side: THREE.DoubleSide
@@ -74,7 +74,7 @@ var lower_gum_model;
 function initModel(){
     var loader = new THREE.OBJLoader();
     loader.load(
-        "./models/teeth/bottom_teeth.obj",
+        "./assets/models/teeth/bottom_teeth.obj",
         function ( object ) {
             lower_teeth_model = object;
             for (i=0; i<object.children.length; i++ ) {
@@ -93,7 +93,7 @@ function initModel(){
     );
 
     loader.load(
-        "./models/teeth/upper_teeth.obj",
+        "./assets/models/teeth/upper_teeth.obj",
         function ( object ) {
             upper_teeth_model = object;
             for (i=0; i<object.children.length; i++ ) {
@@ -112,7 +112,7 @@ function initModel(){
     );
 
     loader.load(
-        "./models/teeth/lower_gum.obj",
+        "./assets/models/teeth/lower_gum.obj",
         function ( object ) {
             lower_gum_model = object;
             for (i=0; i<object.children.length; i++ ) {
@@ -130,7 +130,7 @@ function initModel(){
     );
 
     loader.load(
-        "./models/teeth/upper_gum.obj",
+        "./assets/models/teeth/upper_gum.obj",
         function ( object ) {
             upper_gum_model = object;
             for (i=0; i<object.children.length; i++ ) {
