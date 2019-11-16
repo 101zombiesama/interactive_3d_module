@@ -51,3 +51,12 @@ i {
         visibility: hidden;
     }
 }
+
+@media (max-width: 400px) {
+    .sidebar {
+        width: 30px;
+    }
+    i {
+        margin: 0px;
+    }
+}

@@ -1,8 +1,11 @@
 // functions event listeners
 
 var isMouseDown = false;
+var isTouched = false;
 var mousePosBeforeClick = {};
 var mousePosAfterClick = {};
+var touchStartPos = {};
+var touchEndPos = {};
 window.addEventListener('mousedown', event => {
     isMouseDown = true;
     mousePosBeforeClick.x = event.clientX;
@@ -12,6 +15,16 @@ window.addEventListener('mouseup', event => {
     isMouseDown = false;
     mousePosAfterClick.x = event.clientX;
     mousePosAfterClick.y = event.clientY;
+})
+window.addEventListener('touchstart', event => {
+    isTouched = true;
+    touchStartPos.x = event.clientX;
+    touchStartPos.y = event.clientY;
+})
+window.addEventListener('touchend', event => {
+    isTouched = false;
+    touchEndPos.x = event.clientX;
+    touchEndPos.y = event.clientY;
 })
 
 // set slider value to zero on window load
@@ -119,14 +132,23 @@ window.onload = () => {
 
     // adding event listeners to all teeth
     for (let tooth of lower_teeth_model.children) {
+        // event for selecting tooth
         domEvents.addEventListener(tooth, 'click', event => {
             // if statement for excluding drag as a click
             if (JSON.stringify(mousePosAfterClick) == JSON.stringify(mousePosBeforeClick)){
                 updateSelectedTooth(tooth);
             }
             
+        });
+        domEvents.addEventListener(tooth, 'touchend', event => {
+            // if statement for excluding drag as a click
+            if (JSON.stringify(touchStartPos) == JSON.stringify(touchEndPos)){
+                updateSelectedTooth(tooth);
+            }
+            
         })
 
+        // event for highlighting tooth
         domEvents.addEventListener(tooth, 'mouseover', event => {
             if (selectedTooth) {
                 if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
@@ -142,8 +164,9 @@ window.onload = () => {
         });
 
     }
-    for (let tooth of upper_teeth_model.children) {
 
+    for (let tooth of upper_teeth_model.children) {
+        // event for selecting tooth
         domEvents.addEventListener(tooth, 'click', event => {
             // if statement for excluding drag as a click
             if (JSON.stringify(mousePosAfterClick) == JSON.stringify(mousePosBeforeClick)){
@@ -152,6 +175,7 @@ window.onload = () => {
             
         })
 
+        // event for highlighting tooth
         domEvents.addEventListener(tooth, 'mouseover', event => {
             if (selectedTooth) {
                 if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
