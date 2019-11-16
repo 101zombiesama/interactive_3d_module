@@ -141,16 +141,6 @@ window.onload = () => {
             }
         });
 
-        // domEvents.addEventListener(tooth, 'mouseout', event => {
-        //     if (selectedTooth) {
-        //         // reverting back to required material when moouseout and this tooth is not selected tooth
-        //         if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
-        //             tooth.material = tooth.requiredMaterial;
-        //         }
-        //     } else {
-        //         tooth.material = tooth.requiredMaterial;
-        //     }
-        // });
     }
     for (let tooth of upper_teeth_model.children) {
 
@@ -175,14 +165,5 @@ window.onload = () => {
             }
         });
 
-        // domEvents.addEventListener(tooth, 'mouseout', event => {
-        //     if (selectedTooth) {
-        //         if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
-        //             tooth.material = tooth.requiredMaterial;
-        //         }
-        //     } else {
-        //         tooth.material = tooth.requiredMaterial;
-        //     }
-        // });
     }
 }
