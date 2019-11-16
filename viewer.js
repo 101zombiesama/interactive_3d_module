@@ -1,10 +1,11 @@
 let scene, camera, renderer;
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
+var touch = new THREE.Vector2();
 
 function initViews(){
     scene = new THREE.Scene();
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
     camera = new THREE.PerspectiveCamera(
         75,
         window.innerWidth/window.innerHeight,
@@ -164,7 +165,7 @@ function initLights(){
     var frontLight_l = new THREE.DirectionalLight(0xffffff, 0.5);
     frontLight_l.position.set(-100, 0, -75).normalize();
 
-    var ambLight = new THREE.AmbientLight( 0x404040 );
+    var ambLight = new THREE.AmbientLight( 0x404040, 1 );
 
     scene.add(leftLight);
     scene.add(rightLight);

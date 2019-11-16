@@ -54,7 +54,7 @@ i {
 
 @media (max-width: 400px) {
     .sidebar {
-        width: 30px;
+        width: 35px;
     }
     i {
         margin: 0px;

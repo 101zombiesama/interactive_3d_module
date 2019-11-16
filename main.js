@@ -16,15 +16,17 @@ window.addEventListener('mouseup', event => {
     mousePosAfterClick.x = event.clientX;
     mousePosAfterClick.y = event.clientY;
 })
-window.addEventListener('touchstart', event => {
-    isTouched = true;
-    touchStartPos.x = event.clientX;
-    touchStartPos.y = event.clientY;
-})
-window.addEventListener('touchend', event => {
-    isTouched = false;
-    touchEndPos.x = event.clientX;
-    touchEndPos.y = event.clientY;
+// window.addEventListener('touchstart', event => {
+//     console.log(event);
+//     isTouched = true;
+//     touchStartPos.x = event.touches[0].clientX;
+//     touchStartPos.y = event.touches[0].clientY;
+// })
+window.addEventListener('touchmove', event => {
+    console.log(event);
+    // isTouched = false;
+    // touchEndPos.x = event.touches[0].clientX;
+    // touchEndPos.y = event.touches[0].clientY;
 })
 
 // set slider value to zero on window load
@@ -112,6 +114,20 @@ window.onload = () => {
         }
 
     });
+    // selecting with touch
+    // window.addEventListener('touchend', event => {
+    //     touch.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //     touch.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    //     console.log(event.clientX, event.clientY);
+    //     var element = document.elementFromPoint(event.clientX, event.clientY);
+
+    //     raycaster.setFromCamera(touch, camera);
+    //     var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
+    //     if (intersects.length > 0 && JSON.stringify(touchStartPos) == JSON.stringify(touchEndPos) && element.nodeName == 'CANVAS') {
+    //         updateSelectedTooth(intersects[0].object);
+    //     }
+
+    // });
 
     // hover on no-teeth area to clear highlight
     window.addEventListener('mousemove', event => {
@@ -141,8 +157,10 @@ window.onload = () => {
             
         });
         domEvents.addEventListener(tooth, 'touchend', event => {
+            console.log('touched on tooth');
             // if statement for excluding drag as a click
             if (JSON.stringify(touchStartPos) == JSON.stringify(touchEndPos)){
+                console.log('selected with touch');
                 updateSelectedTooth(tooth);
             }
             
