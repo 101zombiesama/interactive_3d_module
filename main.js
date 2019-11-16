@@ -46,13 +46,6 @@ slider.addEventListener('input', event => {
     lower_gum_model.position.y = -slider.value / 30;
 });
 
-window.addEventListener('mousemove', event => {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-);
-
-
 var selectedTooth;
 
 function updateSelectedTooth(tooth){
@@ -86,11 +79,13 @@ function clearHighlight(){
 }
 
 
-
 window.onload = () => {
 
     // click in empty area to clear selection
     window.addEventListener('click', event => {
+
+        var element = document.elementFromPoint(event.clientX, event.clientY);
+
         raycaster.setFromCamera(mouse, camera);
         var meshes = [];
         scene.traverse( (child) => {
@@ -99,7 +94,7 @@ window.onload = () => {
             }
         } );
         var intersects = raycaster.intersectObjects(meshes);
-        if (intersects.length <= 0 && JSON.stringify(mousePosBeforeClick) == JSON.stringify(mousePosAfterClick)) {
+        if (intersects.length <= 0 && JSON.stringify(mousePosBeforeClick) == JSON.stringify(mousePosAfterClick) && element.nodeName == 'CANVAS') {
             clearSelection();
         }
 
@@ -107,6 +102,9 @@ window.onload = () => {
 
     // hover on no-teeth area to clear highlight
     window.addEventListener('mousemove', event => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
         if (intersects.length <= 0) {

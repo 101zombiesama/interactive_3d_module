@@ -143,6 +143,7 @@ ul ul,
 ol ul,
 ul ol {
   margin-bottom: 0;
+  text-decoration: none;
 }
 
 dt {
@@ -4532,7 +4533,7 @@ input[type="button"].btn-block {
   width: 1rem;
   height: 1rem;
   margin-top: -0.25rem;
-  background-color: #e14eca;
+  background-color: #27293d;
   border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(34, 42, 66, 0.1);
@@ -17996,7 +17997,7 @@ table.tablesorter thead tr .headerSortDown {
   height: 380px;
 }
 
-@media screen and (max-width: 991px) {
+/* @media screen and (max-width: 991px) {
   .sidebar {
     position: fixed;
     display: block;
@@ -18024,7 +18025,7 @@ table.tablesorter thead tr .headerSortDown {
   .sidebar {
     transition: none;
   }
-}
+} */
 
 @media screen and (max-width: 991px) {
   .wrapper {
