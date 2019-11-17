@@ -1,3 +1,5 @@
+(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+
 let scene, camera, renderer;
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
@@ -6,6 +8,8 @@ var touch = new THREE.Vector2();
 function initViews(){
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     camera = new THREE.PerspectiveCamera(
         75,
         window.innerWidth/window.innerHeight,

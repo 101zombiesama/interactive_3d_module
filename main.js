@@ -1,5 +1,4 @@
 // functions event listeners
-
 var isMouseDown = false;
 var isTouched = false;
 var mousePosBeforeClick = {};
@@ -72,6 +71,12 @@ function updateSelectedTooth(tooth){
     }
     tooth.material = mat_selected;
     selectedTooth = tooth;
+
+    // make status ui visible
+    var statusPanel = document.getElementById("status-panel");
+    if(!isVisible(statusPanel)){
+        showDiv(statusPanel);
+    }
 }
 
 function clearSelection(){
@@ -82,6 +87,12 @@ function clearSelection(){
         child.material = child.requiredMaterial
     }
     selectedTooth = null;
+
+    // hide status ui
+    var statusPanel = document.getElementById("status-panel");
+    if(isVisible(statusPanel)){
+        hideDiv(statusPanel);
+    }
 }
 
 function clearHighlight(){

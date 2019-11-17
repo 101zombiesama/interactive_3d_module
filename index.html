@@ -54,12 +54,38 @@
 
     </div>
 
+    <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white" style="display: none;">
+        <div class="grid-container">
+                <button type="button" class="btn btn-primary btn-simple" id="btn-healthy">Healthy</button>
+                <button type="button" class="btn btn-primary btn-simple" id="btn-sick">Sick</button>
+                <button type="button" class="btn btn-primary btn-simple" id="btn-damaged">Damaged</button>
+                <button type="button" class="btn btn-primary btn-simple" id="btn-missing">Missing</button>
+        </div>
+    </div>
+
+    <div class="progress">
+        <div class="container">
+            <h5 class="text-center">Progress</h5>
+            <hr>
+            <ul>
+                <li style="color: rgb(193, 255, 193);">Highres model implemented</li>
+                <li style="color: rgb(193, 255, 193);">Tooth highlight and selection implemented</li>
+                <li style="color: rgb(255, 234, 138);">Working on | marking tooth status</li>
+                <li style="color: rgb(255, 234, 138);">Working on | high res textures</li>
+                <li style="color: rgb(255, 234, 138);">Working on | saving dental model and exporting</li>
+                <li style="color: rgb(255, 234, 138);">Working on | Importing user dental model</li>
+                
+            </ul>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
     <script src="three.js-master\OrbitControls.js"></script>
     <script src="three.js-master\OBJLoader.js"></script>
     <script src="three.js-master\threex.domevents-master\threex.domevents.js"></script>
     <script src="viewer.js"></script>
     <script src="main.js"></script>
+    <script src="ui.js"></script>
 
     <!-- black dashboard files -->
     <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
