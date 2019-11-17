@@ -5,6 +5,22 @@ var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var touch = new THREE.Vector2();
 
+// initiating modelState with listenable implementation
+var modelState = {
+    numMeshesLoadedInternal: 0,
+    numMeshesLoadedListener: function(val) {},
+    set numMeshesLoaded(val) {
+      this.numMeshesLoadedInternal = val;
+      this.numMeshesLoadedListener(val);
+    },
+    get numMeshesLoaded() {
+      return this.numMeshesLoadedInternal;
+    },
+    registerListener: function(listener) {
+      this.numMeshesLoadedListener = listener;
+    }
+  }
+
 function initViews(){
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
@@ -85,8 +101,10 @@ function initModel(){
             for (i=0; i<object.children.length; i++ ) {
                 object.children[i].requiredMaterial = mat_master;
                 object.children[i].material = object.children[i].requiredMaterial;
+                object.children[i].status = "healthy";
             }
             scene.add( object );
+            modelState.numMeshesLoaded ++;
 
         },
         function ( xhr ) {},
@@ -104,8 +122,10 @@ function initModel(){
             for (i=0; i<object.children.length; i++ ) {
                 object.children[i].requiredMaterial = mat_master;
                 object.children[i].material = object.children[i].requiredMaterial;
+                object.children[i].status = "healthy";
             }
             scene.add( object );
+            modelState.numMeshesLoaded ++;
 
         },
         function ( xhr ) {},
@@ -124,6 +144,7 @@ function initModel(){
                 object.children[i].material = mat_master;
             }
             scene.add( object );
+            modelState.numMeshesLoaded ++;
 
         },
         function ( xhr ) {},
@@ -142,6 +163,7 @@ function initModel(){
                 object.children[i].material = mat_master;
             }
             scene.add( object );
+            modelState.numMeshesLoaded ++;
 
         },
         function ( xhr ) {},

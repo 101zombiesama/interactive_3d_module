@@ -51,15 +51,6 @@ window.addEventListener('resize', event => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// handling mouth open animation with slider
-var slider = document.getElementById('animBlend');
-slider.addEventListener('input', event => {
-    lower_teeth_model.rotation.x = -slider.value / 2;
-    lower_teeth_model.position.y = -slider.value / 30;
-    lower_gum_model.rotation.x = -slider.value / 2;
-    lower_gum_model.position.y = -slider.value / 30;
-});
-
 var selectedTooth;
 
 function updateSelectedTooth(tooth){
@@ -74,6 +65,11 @@ function updateSelectedTooth(tooth){
 
     // make status ui visible
     var statusPanel = document.getElementById("status-panel");
+    var statusBtn = document.getElementById(`btn-${selectedTooth.status}`);
+    var classList = [...statusBtn.classList];
+    if(classList.indexOf("btn-simple") != -1){
+        statusBtn.classList.remove("btn-simple")
+    }
     if(!isVisible(statusPanel)){
         showDiv(statusPanel);
     }
@@ -105,7 +101,16 @@ function clearHighlight(){
 }
 
 
-window.onload = () => {
+function addModelInteraction() {
+
+    // handling mouth open animation with slider
+    var slider = document.getElementById('animBlend');
+    slider.addEventListener('input', event => {
+        lower_teeth_model.rotation.x = -slider.value / 2;
+        lower_teeth_model.position.y = -slider.value / 30;
+        lower_gum_model.rotation.x = -slider.value / 2;
+        lower_gum_model.position.y = -slider.value / 30;
+    });
 
     // click in empty area to clear selection
     window.addEventListener('click', event => {
@@ -220,3 +225,9 @@ window.onload = () => {
 
     }
 }
+
+modelState.registerListener(function(numMeshesLoaded) {
+    if(numMeshesLoaded == 4){
+        addModelInteraction();
+    }
+  });
