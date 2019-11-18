@@ -60,8 +60,12 @@ function updateSelectedTooth(tooth){
     for (let child of upper_teeth_model.children) {
         child.material = mat_master;
     }
+    clearHighlight();
     tooth.material = mat_selected;
     selectedTooth = tooth;
+
+    // set active states of button when selected new tooth
+    setBtnActiveState(document.getElementById(`btn-${selectedTooth.status}`));
 
     // make status ui visible
     var statusPanel = document.getElementById("status-panel");
@@ -92,11 +96,37 @@ function clearSelection(){
 }
 
 function clearHighlight(){
+    // this function sets the material of each tooth to its required material
     for (let child of lower_teeth_model.children) {
         child.material = child.requiredMaterial
     }
     for (let child of upper_teeth_model.children) {
         child.material = child.requiredMaterial
+    }
+}
+
+function changeToothStatus(tooth, status){
+    tooth.status = status;
+    // when tooth status changes, its material also changes
+    if(tooth.status == 'healthy') tooth.requiredMaterial = mat_master;
+    if(tooth.status == 'sick') tooth.requiredMaterial = mat_sick;
+    if(tooth.status == 'damaged') tooth.requiredMaterial = mat_damaged;
+    if(tooth.status == 'missing') tooth.requiredMaterial = mat_missing;
+}
+
+function setBtnActiveState(btn){
+    // setting all other button to not active first
+    var statusBtns = document.getElementsByClassName("status-btn");
+    for (let button of statusBtns){
+        var buttonClassList = [...button.classList];
+        if(buttonClassList.indexOf("btn-simple") == -1){
+            button.classList.add("btn-simple");
+        }
+    }
+    // setting this button to active
+    var btnClassList = [...btn.classList];
+    if(btnClassList.indexOf("btn-simple") != -1){
+        btn.classList.remove("btn-simple");
     }
 }
 

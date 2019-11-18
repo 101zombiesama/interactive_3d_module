@@ -49,26 +49,31 @@ var mat_master = new THREE.MeshStandardMaterial({
     roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
     side: THREE.DoubleSide
 });
-var mat_gums = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load( "./assets/models/gum_COL.png" ),
+var mat_sick = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(0xb244d4),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/gum_NRM.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughness: 0.25,
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
     side: THREE.DoubleSide
 });
-var mat_botteeth = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load( "./assets/models/botteeth_COL.png" ),
+var mat_damaged = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(0xd4c200),
     metalness: 0,
-    roughness: 0.3,
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
     side: THREE.DoubleSide
 });
-var mat_topteeth = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load( "./assets/models/topteeth_COL.png" ),
+var mat_missing = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(0xb5000f),
     metalness: 0,
-    roughness: 0.3,
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
     side: THREE.DoubleSide
 });
+
 var mat_highlight = new THREE.MeshStandardMaterial({
     color: new THREE.Color( 0xbffdff ),
     metalness: 0,
