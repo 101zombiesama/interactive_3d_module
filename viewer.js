@@ -42,35 +42,35 @@ function initViews(){
 // Matreials
 var mat_master = new THREE.MeshStandardMaterial({
     // color: new THREE.Color('hsl(240, 50%, 75%)'),
-    map: new THREE.TextureLoader().load( "./assets/models/teeth/Albedo(AO).png" ),
+    map: new THREE.TextureLoader().load( "./assets/models/teeth/Albedo(AO).jpg" ),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
     side: THREE.DoubleSide
 });
 var mat_sick = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xb244d4),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
     side: THREE.DoubleSide
 });
 var mat_damaged = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xd4c200),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
     side: THREE.DoubleSide
 });
 var mat_missing = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xb5000f),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.png" ),
+    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.png" ),
+    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
     side: THREE.DoubleSide
 });
 

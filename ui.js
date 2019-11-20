@@ -14,6 +14,7 @@ var btn_healthy = document.getElementById("btn-healthy");
 var btn_sick = document.getElementById("btn-sick");
 var btn_damaged = document.getElementById("btn-damaged");
 var btn_missing = document.getElementById("btn-missing");
+var btn_view = document.getElementById("btn-view");
 
 btn_healthy.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "healthy");
@@ -31,3 +32,7 @@ btn_missing.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "missing");
     setBtnActiveState(btn_missing);
 });
+
+btn_view.addEventListener('click', e => {
+    toggleGumsVisibility();
+})

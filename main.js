@@ -29,8 +29,10 @@ window.addEventListener('touchmove', event => {
 })
 
 // set slider value to zero on window load
-var slider = document.getElementById('animBlend');
-slider.value = 0;
+var sliderUpper = document.getElementById('sliderUpperJaw');
+sliderUpper.value = 0;
+var sliderLower = document.getElementById('sliderLowerJaw');
+sliderLower.value = 0;
 
 
 function resetCameraView() {
@@ -130,16 +132,29 @@ function setBtnActiveState(btn){
     }
 }
 
+function toggleGumsVisibility(){
+    if(lower_gum_model.visible == false) lower_gum_model.visible = true;
+    else lower_gum_model.visible = false;
+    if(upper_gum_model.visible == false) upper_gum_model.visible = true;
+    else upper_gum_model.visible = false;
+}
 
 function addModelInteraction() {
 
     // handling mouth open animation with slider
-    var slider = document.getElementById('animBlend');
-    slider.addEventListener('input', event => {
-        lower_teeth_model.rotation.x = -slider.value / 2;
-        lower_teeth_model.position.y = -slider.value / 30;
-        lower_gum_model.rotation.x = -slider.value / 2;
-        lower_gum_model.position.y = -slider.value / 30;
+    var sliderUpper = document.getElementById('sliderUpperJaw');
+    var sliderLower = document.getElementById('sliderLowerJaw');
+    sliderLower.addEventListener('input', event => {
+        lower_teeth_model.rotation.x = -sliderLower.value / 2;
+        lower_teeth_model.position.y = -sliderLower.value / 30;
+        lower_gum_model.rotation.x = -sliderLower.value / 2;
+        lower_gum_model.position.y = -sliderLower.value / 30;
+    });
+    sliderUpper.addEventListener('input', event => {
+        upper_teeth_model.rotation.x = sliderUpper.value / 2;
+        upper_teeth_model.position.y = sliderUpper.value / 30;
+        upper_gum_model.rotation.x = sliderUpper.value / 2;
+        upper_gum_model.position.y = sliderUpper.value / 30;
     });
 
     // click in empty area to clear selection
