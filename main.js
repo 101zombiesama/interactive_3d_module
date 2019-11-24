@@ -1,4 +1,5 @@
 // functions event listeners
+
 var isMouseDown = false;
 var isTouched = false;
 var mousePosBeforeClick = {};
@@ -36,7 +37,7 @@ sliderLower.value = 0;
 
 
 function resetCameraView() {
-    controls.target.copy(upper_gum_model.position);
+    controls.target = new THREE.Vector3(0,0,-0.05);
 };
 
 // reset orbit pivot
@@ -145,16 +146,16 @@ function addModelInteraction() {
     var sliderUpper = document.getElementById('sliderUpperJaw');
     var sliderLower = document.getElementById('sliderLowerJaw');
     sliderLower.addEventListener('input', event => {
-        lower_teeth_model.rotation.x = -sliderLower.value / 2;
-        lower_teeth_model.position.y = -sliderLower.value / 30;
-        lower_gum_model.rotation.x = -sliderLower.value / 2;
-        lower_gum_model.position.y = -sliderLower.value / 30;
+        lower_teeth_model.rotation.x = -sliderLower.value*1.57;
+        // lower_teeth_model.position.y = -sliderLower.value / 30;
+        lower_gum_model.rotation.x = -sliderLower.value*1.57;
+        // lower_gum_model.position.y = -sliderLower.value / 30;
     });
     sliderUpper.addEventListener('input', event => {
-        upper_teeth_model.rotation.x = sliderUpper.value / 2;
-        upper_teeth_model.position.y = sliderUpper.value / 30;
-        upper_gum_model.rotation.x = sliderUpper.value / 2;
-        upper_gum_model.position.y = sliderUpper.value / 30;
+        upper_teeth_model.rotation.x = sliderUpper.value*1.57;
+        // upper_teeth_model.position.y = sliderUpper.value / 30;
+        upper_gum_model.rotation.x = sliderUpper.value*1.57;
+        // upper_gum_model.position.y = sliderUpper.value / 30;
     });
 
     // click in empty area to clear selection
@@ -274,5 +275,10 @@ function addModelInteraction() {
 modelState.registerListener(function(numMeshesLoaded) {
     if(numMeshesLoaded == 4){
         addModelInteraction();
+        scene.add(lower_gum_model);
+        scene.add(lower_teeth_model);
+        scene.add(upper_gum_model);
+        scene.add(upper_teeth_model);
+        hideDiv(document.getElementById("spinner"));
     }
   });

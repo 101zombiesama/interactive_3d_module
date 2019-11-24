@@ -6,7 +6,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
     <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="./assets/css/custom.css" rel="stylesheet" />
@@ -33,12 +33,12 @@
 
 <body>
 
-    <!-- <div class="container text-center header">
-        <h2 style="padding-top: 0.75vw; font-size: 1.5vw;">Teeth Module</h2>
-    </div> -->
-    <div class="slider" style="position: absolute; left: 50%; top: 90%; transform: translateX(-50%);">
+    <div class="spinner-border  text-primary" id="spinner" style="position: absolute; top: 50%; left: 50%;"></div>
+    <div class="slider" style="position: absolute; left: 50%; top: 90%; transform: translate(-50%, -50%);">
+        <label for="upper-slider">Upper Jaw</label>
         <input type="range" class="custom-range" id="sliderUpperJaw" min="0" max="1" step="0.01" value="0">
         <input type="range" class="custom-range" id="sliderLowerJaw" min="0" max="1" step="0.01" value="0">
+        <label for="lower-slider">Lower Jaw</label>
     </div>
 
     <div class="sidebar" data-color="azure" data-background-color="white">
@@ -69,10 +69,12 @@
             <h5 class="text-center">Progress</h5>
             <hr>
             <ul>
-                <li style="color: rgb(193, 255, 193);">Sliders for both upper and lower jaw control implemented</li>
-                <li style="color: rgb(193, 255, 193);">Resized gum to cover extended roots implemented</li>
-                <li style="color: rgb(193, 255, 193);">Gums visibility toggle implemented</li>
-                <li style="color: rgb(193, 255, 193);">4K textures implemented</li>
+                <li style="color: rgb(193, 255, 193);">Mouth can now open 180 degrees</li>
+                <li style="color: rgb(193, 255, 193);">Loading spinner implemented to indicate loading state</li>
+                <li style="color: rgb(193, 255, 193);">Labels implemented</li>
+                <li style="color: rgb(193, 255, 193);">Lighting changed, brighter</li>
+                <li style="color: rgb(255, 234, 138);">Working on | Golden tooth selection</li>
+                <li style="color: rgb(255, 234, 138);">Working on | Implant tooth placement</li>
                 <li style="color: rgb(255, 234, 138);">Working on | dedicated textures for each status of the tooth to replace temporary color coding</li>
                 <li style="color: rgb(255, 234, 138);">Working on | Forms for damaged and sick teeth</li>
                 <li style="color: rgb(255, 234, 138);">Working on | saving dental model and exporting</li>     

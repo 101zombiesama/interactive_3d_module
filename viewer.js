@@ -1,12 +1,14 @@
 (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
+// import { HDRCubeTextureLoader } from './three.js-master/HDRCubeTextureLoader.js';
+
 let scene, camera, renderer;
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var touch = new THREE.Vector2();
 
 // initiating modelState with listenable implementation
-var modelState = {
+modelState = {
     numMeshesLoadedInternal: 0,
     numMeshesLoadedListener: function(val) {},
     set numMeshesLoaded(val) {
@@ -32,12 +34,27 @@ function initViews(){
         0.01,
         10000
     );
-    camera.lookAt(new THREE.Vector3(0,0,0));
-    camera.position.set(0.1,0,-0.2);
+    camera.lookAt(new THREE.Vector3(0,0,-0.05));
+    camera.position.set(0.1,0,-0.25);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 };
+
+// var hdrCubeMap = new HDRCubeTextureLoader()
+// 					.setPath( './assets/exr' )
+// 					.setDataType( THREE.UnsignedByteType )
+// 					.load( "studio_small_05_1k.hdr", function () {
+// 						var pmremGenerator = new PMREMGenerator( hdrCubeMap );
+// 						pmremGenerator.update( renderer );
+// 						var pmremCubeUVPacker = new PMREMCubeUVPacker( pmremGenerator.cubeLods );
+// 						pmremCubeUVPacker.update( renderer );
+// 						hdrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+// 						hdrCubeMap.magFilter = THREE.LinearFilter;
+// 						hdrCubeMap.needsUpdate = true;
+// 						pmremGenerator.dispose();
+// 						pmremCubeUVPacker.dispose();
+// 					} );
 
 // Matreials
 var mat_master = new THREE.MeshStandardMaterial({
@@ -47,6 +64,7 @@ var mat_master = new THREE.MeshStandardMaterial({
     normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
     normalScale: new THREE.Vector2( 1, 1 ),
     roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
+    // envMap: hdrCubeMap,
     side: THREE.DoubleSide
 });
 var mat_sick = new THREE.MeshStandardMaterial({
@@ -100,7 +118,7 @@ var lower_gum_model;
 function initModel(){
     var loader = new THREE.OBJLoader();
     loader.load(
-        "./assets/models/teeth/bottom_teeth.obj",
+        "./assets/models/teeth/bottom_teeth_offset.obj",
         function ( object ) {
             lower_teeth_model = object;
             for (i=0; i<object.children.length; i++ ) {
@@ -108,7 +126,6 @@ function initModel(){
                 object.children[i].material = object.children[i].requiredMaterial;
                 object.children[i].status = "healthy";
             }
-            scene.add( object );
             modelState.numMeshesLoaded ++;
 
         },
@@ -121,7 +138,7 @@ function initModel(){
     );
 
     loader.load(
-        "./assets/models/teeth/upper_teeth.obj",
+        "./assets/models/teeth/upper_teeth_offset.obj",
         function ( object ) {
             upper_teeth_model = object;
             for (i=0; i<object.children.length; i++ ) {
@@ -129,7 +146,6 @@ function initModel(){
                 object.children[i].material = object.children[i].requiredMaterial;
                 object.children[i].status = "healthy";
             }
-            scene.add( object );
             modelState.numMeshesLoaded ++;
 
         },
@@ -142,13 +158,12 @@ function initModel(){
     );
 
     loader.load(
-        "./assets/models/teeth/lower_gum.obj",
+        "./assets/models/teeth/lower_gum_offset.obj",
         function ( object ) {
             lower_gum_model = object;
             for (i=0; i<object.children.length; i++ ) {
                 object.children[i].material = mat_master;
             }
-            scene.add( object );
             modelState.numMeshesLoaded ++;
 
         },
@@ -161,13 +176,12 @@ function initModel(){
     );
 
     loader.load(
-        "./assets/models/teeth/upper_gum.obj",
+        "./assets/models/teeth/upper_gum_offset.obj",
         function ( object ) {
             upper_gum_model = object;
             for (i=0; i<object.children.length; i++ ) {
                 object.children[i].material = mat_master;
             }
-            scene.add( object );
             modelState.numMeshesLoaded ++;
 
         },
@@ -184,6 +198,9 @@ function initModel(){
 
 function initLights(){
     // Lights
+    var topLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.5);
+    topLight.position.set(0, 10, 0);
+
     var leftLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.5);
     leftLight.position.set(-100, 0, 20);
 
@@ -196,8 +213,9 @@ function initLights(){
     var frontLight_l = new THREE.DirectionalLight(0xffffff, 0.5);
     frontLight_l.position.set(-100, 0, -75).normalize();
 
-    var ambLight = new THREE.AmbientLight( 0x404040, 1 );
+    var ambLight = new THREE.AmbientLight( 0x404040, 2 );
 
+    scene.add(topLight);
     scene.add(leftLight);
     scene.add(rightLight);
     scene.add(frontLight_r);
@@ -214,6 +232,7 @@ initModel();
 initLights();
 
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
+controls.target = new THREE.Vector3(0,0,-0.05);
 const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
 
 function animate() {
