@@ -111,6 +111,19 @@ i {
   i {
     margin: 0px;
   }
+
+  .progress {
+    display: none;
+  }
+
+  .sidebar-right {
+    top: 0%;
+    right: 50%;
+    transform: translateX(50%);
+    height: auto;
+    width: 75%;
+    border-radius: 0px 0px 10px 10px;
+  }
 }
 
 input[type=range] {
