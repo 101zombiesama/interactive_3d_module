@@ -55,13 +55,82 @@
 
     </div>
 
-    <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white" style="display: none;">
+    <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white"
+        style="display: none;">
         <div class="grid-container">
-                <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button>
-                <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-sick">Sick</button>
-                <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
-                <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
+            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button>
+            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-caries">Caries</button>
+            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
+            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
+            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-golden">Golden</button>
         </div>
+
+        <div class="card" id="description-panel" style="display: none;">
+            <div class="card-body">
+                <h6 class="text-center">Diseased Tooth Details</h6>
+                <hr>
+                <form>
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <textarea style="border: 1px solid #2a324d;" class="form-control" name="inputDescription" id="inputDescription" cols="30" rows="10"></textarea>
+                    </div>
+                    <label for="inputDescription">Tooth Surface</label>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" value="">
+                                Inside
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    Left
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    Outside
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="">
+                                    Right
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        Top
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                        </div>
+                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+                </form>
+            </div>
+        </div>
+
+
+
     </div>
 
     <div class="progress">
@@ -69,15 +138,18 @@
             <h5 class="text-center">Progress</h5>
             <hr>
             <ul>
+                <li style="color: rgb(193, 255, 193);">Smoother control implemented</li>
+                <li style="color: rgb(193, 255, 193);">caries texture implemented</li>
+                <li style="color: rgb(193, 255, 193);">Diseased tooth details form implemeted</li>
+                <li style="color: rgb(193, 255, 193);">Marking golden tooth implemented</li>
                 <li style="color: rgb(193, 255, 193);">Mouth can now open 180 degrees</li>
                 <li style="color: rgb(193, 255, 193);">Loading spinner implemented to indicate loading state</li>
                 <li style="color: rgb(193, 255, 193);">Labels implemented</li>
                 <li style="color: rgb(193, 255, 193);">Lighting changed, brighter</li>
-                <li style="color: rgb(255, 234, 138);">Working on | Golden tooth selection</li>
+                <li style="color: rgb(255, 234, 138);">Working on | Saving the tooth details for passing on to the database</li>
                 <li style="color: rgb(255, 234, 138);">Working on | Implant tooth placement</li>
-                <li style="color: rgb(255, 234, 138);">Working on | dedicated textures for each status of the tooth to replace temporary color coding</li>
-                <li style="color: rgb(255, 234, 138);">Working on | Forms for damaged and sick teeth</li>
-                <li style="color: rgb(255, 234, 138);">Working on | saving dental model and exporting</li>     
+                <li style="color: rgb(255, 234, 138);">Working on | saving Periodontitis details </li>
+                <li style="color: rgb(255, 234, 138);">Working on | saving dental model and exporting</li>
             </ul>
         </div>
     </div>

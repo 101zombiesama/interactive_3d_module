@@ -68,17 +68,22 @@ function updateSelectedTooth(tooth){
     selectedTooth = tooth;
 
     // set active states of button when selected new tooth
-    setBtnActiveState(document.getElementById(`btn-${selectedTooth.status}`));
+    setBtnActiveState(document.getElementById(`btn-${selectedTooth.toothDossier.status}`));
 
     // make status ui visible
     var statusPanel = document.getElementById("status-panel");
-    var statusBtn = document.getElementById(`btn-${selectedTooth.status}`);
+    var statusBtn = document.getElementById(`btn-${selectedTooth.toothDossier.status}`);
     var classList = [...statusBtn.classList];
     if(classList.indexOf("btn-simple") != -1){
         statusBtn.classList.remove("btn-simple")
     }
     if(!isVisible(statusPanel)){
         showDiv(statusPanel);
+    }
+    if(selectedTooth.toothDossier.status == "caries" || selectedTooth.toothDossier.status == "damaged"){
+        showDiv(document.getElementById("description-panel"));
+    } else {
+        hideDiv(document.getElementById("description-panel"));
     }
 }
 
@@ -93,8 +98,12 @@ function clearSelection(){
 
     // hide status ui
     var statusPanel = document.getElementById("status-panel");
+    var descriptionPanel = document.getElementById("description-panel");
     if(isVisible(statusPanel)){
         hideDiv(statusPanel);
+    }
+    if(isVisible(descriptionPanel)){
+        hideDiv(descriptionPanel);
     }
 }
 
@@ -109,12 +118,13 @@ function clearHighlight(){
 }
 
 function changeToothStatus(tooth, status){
-    tooth.status = status;
+    tooth.toothDossier.status = status;
     // when tooth status changes, its material also changes
-    if(tooth.status == 'healthy') tooth.requiredMaterial = mat_master;
-    if(tooth.status == 'sick') tooth.requiredMaterial = mat_sick;
-    if(tooth.status == 'damaged') tooth.requiredMaterial = mat_damaged;
-    if(tooth.status == 'missing') tooth.requiredMaterial = mat_missing;
+    if(tooth.toothDossier.status == 'healthy') tooth.requiredMaterial = mat_master;
+    if(tooth.toothDossier.status == 'caries') tooth.requiredMaterial = mat_caries;
+    if(tooth.toothDossier.status == 'damaged') tooth.requiredMaterial = mat_damaged;
+    if(tooth.toothDossier.status == 'missing') tooth.requiredMaterial = mat_missing;
+    if(tooth.toothDossier.status == 'golden') tooth.requiredMaterial = mat_golden;
 }
 
 function setBtnActiveState(btn){
@@ -147,15 +157,11 @@ function addModelInteraction() {
     var sliderLower = document.getElementById('sliderLowerJaw');
     sliderLower.addEventListener('input', event => {
         lower_teeth_model.rotation.x = -sliderLower.value*1.57;
-        // lower_teeth_model.position.y = -sliderLower.value / 30;
         lower_gum_model.rotation.x = -sliderLower.value*1.57;
-        // lower_gum_model.position.y = -sliderLower.value / 30;
     });
     sliderUpper.addEventListener('input', event => {
         upper_teeth_model.rotation.x = sliderUpper.value*1.57;
-        // upper_teeth_model.position.y = sliderUpper.value / 30;
         upper_gum_model.rotation.x = sliderUpper.value*1.57;
-        // upper_gum_model.position.y = sliderUpper.value / 30;
     });
 
     // click in empty area to clear selection

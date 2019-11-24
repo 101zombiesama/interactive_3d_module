@@ -56,39 +56,64 @@ function initViews(){
 // 						pmremCubeUVPacker.dispose();
 // 					} );
 
+// importing cubemaps
+
+var t_albedo = new THREE.TextureLoader().load( "./assets/models/teeth/Albedo(AO).jpg" );
+var t_normal = new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" );
+var t_roughness = new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" );
+var r = "./assets/maps/";
+var urls = [ r + "px.png", r + "nx.png",
+                        r + "py.png", r + "ny.png",
+                        r + "pz.png", r + "nz.png" ];
+
+var textureCube = new THREE.CubeTextureLoader().load( urls );
+textureCube.format = THREE.RGBFormat;
+
 // Matreials
 var mat_master = new THREE.MeshStandardMaterial({
-    // color: new THREE.Color('hsl(240, 50%, 75%)'),
-    map: new THREE.TextureLoader().load( "./assets/models/teeth/Albedo(AO).jpg" ),
+    // color: new THREE.Color(0x96de8e),
+    map: t_albedo,
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
+    normalMap: t_normal,
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
-    // envMap: hdrCubeMap,
+    roughnessMap: t_roughness,
+    envMap: textureCube,
+    envMapIntensity: 1,
     side: THREE.DoubleSide
 });
-var mat_sick = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(0xb244d4),
+var mat_caries = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(0xb5b45c),
+    map: t_albedo,
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
-    normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
+    normalMap: t_normal,
+    normalScale: new THREE.Vector2( 8, 8 ),
+    roughnessMap: t_roughness,
     side: THREE.DoubleSide
 });
 var mat_damaged = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xd4c200),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
+    normalMap: t_normal,
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
+    roughnessMap: t_roughness,
     side: THREE.DoubleSide
 });
 var mat_missing = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xb5000f),
     metalness: 0,
-    normalMap: new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" ),
+    normalMap: t_normal,
     normalScale: new THREE.Vector2( 1, 1 ),
-    roughnessMap: new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" ),
+    roughnessMap: t_roughness,
+    side: THREE.DoubleSide
+});
+var mat_golden = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(0xffe380),
+    metalness: 1,
+    normalMap: t_normal,
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: t_roughness,
+    envMap: textureCube,
+    envMapIntensity: 1,
     side: THREE.DoubleSide
 });
 
@@ -124,7 +149,7 @@ function initModel(){
             for (i=0; i<object.children.length; i++ ) {
                 object.children[i].requiredMaterial = mat_master;
                 object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].status = "healthy";
+                object.children[i].toothDossier = { status: "healthy" }
             }
             modelState.numMeshesLoaded ++;
 
@@ -144,7 +169,7 @@ function initModel(){
             for (i=0; i<object.children.length; i++ ) {
                 object.children[i].requiredMaterial = mat_master;
                 object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].status = "healthy";
+                object.children[i].toothDossier = { status: "healthy" }
             }
             modelState.numMeshesLoaded ++;
 
@@ -213,7 +238,7 @@ function initLights(){
     var frontLight_l = new THREE.DirectionalLight(0xffffff, 0.5);
     frontLight_l.position.set(-100, 0, -75).normalize();
 
-    var ambLight = new THREE.AmbientLight( 0x404040, 2 );
+    var ambLight = new THREE.AmbientLight( 0x404040, 1.75 );
 
     scene.add(topLight);
     scene.add(leftLight);
@@ -232,6 +257,8 @@ initModel();
 initLights();
 
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
+controls.enableDamping = true;
+controls.dampingFactor = 0.1;
 controls.target = new THREE.Vector3(0,0,-0.05);
 const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
 
