@@ -70,6 +70,13 @@ function updateSelectedTooth(tooth){
     // set active states of button when selected new tooth
     setBtnActiveState(document.getElementById(`btn-${selectedTooth.toothDossier.status}`));
 
+    // set the form states i.e description and checkboxes according to the selected tooth data
+    if (selectedTooth.toothDossier.detailsAvailable == true) {
+        setFormData(selectedTooth.toothDossier.details);
+    } else {
+        setFormData({ description: "", surfaces: [] })
+    }
+
     // make status ui visible
     var statusPanel = document.getElementById("status-panel");
     var statusBtn = document.getElementById(`btn-${selectedTooth.toothDossier.status}`);
@@ -105,6 +112,8 @@ function clearSelection(){
     if(isVisible(descriptionPanel)){
         hideDiv(descriptionPanel);
     }
+    // hiding validation error on clear selection
+    hideDiv(validationAlert);
 }
 
 function clearHighlight(){
@@ -120,11 +129,39 @@ function clearHighlight(){
 function changeToothStatus(tooth, status){
     tooth.toothDossier.status = status;
     // when tooth status changes, its material also changes
-    if(tooth.toothDossier.status == 'healthy') tooth.requiredMaterial = mat_master;
-    if(tooth.toothDossier.status == 'caries') tooth.requiredMaterial = mat_caries;
-    if(tooth.toothDossier.status == 'damaged') tooth.requiredMaterial = mat_damaged;
-    if(tooth.toothDossier.status == 'missing') tooth.requiredMaterial = mat_missing;
-    if(tooth.toothDossier.status == 'golden') tooth.requiredMaterial = mat_golden;
+    if(tooth.toothDossier.status == 'healthy'){
+        tooth.requiredMaterial = mat_master;
+        tooth.toothDossier.detailsAvailable = false;
+        tooth.toothDossier.details = {};
+    }
+    if(tooth.toothDossier.status == 'caries'){
+        tooth.requiredMaterial = mat_caries;
+        tooth.toothDossier.detailsAvailable = true;
+        tooth.toothDossier.details.description = "";
+        tooth.toothDossier.details.surfaces = [];
+    }
+    if(tooth.toothDossier.status == 'damaged'){
+        tooth.requiredMaterial = mat_damaged;
+        tooth.toothDossier.detailsAvailable = true;
+        tooth.toothDossier.details.description = "";
+        tooth.toothDossier.details.surfaces = [];
+    }
+    if(tooth.toothDossier.status == 'missing'){
+        tooth.requiredMaterial = mat_missing;
+        tooth.toothDossier.detailsAvailable = false;
+        tooth.toothDossier.details = {};
+    }
+    if(tooth.toothDossier.status == 'golden'){
+        tooth.requiredMaterial = mat_golden;
+        tooth.toothDossier.detailsAvailable = false;
+        tooth.toothDossier.details = {};
+    }
+    // Hiding validation error after successful change of status
+    hideDiv(validationAlert);
+}
+
+function changeToothDetails(tooth, details) {
+    tooth.toothDossier.details = details;
 }
 
 function setBtnActiveState(btn){
@@ -140,6 +177,20 @@ function setBtnActiveState(btn){
     var btnClassList = [...btn.classList];
     if(btnClassList.indexOf("btn-simple") != -1){
         btn.classList.remove("btn-simple");
+    }
+}
+
+// following function is used to set the form data from the tooth object
+function setFormData(details){
+    var inputDescription = document.getElementById("inputDescription");
+    var toothSurfaceChecks = document.getElementsByClassName("toothSurfaceCheck");
+    inputDescription.value = details.description;
+    for (let surfaceCheck of toothSurfaceChecks) {
+        if (details.surfaces.indexOf(surfaceCheck.value.toLowerCase()) != -1) {
+            surfaceCheck.checked = true;
+        } else {
+            surfaceCheck.checked = false;
+        }
     }
 }
 
