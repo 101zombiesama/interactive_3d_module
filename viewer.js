@@ -1,15 +1,5 @@
 (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
-// import { EXRLoader } from './three.js-master/EXRLoader.js';
-// import { PMREMGenerator } from './three.js-master/PMREMGenerator.js';
-// import { PMREMCubeUVPacker } from './three.js-master/PMREMCubeUVPacker.js';
-
-import { EffectComposer } from './three.js-master/EffectComposer.js';
-import { RenderPass } from './three.js-master/RenderPass.js';
-import { ShaderPass } from './three.js-master/ShaderPass.js';
-import { OutlinePass } from './three.js-master/OutlinePass.js';
-import { FXAAShader } from './three.js-master/FXAAShader.js';
-
 
 function initViews(){
     scene = new THREE.Scene();
