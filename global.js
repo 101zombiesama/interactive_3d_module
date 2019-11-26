@@ -9,6 +9,8 @@ var lower_teeth_model;
 var upper_gum_model;
 var lower_gum_model;
 
+var composer, outlinePassHighlight, outlinePassSelected, effectFXAA;
+
 // initiating modelState with listenable implementation
 modelState = {
     numMeshesLoadedInternal: 0,

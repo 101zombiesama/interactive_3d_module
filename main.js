@@ -57,15 +57,15 @@ window.addEventListener('resize', event => {
 var selectedTooth;
 
 function updateSelectedTooth(tooth){
-
-    for (let child of lower_teeth_model.children) {
-        child.material = mat_master;
-    }
-    for (let child of upper_teeth_model.children) {
-        child.material = mat_master;
-    }
+    outlinePassSelected.selectedObjects = [tooth];
+    // for (let child of lower_teeth_model.children) {
+    //     child.material = mat_master;
+    // }
+    // for (let child of upper_teeth_model.children) {
+    //     child.material = mat_master;
+    // }
     clearHighlight();
-    tooth.material = mat_selected;
+    // tooth.material = mat_selected;
     selectedTooth = tooth;
 
     // set active states of button when selected new tooth
@@ -96,12 +96,13 @@ function updateSelectedTooth(tooth){
 }
 
 function clearSelection(){
-    for (let child of lower_teeth_model.children) {
-        child.material = child.requiredMaterial
-    }
-    for (let child of upper_teeth_model.children) {
-        child.material = child.requiredMaterial
-    }
+    outlinePassSelected.selectedObjects = [];
+    // for (let child of lower_teeth_model.children) {
+    //     child.material = child.requiredMaterial
+    // }
+    // for (let child of upper_teeth_model.children) {
+    //     child.material = child.requiredMaterial
+    // }
     selectedTooth = null;
 
     // hide status ui
@@ -118,41 +119,47 @@ function clearSelection(){
 }
 
 function clearHighlight(){
+    outlinePassHighlight.selectedObjects = [];
     // this function sets the material of each tooth to its required material
-    for (let child of lower_teeth_model.children) {
-        child.material = child.requiredMaterial
-    }
-    for (let child of upper_teeth_model.children) {
-        child.material = child.requiredMaterial
-    }
+    // for (let child of lower_teeth_model.children) {
+    //     child.material = child.requiredMaterial
+    // }
+    // for (let child of upper_teeth_model.children) {
+    //     child.material = child.requiredMaterial
+    // }
 }
 
 function changeToothStatus(tooth, status){
     tooth.toothDossier.status = status;
     // when tooth status changes, its material also changes
     if(tooth.toothDossier.status == 'healthy'){
+        tooth.material = mat_master;
         tooth.requiredMaterial = mat_master;
         tooth.toothDossier.detailsAvailable = false;
         tooth.toothDossier.details = {};
     }
     if(tooth.toothDossier.status == 'caries'){
+        tooth.material = mat_caries;
         tooth.requiredMaterial = mat_caries;
         tooth.toothDossier.detailsAvailable = true;
         tooth.toothDossier.details.description = "";
         tooth.toothDossier.details.surfaces = [];
     }
     if(tooth.toothDossier.status == 'damaged'){
+        tooth.material = mat_damaged;
         tooth.requiredMaterial = mat_damaged;
         tooth.toothDossier.detailsAvailable = true;
         tooth.toothDossier.details.description = "";
         tooth.toothDossier.details.surfaces = [];
     }
     if(tooth.toothDossier.status == 'missing'){
+        tooth.material = mat_missing;
         tooth.requiredMaterial = mat_missing;
         tooth.toothDossier.detailsAvailable = false;
         tooth.toothDossier.details = {};
     }
     if(tooth.toothDossier.status == 'golden'){
+        tooth.material = mat_golden;
         tooth.requiredMaterial = mat_golden;
         tooth.toothDossier.detailsAvailable = false;
         tooth.toothDossier.details = {};
@@ -259,9 +266,9 @@ function addModelInteraction() {
         if (intersects.length <= 0) {
             // console.log("clearing highlight");
             clearHighlight();
-            if(selectedTooth){
-                selectedTooth.material = mat_selected;
-            }
+            // if(selectedTooth){
+            //     selectedTooth.material = mat_selected;
+            // }
         }
 
     });
@@ -291,13 +298,17 @@ function addModelInteraction() {
             if (selectedTooth) {
                 if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
                     clearHighlight();
-                    tooth.material = mat_highlight;
-                    selectedTooth.material = mat_selected;
+                    // tooth.material = mat_highlight;
+                    // selectedTooth.material = mat_selected;
+                    outlinePassHighlight.selectedObjects = [tooth]
+                } else {
+                    clearHighlight();
                 }
             } 
             else if(!isMouseDown) {
                 clearHighlight();
-                tooth.material = mat_highlight;
+                // tooth.material = mat_highlight;
+                outlinePassHighlight.selectedObjects = [tooth]
             }
         });
 
@@ -318,12 +329,17 @@ function addModelInteraction() {
             if (selectedTooth) {
                 if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
                     clearHighlight();
-                    tooth.material = mat_highlight;
-                    selectedTooth.material = mat_selected;
+                    // tooth.material = mat_highlight;
+                    // selectedTooth.material = mat_selected;
+                    outlinePassHighlight.selectedObjects = [tooth]
+                } else {
+                    clearHighlight();
                 }
+
             } else if(!isMouseDown) {
                 clearHighlight();
-                tooth.material = mat_highlight;
+                // tooth.material = mat_highlight;
+                outlinePassHighlight.selectedObjects = [tooth]
             }
         });
 

@@ -1,10 +1,16 @@
 (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
+import { EffectComposer } from './three.js-master/EffectComposer.js';
+import { RenderPass } from './three.js-master/RenderPass.js';
+import { ShaderPass } from './three.js-master/ShaderPass.js';
+import { OutlinePass } from './three.js-master/OutlinePass.js';
+import { FXAAShader } from './three.js-master/FXAAShader.js';
 
 function initViews(){
     scene = new THREE.Scene();
+    // scene.background = new THREE.Color(0xdddddd);
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
-    renderer.shadowMap.enabled = true;
+    // renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     camera = new THREE.PerspectiveCamera(
         75,
@@ -228,11 +234,42 @@ controls.dampingFactor = 0.1;
 controls.target = new THREE.Vector3(0,0,-0.05);
 domEvents = new THREEx.DomEvents(camera, renderer.domElement);
 
+// postprocessing
+composer = new EffectComposer( renderer );
+var renderPass = new RenderPass( scene, camera );
+composer.addPass( renderPass );
+
+outlinePassHighlight = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+outlinePassSelected = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+
+outlinePassHighlight.edgeStrength = 2;
+outlinePassHighlight.edgeGlow = 0.5;
+outlinePassHighlight.edgeThickness = 1;
+outlinePassHighlight.pulsePeriod = 0;
+outlinePassHighlight.visibleEdgeColor = new THREE.Color(0xffffff);
+outlinePassHighlight.hiddenEdgeColor = new THREE.Color(0x190a05);
+composer.addPass( outlinePassHighlight );
+
+outlinePassSelected.edgeStrength = 4;
+outlinePassSelected.edgeGlow = 0.5;
+outlinePassSelected.edgeThickness = 1.5;
+outlinePassSelected.pulsePeriod = 2;
+outlinePassSelected.visibleEdgeColor = new THREE.Color(0x85ff54);
+outlinePassSelected.hiddenEdgeColor = new THREE.Color(0x0c1708);
+composer.addPass( outlinePassSelected );
+
+effectFXAA = new ShaderPass( FXAAShader );
+effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+// composer.addPass( effectFXAA );
+
+
 
 function animate() {
     requestAnimationFrame( animate );
 
     controls.update();
-    renderer.render( scene, camera );
+    // renderer.render( scene, camera );
+    composer.render();
+
 }
 animate();
