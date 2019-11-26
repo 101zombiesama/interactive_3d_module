@@ -57,6 +57,7 @@ window.addEventListener('resize', event => {
 var selectedTooth;
 
 function updateSelectedTooth(tooth){
+
     for (let child of lower_teeth_model.children) {
         child.material = mat_master;
     }

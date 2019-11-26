@@ -1,5 +1,5 @@
-let scene, camera, renderer, controls, domEvents;
-let mat_master, mat_caries, mat_damaged, mat_missing, mat_golden, mat_highlight, mat_selected;
+var scene, camera, renderer, controls, domEvents;
+var mat_master, mat_caries, mat_damaged, mat_missing, mat_golden, mat_highlight, mat_selected;
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var touch = new THREE.Vector2();

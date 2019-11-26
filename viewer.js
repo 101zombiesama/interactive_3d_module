@@ -132,6 +132,7 @@ function initModel(){
             upper_teeth_model = object;
             for (var i=0; i<object.children.length; i++ ) {
                 object.children[i].requiredMaterial = mat_master;
+                
                 object.children[i].material = object.children[i].requiredMaterial;
                 object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
             }
