@@ -5,12 +5,12 @@ import { RenderPass } from './three.js-master/RenderPass.js';
 import { ShaderPass } from './three.js-master/ShaderPass.js';
 import { OutlinePass } from './three.js-master/OutlinePass.js';
 import { FXAAShader } from './three.js-master/FXAAShader.js';
+import { VignetteShader } from './three.js-master/VignetteShader.js';
 
 function initViews(){
     scene = new THREE.Scene();
-    // scene.background = new THREE.Color(0xdddddd);
+    scene.background = new THREE.Color(0xdcdcdc);
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
-    // renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     camera = new THREE.PerspectiveCamera(
         75,
@@ -260,7 +260,13 @@ composer.addPass( outlinePassSelected );
 
 effectFXAA = new ShaderPass( FXAAShader );
 effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
-// composer.addPass( effectFXAA );
+composer.addPass( effectFXAA );
+
+effectVignette = new ShaderPass( VignetteShader );
+// effectFXAA.uniforms[ 'offset' ].value.set(1);
+// effectFXAA.uniforms[ 'darkness' ].value.set(1);
+composer.addPass(effectVignette);
+
 
 
 

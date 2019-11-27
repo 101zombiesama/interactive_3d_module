@@ -9,7 +9,7 @@ var lower_teeth_model;
 var upper_gum_model;
 var lower_gum_model;
 
-var composer, outlinePassHighlight, outlinePassSelected, effectFXAA;
+var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 
 // initiating modelState with listenable implementation
 modelState = {
