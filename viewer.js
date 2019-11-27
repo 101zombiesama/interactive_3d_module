@@ -6,6 +6,7 @@ import { ShaderPass } from './three.js-master/ShaderPass.js';
 import { OutlinePass } from './three.js-master/OutlinePass.js';
 import { FXAAShader } from './three.js-master/FXAAShader.js';
 import { VignetteShader } from './three.js-master/VignetteShader.js';
+import { GLTFLoader } from '/three.js-master/GLTFLoader.js';
 
 function initViews(){
     scene = new THREE.Scene();
@@ -87,7 +88,7 @@ mat_golden = new THREE.MeshStandardMaterial({
     normalScale: new THREE.Vector2( 1, 1 ),
     roughnessMap: t_roughness,
     envMap: textureCube,
-    envMapIntensity: 1,
+    envMapIntensity: 1.25,
     side: THREE.DoubleSide
 });
 
@@ -107,11 +108,20 @@ mat_selected = new THREE.MeshStandardMaterial({
     emissiveIntensity: 0.0,
     side: THREE.DoubleSide
 });
+mat_screw = new THREE.MeshStandardMaterial({
+    color: new THREE.Color( 0xffffff ),
+    metalness: 1,
+    roughness: 0.3,
+    envMap: textureCube,
+    envMapIntensity: 1.25,
+    side: THREE.DoubleSide
+});
 
 // Loading External Mesh
 
 function initModel(){
     var loader = new THREE.OBJLoader();
+    var gltfLoader = new GLTFLoader();
     loader.load(
         "./assets/models/teeth/bottom_teeth_offset.obj",
         function ( object ) {
@@ -177,6 +187,97 @@ function initModel(){
             upper_gum_model = object;
             for (var i=0; i<object.children.length; i++ ) {
                 object.children[i].material = mat_master;
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+
+    // importing inplant teeth
+    loader.load(
+        "./assets/models/teeth/lower_implant_teeth.obj",
+        function ( object ) {
+            lower_implant_teeth_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].material = mat_master;
+                object.children[i].visible = false;
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    loader.load(
+        "./assets/models/teeth/upper_implant_teeth.obj",
+        function ( object ) {
+            upper_implant_teeth_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].material = mat_master;
+                object.children[i].visible = false;
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    // loading up and down screws
+    // gltfLoader.load( './assets/models/teeth/screw_down.glb', function ( gltf ) {
+    //     gltf.scene.traverse( function ( child ) {
+    //         if ( child.isMesh ) {
+    //             child.material = mat_screw;
+    //         }
+    //     } );
+    //     screw_down_model = gltf.scene;
+    //     modelState.numMeshesLoaded ++;
+    // } );
+    // gltfLoader.load( './assets/models/teeth/screw_up.glb', function ( gltf ) {
+    //     gltf.scene.traverse( function ( child ) {
+    //         if ( child.isMesh ) {
+    //             child.material = mat_screw;
+    //         }
+    //     } );
+    //     screw_up_model = gltf.scene;
+    //     modelState.numMeshesLoaded ++;
+    // } );
+    loader.load(
+        "./assets/models/teeth/screw_up.obj",
+        function ( object ) {
+            screw_up_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].material = mat_screw;
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    loader.load(
+        "./assets/models/teeth/screw_down.obj",
+        function ( object ) {
+            screw_down_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].material = mat_screw;
             }
             modelState.numMeshesLoaded ++;
 

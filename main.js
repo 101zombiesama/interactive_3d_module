@@ -61,13 +61,8 @@ window.addEventListener('resize', event => {
 var selectedTooth;
 
 function updateSelectedTooth(tooth){
-    outlinePassSelected.selectedObjects = [tooth];
-    // for (let child of lower_teeth_model.children) {
-    //     child.material = mat_master;
-    // }
-    // for (let child of upper_teeth_model.children) {
-    //     child.material = mat_master;
-    // }
+    clearSelection();
+    highlightSelected(tooth);
     clearHighlight();
     // tooth.material = mat_selected;
     selectedTooth = tooth;
@@ -101,12 +96,6 @@ function updateSelectedTooth(tooth){
 
 function clearSelection(){
     outlinePassSelected.selectedObjects = [];
-    // for (let child of lower_teeth_model.children) {
-    //     child.material = child.requiredMaterial
-    // }
-    // for (let child of upper_teeth_model.children) {
-    //     child.material = child.requiredMaterial
-    // }
     selectedTooth = null;
 
     // hide status ui
@@ -122,18 +111,24 @@ function clearSelection(){
     hideDiv(validationAlert);
 }
 
+function highlightHover(tooth){
+    clearHighlight();
+    outlinePassHighlight.selectedObjects = [tooth];
+}
+function highlightSelected(tooth){
+    clearHighlight();
+    outlinePassSelected.selectedObjects = [tooth];
+}
+
 function clearHighlight(){
     outlinePassHighlight.selectedObjects = [];
-    // this function sets the material of each tooth to its required material
-    // for (let child of lower_teeth_model.children) {
-    //     child.material = child.requiredMaterial
-    // }
-    // for (let child of upper_teeth_model.children) {
-    //     child.material = child.requiredMaterial
-    // }
 }
 
 function changeToothStatus(tooth, status){
+    // reset implant tooth if the previous status was implant and now changing
+    if (tooth.toothDossier.status == 'implant') {
+        resetImplantTooth(tooth);
+    }
     tooth.toothDossier.status = status;
     // when tooth status changes, its material also changes
     if(tooth.toothDossier.status == 'healthy'){
@@ -168,8 +163,57 @@ function changeToothStatus(tooth, status){
         tooth.toothDossier.detailsAvailable = false;
         tooth.toothDossier.details = {};
     }
+    if(tooth.toothDossier.status == 'implant'){
+        implantTooth(tooth);
+        tooth.toothDossier.detailsAvailable = false;
+        tooth.toothDossier.details = {};
+    }
     // Hiding validation error after successful change of status
     hideDiv(validationAlert);
+}
+
+function addScrew(tooth){
+    // adds a screw at the position of tooth (tooth is NOT the implant tooth here)
+    var toothNumber = tooth.name.split('_')[1];
+    var implantTooth = scene.getObjectByName(`i_t_${toothNumber}`);
+
+    implantTooth.geometry.computeBoundingSphere();
+    var centroid = implantTooth.geometry.boundingSphere.center;
+
+    var screwInst;
+    if (Number(toothNumber) > 28) screwInst = screw_down_model.clone();
+    else screwInst = screw_up_model.clone();
+    screwInst.name = `s_${toothNumber}`;
+    screwInst.position.x = centroid.x;
+    screwInst.position.y = centroid.y;
+    screwInst.position.z = centroid.z;
+
+    tooth.add(screwInst);
+}
+
+function removeScrew(tooth){
+    // removes screw from the tooth (tooth is NOT the implant tooth here)
+    var toothNumber = tooth.name.split('_')[1];
+    var requiredScrew = scene.getObjectByName(`s_${toothNumber}`);
+    tooth.remove(requiredScrew);
+
+}
+
+function implantTooth(tooth){
+    tooth.material = mat_missing;
+    tooth.requiredMaterial = mat_missing;
+    var toothNumber = tooth.name.split('_')[1];
+    var requiredImplantTooth = scene.getObjectByName(`i_t_${toothNumber}`);
+    requiredImplantTooth.visible = true;
+    addScrew(tooth);
+}
+function resetImplantTooth(tooth){
+    tooth.material = mat_master;
+    tooth.requiredMaterial = mat_master;
+    var toothNumber = tooth.name.split('_')[1];
+    var requiredImplantTooth = scene.getObjectByName(`i_t_${toothNumber}`);
+    requiredImplantTooth.visible = false;
+    removeScrew(tooth);
 }
 
 function changeToothDetails(tooth, details) {
@@ -216,18 +260,17 @@ function toggleGumsVisibility(){
 function addModelInteraction() {
 
     // handling mouth open animation with slider
-    // var sliderUpper = document.getElementById('sliderUpperJaw');
     var sliderLower = document.getElementById('sliderLowerJaw');
     sliderLower.addEventListener('input', event => {
+        // opening both gums and teeth
         lower_teeth_model.rotation.x = -sliderLower.value*1.57;
         lower_gum_model.rotation.x = -sliderLower.value*1.57;
         upper_teeth_model.rotation.x = sliderLower.value*1.57;
         upper_gum_model.rotation.x = sliderLower.value*1.57;
+        // opening implant teeth
+        lower_implant_teeth_model.rotation.x = -sliderLower.value*1.57;
+        upper_implant_teeth_model.rotation.x = sliderLower.value*1.57;
     });
-    // sliderUpper.addEventListener('input', event => {
-    //     upper_teeth_model.rotation.x = sliderUpper.value*1.57;
-    //     upper_gum_model.rotation.x = sliderUpper.value*1.57;
-    // });
 
     // click in empty area to clear selection
     window.addEventListener('click', event => {
@@ -262,7 +305,7 @@ function addModelInteraction() {
 
     // });
 
-    // hover on no-teeth area to clear highlight
+    // hover highlighting with raycaster
     window.addEventListener('mousemove', event => {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -270,11 +313,21 @@ function addModelInteraction() {
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
         if (intersects.length <= 0) {
-            // console.log("clearing highlight");
             clearHighlight();
-            // if(selectedTooth){
-            //     selectedTooth.material = mat_selected;
-            // }
+        } else {
+            // when intersected with something
+            if (selectedTooth) {
+                if (!isMouseDown &&  intersects[0].object.name != selectedTooth.name) {
+                    clearHighlight();
+                    highlightHover(intersects[0].object);
+                } else {
+                    clearHighlight();
+                }
+            } 
+            else if(!isMouseDown) {
+                clearHighlight();
+                highlightHover(intersects[0].object);
+            }
         }
 
     });
@@ -299,25 +352,6 @@ function addModelInteraction() {
             
         })
 
-        // event for highlighting tooth
-        domEvents.addEventListener(tooth, 'mouseover', event => {
-            if (selectedTooth) {
-                if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
-                    clearHighlight();
-                    // tooth.material = mat_highlight;
-                    // selectedTooth.material = mat_selected;
-                    outlinePassHighlight.selectedObjects = [tooth]
-                } else {
-                    clearHighlight();
-                }
-            } 
-            else if(!isMouseDown) {
-                clearHighlight();
-                // tooth.material = mat_highlight;
-                outlinePassHighlight.selectedObjects = [tooth]
-            }
-        });
-
     }
 
     for (let tooth of upper_teeth_model.children) {
@@ -330,35 +364,19 @@ function addModelInteraction() {
             
         })
 
-        // event for highlighting tooth
-        domEvents.addEventListener(tooth, 'mouseover', event => {
-            if (selectedTooth) {
-                if (!isMouseDown &&  tooth.uuid != selectedTooth.uuid) {
-                    clearHighlight();
-                    // tooth.material = mat_highlight;
-                    // selectedTooth.material = mat_selected;
-                    outlinePassHighlight.selectedObjects = [tooth]
-                } else {
-                    clearHighlight();
-                }
-
-            } else if(!isMouseDown) {
-                clearHighlight();
-                // tooth.material = mat_highlight;
-                outlinePassHighlight.selectedObjects = [tooth]
-            }
-        });
-
     }
 }
 
 modelState.registerListener(function(numMeshesLoaded) {
-    if(numMeshesLoaded == 4){
+    if(numMeshesLoaded == 8){
         addModelInteraction();
         scene.add(lower_gum_model);
         scene.add(lower_teeth_model);
         scene.add(upper_gum_model);
         scene.add(upper_teeth_model);
+        scene.add(upper_implant_teeth_model);
+        scene.add(lower_implant_teeth_model);
+
         hideDiv(document.getElementById("spinner"));
     }
   });

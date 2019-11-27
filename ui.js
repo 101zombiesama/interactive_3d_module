@@ -27,6 +27,7 @@ var btn_caries = document.getElementById("btn-caries");
 var btn_damaged = document.getElementById("btn-damaged");
 var btn_missing = document.getElementById("btn-missing");
 var btn_golden = document.getElementById("btn-golden");
+var btn_implant = document.getElementById("btn-implant");
 var btn_view = document.getElementById("btn-view");
 
 var statusPanel = document.getElementById("status-panel");
@@ -75,6 +76,15 @@ btn_missing.addEventListener('click', e => {
 btn_golden.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "golden");
     setBtnActiveState(btn_golden);
+    if(isVisible(descriptionPanel)){
+        setTimeout(() => {
+            hideDiv(descriptionPanel)
+        }, 20);
+    }
+});
+btn_implant.addEventListener('click', e => {
+    changeToothStatus(selectedTooth, "implant");
+    setBtnActiveState(btn_implant);
     if(isVisible(descriptionPanel)){
         setTimeout(() => {
             hideDiv(descriptionPanel)
