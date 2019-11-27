@@ -30,8 +30,8 @@ window.addEventListener('touchmove', event => {
 })
 
 // set slider value to zero on window load
-var sliderUpper = document.getElementById('sliderUpperJaw');
-sliderUpper.value = 0;
+// var sliderUpper = document.getElementById('sliderUpperJaw');
+// sliderUpper.value = 0;
 var sliderLower = document.getElementById('sliderLowerJaw');
 sliderLower.value = 0;
 
@@ -216,16 +216,18 @@ function toggleGumsVisibility(){
 function addModelInteraction() {
 
     // handling mouth open animation with slider
-    var sliderUpper = document.getElementById('sliderUpperJaw');
+    // var sliderUpper = document.getElementById('sliderUpperJaw');
     var sliderLower = document.getElementById('sliderLowerJaw');
     sliderLower.addEventListener('input', event => {
         lower_teeth_model.rotation.x = -sliderLower.value*1.57;
         lower_gum_model.rotation.x = -sliderLower.value*1.57;
+        upper_teeth_model.rotation.x = sliderLower.value*1.57;
+        upper_gum_model.rotation.x = sliderLower.value*1.57;
     });
-    sliderUpper.addEventListener('input', event => {
-        upper_teeth_model.rotation.x = sliderUpper.value*1.57;
-        upper_gum_model.rotation.x = sliderUpper.value*1.57;
-    });
+    // sliderUpper.addEventListener('input', event => {
+    //     upper_teeth_model.rotation.x = sliderUpper.value*1.57;
+    //     upper_gum_model.rotation.x = sliderUpper.value*1.57;
+    // });
 
     // click in empty area to clear selection
     window.addEventListener('click', event => {
