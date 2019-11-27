@@ -53,7 +53,7 @@ mat_master = new THREE.MeshStandardMaterial({
     side: THREE.DoubleSide
 });
 mat_caries = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(0xb5b45c),
+    color: new THREE.Color(0xa3a379),
     map: t_albedo,
     metalness: 0,
     normalMap: t_normal,
@@ -77,7 +77,7 @@ mat_missing = new THREE.MeshStandardMaterial({
     normalScale: new THREE.Vector2( 1, 1 ),
     roughnessMap: t_roughness,
     transparent: true,
-    opacity: 0.4,
+    opacity: 0.0,
     side: THREE.DoubleSide
 });
 mat_golden = new THREE.MeshStandardMaterial({
