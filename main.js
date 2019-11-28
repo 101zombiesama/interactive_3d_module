@@ -16,7 +16,7 @@ window.addEventListener('mouseup', event => {
     mousePosAfterClick.x = event.clientX;
     mousePosAfterClick.y = event.clientY;
 })
-// window.addEventListener('touchstart', event => {
+// window.addEventListener('touchend', event => {
 //     console.log(event);
 //     isTouched = true;
 //     touchStartPos.x = event.touches[0].clientX;
@@ -266,10 +266,13 @@ function addModelInteraction() {
         lower_teeth_model.rotation.x = -sliderLower.value*1.57;
         lower_gum_model.rotation.x = -sliderLower.value*1.57;
         upper_teeth_model.rotation.x = sliderLower.value*1.57;
+        upper_teeth_model.position.y = -sliderLower.value / 60;
         upper_gum_model.rotation.x = sliderLower.value*1.57;
+        upper_gum_model.position.y = -sliderLower.value / 60;
         // opening implant teeth
         lower_implant_teeth_model.rotation.x = -sliderLower.value*1.57;
         upper_implant_teeth_model.rotation.x = sliderLower.value*1.57;
+        upper_implant_teeth_model.position.y = -sliderLower.value / 60;
     });
 
     // click in empty area to clear selection
@@ -342,15 +345,6 @@ function addModelInteraction() {
             }
             
         });
-        domEvents.addEventListener(tooth, 'touchend', event => {
-            console.log('touched on tooth');
-            // if statement for excluding drag as a click
-            if (JSON.stringify(touchStartPos) == JSON.stringify(touchEndPos)){
-                console.log('selected with touch');
-                updateSelectedTooth(tooth);
-            }
-            
-        })
 
     }
 
