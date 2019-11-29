@@ -6,11 +6,10 @@ import { ShaderPass } from './three.js-master/ShaderPass.js';
 import { OutlinePass } from './three.js-master/OutlinePass.js';
 import { FXAAShader } from './three.js-master/FXAAShader.js';
 import { VignetteShader } from './three.js-master/VignetteShader.js';
-import { GLTFLoader } from '/three.js-master/GLTFLoader.js';
 
 function initViews(){
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xdcdcdc);
+    scene.background = new THREE.Color(0x525c6b);
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
     renderer.shadowMap.type = THREE.PCFShadowMap;
     camera = new THREE.PerspectiveCamera(
@@ -20,7 +19,7 @@ function initViews(){
         10000
     );
     camera.lookAt(new THREE.Vector3(0,0,-0.05));
-    camera.position.set(0.15,0.02,-0.35);
+    camera.position.set(0.15,0.02,-0.3);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -29,7 +28,7 @@ function initViews(){
 
 // importing cubemaps
 
-var t_albedo = new THREE.TextureLoader().load( "./assets/models/teeth/Albedo(AO).jpg" );
+var t_albedo = new THREE.TextureLoader().load( "./assets/models/teeth/Albedo.jpg" );
 var t_normal = new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" );
 var t_roughness = new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" );
 var r = "./assets/maps/";
@@ -121,7 +120,6 @@ mat_screw = new THREE.MeshStandardMaterial({
 
 function initModel(){
     var loader = new THREE.OBJLoader();
-    var gltfLoader = new GLTFLoader();
     loader.load(
         "./assets/models/teeth/bottom_teeth_offset.obj",
         function ( object ) {
@@ -236,25 +234,7 @@ function initModel(){
 
         }
     );
-    // loading up and down screws
-    // gltfLoader.load( './assets/models/teeth/screw_down.glb', function ( gltf ) {
-    //     gltf.scene.traverse( function ( child ) {
-    //         if ( child.isMesh ) {
-    //             child.material = mat_screw;
-    //         }
-    //     } );
-    //     screw_down_model = gltf.scene;
-    //     modelState.numMeshesLoaded ++;
-    // } );
-    // gltfLoader.load( './assets/models/teeth/screw_up.glb', function ( gltf ) {
-    //     gltf.scene.traverse( function ( child ) {
-    //         if ( child.isMesh ) {
-    //             child.material = mat_screw;
-    //         }
-    //     } );
-    //     screw_up_model = gltf.scene;
-    //     modelState.numMeshesLoaded ++;
-    // } );
+
     loader.load(
         "./assets/models/teeth/screw_up.obj",
         function ( object ) {
@@ -295,13 +275,13 @@ function initModel(){
 
 function initLights(){
     // Lights
-    var topLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.5);
+    var topLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.7);
     topLight.position.set(0, 10, 0);
 
-    var leftLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.5);
+    var leftLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.3);
     leftLight.position.set(-100, 0, 20);
 
-    var rightLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.5);
+    var rightLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 50%, 75%)'), 0.3);
     rightLight.position.set(100, 0, 100);
 
     var frontLight_r = new THREE.DirectionalLight(0xffffff, 0.5);
@@ -310,7 +290,7 @@ function initLights(){
     var frontLight_l = new THREE.DirectionalLight(0xffffff, 0.5);
     frontLight_l.position.set(-100, 0, -75).normalize();
 
-    var ambLight = new THREE.AmbientLight( 0x404040, 1.5 );
+    var ambLight = new THREE.AmbientLight( 0x404040, 1 );
 
     scene.add(topLight);
     scene.add(leftLight);
