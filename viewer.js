@@ -14,13 +14,13 @@ function initViews(){
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
     renderer.shadowMap.type = THREE.PCFShadowMap;
     camera = new THREE.PerspectiveCamera(
-        75,
+        45,
         window.innerWidth/window.innerHeight,
         0.01,
         10000
     );
     camera.lookAt(new THREE.Vector3(0,0,-0.05));
-    camera.position.set(0.1,0,-0.25);
+    camera.position.set(0.15,0.02,-0.35);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
