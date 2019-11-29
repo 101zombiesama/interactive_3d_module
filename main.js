@@ -70,33 +70,22 @@ function addModelInteraction() {
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
         raycaster.setFromCamera( mouse, camera );
-        var intersects = raycaster.intersectObjects(sphere_model.children);
+        var intersects = raycaster.intersectObjects([sphere_model]);
         if (intersects.length > 0){
             var face = intersects[0].face;
-            var obj = intersects[0].object;
-            var geo = obj.geometry;
-            // console.log(face);
-            var p = geo.attributes.position.array;
-            var n = geo.attributes.normal.array;
-            // geo.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array( geo.attributes.position.count * 3 ), 3 ) );
-            // var c = geo.attributes.color.array;
-            // console.log(geo.attributes);
-            var mag = 0.5;
-            p[3*face.a] = mag*n[3*face.a];
-            p[3*face.a + 1] = mag*n[3*face.a + 1];
-            p[3*face.a + 2] = mag*n[3*face.a + 2];
+            // console.log(intersects[0].object.geometry);
+            var vertices = intersects[0].object.geometry.vertices;
+            var mag = -0.05;
 
-            p[3*face.b] = mag*n[3*face.b];
-            p[3*face.b + 1] = mag*n[3*face.b + 1];
-            p[3*face.b + 2] = mag*n[3*face.b + 2];
+            vertices[face.a].x += mag*face.normal.x;
+            vertices[face.a].y += mag*face.normal.y;
+            vertices[face.a].z += mag*face.normal.z;
 
-            p[3*face.c] = mag*n[3*face.c];
-            p[3*face.c + 1] = mag*n[3*face.c + 1];
-            p[3*face.c + 2] = mag*n[3*face.c + 2];
+            intersects[0].object.geometry.computeFaceNormals();
+            intersects[0].object.geometry.computeVertexNormals();
+            intersects[0].object.geometry.verticesNeedUpdate = true;
+            intersects[0].object.geometry.normalNeedUpdate = true;
 
-            geo.computeFaceNormals();
-            geo.attributes.position.needsUpdate = true;
-            geo.attributes.normal.needsUpdate = true;
         }
 
     })

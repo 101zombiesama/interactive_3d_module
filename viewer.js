@@ -109,12 +109,13 @@ mat_selected = new THREE.MeshStandardMaterial({
     side: THREE.DoubleSide
 });
 mat_screw = new THREE.MeshStandardMaterial({
-    color: new THREE.Color( 0xffffff ),
-    metalness: 1,
-    roughness: 0.1,
+    color: new THREE.Color( 0xffff28 ),
+    metalness: 0,
+    roughness: 0.4,
     envMap: textureCube,
-    envMapIntensity: 1.25,
-    side: THREE.DoubleSide
+    envMapIntensity: 0,
+    side: THREE.DoubleSide,
+    // wireframe : true
 });
 
 // Loading External Mesh
@@ -125,10 +126,11 @@ function initModel(){
     loader.load(
         "./test/sphere.obj",
         function ( object ) {
-            sphere_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_screw
-            }
+            var buffGeo = object.children[0].geometry;
+            var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
+            geo.mergeVertices();
+            sphere_model = new THREE.Mesh( geo, mat_screw );
+            
             modelState.numMeshesLoaded ++;
 
         },
