@@ -19,8 +19,8 @@ function initViews(){
         0.01,
         10000
     );
-    camera.lookAt(new THREE.Vector3(0,0,-0.05));
-    camera.position.set(0.1,0,-0.25);
+    camera.lookAt(new THREE.Vector3(0,0,0));
+    camera.position.set(0.1,0,-1);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -111,7 +111,7 @@ mat_selected = new THREE.MeshStandardMaterial({
 mat_screw = new THREE.MeshStandardMaterial({
     color: new THREE.Color( 0xffffff ),
     metalness: 1,
-    roughness: 0.3,
+    roughness: 0.1,
     envMap: textureCube,
     envMapIntensity: 1.25,
     side: THREE.DoubleSide
@@ -121,163 +121,13 @@ mat_screw = new THREE.MeshStandardMaterial({
 
 function initModel(){
     var loader = new THREE.OBJLoader();
-    var gltfLoader = new GLTFLoader();
+    // var gltfLoader = new GLTFLoader();
     loader.load(
-        "./assets/models/teeth/bottom_teeth_offset.obj",
+        "./test/sphere.obj",
         function ( object ) {
-            lower_teeth_model = object;
+            sphere_model = object;
             for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].requiredMaterial = mat_master;
-                object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-
-    loader.load(
-        "./assets/models/teeth/upper_teeth_offset.obj",
-        function ( object ) {
-            upper_teeth_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].requiredMaterial = mat_master;
-                
-                object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-
-    loader.load(
-        "./assets/models/teeth/lower_gum_offset.obj",
-        function ( object ) {
-            lower_gum_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-
-    loader.load(
-        "./assets/models/teeth/upper_gum_offset.obj",
-        function ( object ) {
-            upper_gum_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-
-    // importing inplant teeth
-    loader.load(
-        "./assets/models/teeth/lower_implant_teeth.obj",
-        function ( object ) {
-            lower_implant_teeth_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
-                object.children[i].visible = false;
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-    loader.load(
-        "./assets/models/teeth/upper_implant_teeth.obj",
-        function ( object ) {
-            upper_implant_teeth_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
-                object.children[i].visible = false;
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-    // loading up and down screws
-    // gltfLoader.load( './assets/models/teeth/screw_down.glb', function ( gltf ) {
-    //     gltf.scene.traverse( function ( child ) {
-    //         if ( child.isMesh ) {
-    //             child.material = mat_screw;
-    //         }
-    //     } );
-    //     screw_down_model = gltf.scene;
-    //     modelState.numMeshesLoaded ++;
-    // } );
-    // gltfLoader.load( './assets/models/teeth/screw_up.glb', function ( gltf ) {
-    //     gltf.scene.traverse( function ( child ) {
-    //         if ( child.isMesh ) {
-    //             child.material = mat_screw;
-    //         }
-    //     } );
-    //     screw_up_model = gltf.scene;
-    //     modelState.numMeshesLoaded ++;
-    // } );
-    loader.load(
-        "./assets/models/teeth/screw_up.obj",
-        function ( object ) {
-            screw_up_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_screw;
-            }
-            modelState.numMeshesLoaded ++;
-
-        },
-        function ( xhr ) {},
-        function ( error ) {
-            console.log(error.target);
-            console.log( 'An error happened' );
-
-        }
-    );
-    loader.load(
-        "./assets/models/teeth/screw_down.obj",
-        function ( object ) {
-            screw_down_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_screw;
+                object.children[i].material = mat_screw
             }
             modelState.numMeshesLoaded ++;
 
@@ -320,7 +170,7 @@ function initLights(){
     scene.add(ambLight);
 
     var axesHelper = new THREE.AxesHelper( 5 );
-    // scene.add( axesHelper );
+    scene.add( axesHelper );
 }
 
 
@@ -332,7 +182,7 @@ initLights();
 controls = new THREE.OrbitControls( camera, renderer.domElement );
 controls.enableDamping = true;
 controls.dampingFactor = 0.1;
-controls.target = new THREE.Vector3(0,0,-0.05);
+controls.target = new THREE.Vector3(0,0,0);
 domEvents = new THREEx.DomEvents(camera, renderer.domElement);
 
 // postprocessing

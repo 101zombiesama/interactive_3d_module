@@ -62,117 +62,51 @@ window.addEventListener('resize', event => {
 
 function addModelInteraction() {
 
-    // handling mouth open animation with slider
-    var sliderLower = document.getElementById('sliderLowerJaw');
-    sliderLower.addEventListener('input', event => {
-        // opening both gums and teeth
-        lower_teeth_model.rotation.x = -sliderLower.value*1.57;
-        lower_gum_model.rotation.x = -sliderLower.value*1.57;
-        upper_teeth_model.rotation.x = sliderLower.value*1.57;
-        upper_teeth_model.position.y = -sliderLower.value / 60;
-        upper_gum_model.rotation.x = sliderLower.value*1.57;
-        upper_gum_model.position.y = -sliderLower.value / 60;
-        // opening implant teeth
-        lower_implant_teeth_model.rotation.x = -sliderLower.value*1.57;
-        upper_implant_teeth_model.rotation.x = sliderLower.value*1.57;
-        upper_implant_teeth_model.position.y = -sliderLower.value / 60;
-    });
+    // controls.enabled = false;
 
-    // click in empty area to clear selection
     window.addEventListener('click', event => {
 
-        var element = document.elementFromPoint(event.clientX, event.clientY);
-
-        raycaster.setFromCamera(mouse, camera);
-        var meshes = [];
-        scene.traverse( (child) => {
-            if (child.isMesh) {
-                meshes.push(child)
-            }
-        } );
-        var intersects = raycaster.intersectObjects(meshes);
-        if (intersects.length <= 0 && JSON.stringify(mousePosBeforeClick) == JSON.stringify(mousePosAfterClick) && element.nodeName == 'CANVAS') {
-            clearSelection();
-        }
-
-    });
-    // selecting with touch
-    // window.addEventListener('touchend', event => {
-    //     touch.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     touch.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     console.log(event.clientX, event.clientY);
-    //     var element = document.elementFromPoint(event.clientX, event.clientY);
-
-    //     raycaster.setFromCamera(touch, camera);
-    //     var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
-    //     if (intersects.length > 0 && JSON.stringify(touchStartPos) == JSON.stringify(touchEndPos) && element.nodeName == 'CANVAS') {
-    //         updateSelectedTooth(intersects[0].object);
-    //     }
-
-    // });
-
-    // hover highlighting with raycaster
-    window.addEventListener('mousemove', event => {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        raycaster.setFromCamera(mouse, camera);
-        var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
-        if (intersects.length <= 0) {
-            clearHighlight();
-        } else {
-            // when intersected with something
-            if (selectedTooth) {
-                if (!isMouseDown &&  intersects[0].object.name != selectedTooth.name) {
-                    clearHighlight();
-                    highlightHover(intersects[0].object);
-                } else {
-                    clearHighlight();
-                }
-            } 
-            else if(!isMouseDown) {
-                clearHighlight();
-                highlightHover(intersects[0].object);
-            }
+        raycaster.setFromCamera( mouse, camera );
+        var intersects = raycaster.intersectObjects(sphere_model.children);
+        if (intersects.length > 0){
+            var face = intersects[0].face;
+            var obj = intersects[0].object;
+            var geo = obj.geometry;
+            // console.log(face);
+            var p = geo.attributes.position.array;
+            var n = geo.attributes.normal.array;
+            // geo.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array( geo.attributes.position.count * 3 ), 3 ) );
+            // var c = geo.attributes.color.array;
+            // console.log(geo.attributes);
+            var mag = 0.5;
+            p[3*face.a] = mag*n[3*face.a];
+            p[3*face.a + 1] = mag*n[3*face.a + 1];
+            p[3*face.a + 2] = mag*n[3*face.a + 2];
+
+            p[3*face.b] = mag*n[3*face.b];
+            p[3*face.b + 1] = mag*n[3*face.b + 1];
+            p[3*face.b + 2] = mag*n[3*face.b + 2];
+
+            p[3*face.c] = mag*n[3*face.c];
+            p[3*face.c + 1] = mag*n[3*face.c + 1];
+            p[3*face.c + 2] = mag*n[3*face.c + 2];
+
+            geo.computeFaceNormals();
+            geo.attributes.position.needsUpdate = true;
+            geo.attributes.normal.needsUpdate = true;
         }
 
-    });
+    })
 
-    // adding event listeners to all teeth
-    for (let tooth of lower_teeth_model.children) {
-        // event for selecting tooth
-        domEvents.addEventListener(tooth, 'click', event => {
-            // if statement for excluding drag as a click
-            if (JSON.stringify(mousePosAfterClick) == JSON.stringify(mousePosBeforeClick)){
-                updateSelectedTooth(tooth);
-            }
-            
-        });
-
-    }
-
-    for (let tooth of upper_teeth_model.children) {
-        // event for selecting tooth
-        domEvents.addEventListener(tooth, 'click', event => {
-            // if statement for excluding drag as a click
-            if (JSON.stringify(mousePosAfterClick) == JSON.stringify(mousePosBeforeClick)){
-                updateSelectedTooth(tooth);
-            }
-            
-        })
-
-    }
 }
 
 modelState.registerListener(function(numMeshesLoaded) {
-    if(numMeshesLoaded == 8){
-        // addModelInteraction();
-        scene.add(lower_gum_model);
-        scene.add(lower_teeth_model);
-        scene.add(upper_gum_model);
-        scene.add(upper_teeth_model);
-        scene.add(upper_implant_teeth_model);
-        scene.add(lower_implant_teeth_model);
+    if(numMeshesLoaded == 1){
+        addModelInteraction();
+        scene.add(sphere_model);
 
         hideDiv(document.getElementById("spinner"));
     }
