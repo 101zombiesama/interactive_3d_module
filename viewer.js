@@ -9,7 +9,7 @@ import { VignetteShader } from './three.js-master/VignetteShader.js';
 
 function initViews(){
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x525c6b);
+    scene.background = new THREE.Color(0x424a57);
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
     renderer.shadowMap.type = THREE.PCFShadowMap;
     camera = new THREE.PerspectiveCamera(
@@ -31,6 +31,11 @@ function initViews(){
 var t_albedo = new THREE.TextureLoader().load( "./assets/models/teeth/Albedo.jpg" );
 var t_normal = new THREE.TextureLoader().load( "./assets/models/teeth/Normal.jpg" );
 var t_roughness = new THREE.TextureLoader().load( "./assets/models/teeth/Roughness.jpg" );
+
+var t_bone_albedo = new THREE.TextureLoader().load( "./assets/models/teeth/bone_Albedo.jpg" );
+var t_bone_normal = new THREE.TextureLoader().load( "./assets/models/teeth/bone_Normal.jpg" );
+var t_bone_roughness = new THREE.TextureLoader().load( "./assets/models/teeth/bone_Roughness.jpg" );
+
 var r = "./assets/maps/";
 var urls = [ r + "px.png", r + "nx.png",
                         r + "py.png", r + "ny.png",
@@ -52,6 +57,32 @@ mat_master = new THREE.MeshStandardMaterial({
     envMapIntensity: 1,
     side: THREE.DoubleSide
 });
+mat_upperGum = new THREE.MeshStandardMaterial({
+    // color: new THREE.Color(0x96de8e),
+    map: t_albedo,
+    metalness: 0,
+    normalMap: t_normal,
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: t_roughness,
+    envMap: textureCube,
+    needsUpdate: true,
+    envMapIntensity: 1,
+    transparent: true,
+    side: THREE.DoubleSide
+});
+mat_lowerGum = new THREE.MeshStandardMaterial({
+    // color: new THREE.Color(0x96de8e),
+    map: t_albedo,
+    metalness: 0,
+    normalMap: t_normal,
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: t_roughness,
+    envMap: textureCube,
+    needsUpdate: true,
+    envMapIntensity: 1,
+    transparent: true,
+    side: THREE.DoubleSide
+});
 mat_caries = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xa3a379),
     map: t_albedo,
@@ -59,7 +90,6 @@ mat_caries = new THREE.MeshStandardMaterial({
     normalMap: t_normal,
     normalScale: new THREE.Vector2( 8, 8 ),
     roughnessMap: t_roughness,
-    side: THREE.DoubleSide
 });
 mat_damaged = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xd4c200),
@@ -67,7 +97,6 @@ mat_damaged = new THREE.MeshStandardMaterial({
     normalMap: t_normal,
     normalScale: new THREE.Vector2( 1, 1 ),
     roughnessMap: t_roughness,
-    side: THREE.DoubleSide
 });
 mat_missing = new THREE.MeshStandardMaterial({
     // color: new THREE.Color(0xb5000f),
@@ -78,7 +107,7 @@ mat_missing = new THREE.MeshStandardMaterial({
     roughnessMap: t_roughness,
     transparent: true,
     opacity: 0.0,
-    side: THREE.DoubleSide
+    depthWrite: false
 });
 mat_golden = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xffe380),
@@ -88,25 +117,8 @@ mat_golden = new THREE.MeshStandardMaterial({
     roughnessMap: t_roughness,
     envMap: textureCube,
     envMapIntensity: 1.25,
-    side: THREE.DoubleSide
 });
 
-mat_highlight = new THREE.MeshStandardMaterial({
-    color: new THREE.Color( 0xbffdff ),
-    metalness: 0,
-    roughness: 0.5,
-    emissive: new THREE.Color( 0xffffff ),
-    emissiveIntensity: 0.0,
-    side: THREE.DoubleSide
-});
-mat_selected = new THREE.MeshStandardMaterial({
-    color: new THREE.Color( 0xbbff99 ),
-    metalness: 0,
-    roughness: 0.5,
-    emissive: new THREE.Color( 0xffffff ),
-    emissiveIntensity: 0.0,
-    side: THREE.DoubleSide
-});
 mat_screw = new THREE.MeshStandardMaterial({
     color: new THREE.Color( 0xffffff ),
     metalness: 1,
@@ -114,6 +126,28 @@ mat_screw = new THREE.MeshStandardMaterial({
     envMap: textureCube,
     envMapIntensity: 1.25,
     side: THREE.DoubleSide
+});
+mat_upperBone = new THREE.MeshStandardMaterial({
+    map: t_bone_albedo,
+    metalness: 0,
+    roughness: 0.6,
+    normalMap: t_bone_normal,
+    roughnessMap: t_bone_roughness,
+    roughness: 1.2,
+    envMap: textureCube,
+    envMapIntensity: 1,
+    transparent: true,
+});
+mat_lowerBone = new THREE.MeshStandardMaterial({
+    map: t_bone_albedo,
+    metalness: 0,
+    roughness: 0.6,
+    normalMap: t_bone_normal,
+    roughnessMap: t_bone_roughness,
+    roughness: 1.2,
+    envMap: textureCube,
+    envMapIntensity: 1,
+    transparent: true,
 });
 
 // Loading External Mesh
@@ -162,11 +196,11 @@ function initModel(){
     );
 
     loader.load(
-        "./assets/models/teeth/lower_gum_offset.obj",
+        "./assets/models/teeth/lower_gum_offset2.obj",
         function ( object ) {
             lower_gum_model = object;
             for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
+                object.children[i].material = mat_lowerGum;
             }
             modelState.numMeshesLoaded ++;
 
@@ -184,7 +218,7 @@ function initModel(){
         function ( object ) {
             upper_gum_model = object;
             for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
+                object.children[i].material = mat_upperGum;
             }
             modelState.numMeshesLoaded ++;
 
@@ -258,6 +292,42 @@ function initModel(){
             screw_down_model = object;
             for (var i=0; i<object.children.length; i++ ) {
                 object.children[i].material = mat_screw;
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+
+    // importing bones
+    loader.load(
+        "./assets/models/teeth/upper_bone.obj",
+        function ( object ) {
+            upper_bone_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].material = mat_upperBone;
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    loader.load(
+        "./assets/models/teeth/lower_bone.obj",
+        function ( object ) {
+            lower_bone_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].material = mat_lowerBone;
             }
             modelState.numMeshesLoaded ++;
 

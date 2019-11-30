@@ -50,9 +50,35 @@
             <a class="nav"><i class="far fa-save"></i></a>
         </div>
         <div class="flex-content">
-            <a class="nav" id="btn-view"><i class="far fa-eye"></i></i></a>
+            <hr style="background-color: #464646;">
+            <a title="Full view" class="nav" id="btn-fullViewMode"><i><img width="30px" src="./assets/custom_icons/fullView-icon.png" alt=""></i></a>
         </div>
+        <div class="flex-content">
+            <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img width="30px" src="./assets/custom_icons/boneView-icon.png" alt=""></i></a>
+        </div>
+        <div class="flex-content">
+            <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img width="30px" src="./assets/custom_icons/NoGums-icon.svg" alt=""></i></a>
+        </div>
+        <div class="dropright">
+                <hr style="background-color: #464646;">
+                <a title="Transparent gums" class="nav" data-toggle="dropdown" id="btn-teethViewMode"><i><img width="30px" src="./assets/custom_icons/opacity-icon.png" alt=""></i></a>
+                <div class="dropdown-menu" style="background-color: #27293d;">
+                    <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1" step="0.005" value="0">
+                    <div class="dropdown-divider"></div>
+                    <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1" step="0.005" value="0">
+                </div>
+              </div>
 
+    </div>
+
+    <div class="sidebar-right" id="implant-panel" data-color="azure" data-background-color="white"
+        style="display: none;">
+        <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1" step="0.005" value="0">
+        <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1" step="0.005" value="0">
+        <div class="grid-container">
+            <button disabled type="button" class="btn btn-primary" id="btn-addImplant"><img width="30px" src="./assets/custom_icons/addImplant.png" alt=""></button>
+            <button disabled type="button" class="btn btn-primary" id="btn-removeImplant"><img width="30px" src="./assets/custom_icons/removeImplant.png" alt=""></button>
+        </div>
     </div>
 
     <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white"
@@ -137,7 +163,7 @@
 
     </div>
 
-    <div class="progress">
+    <div class="progress" style="display: none;">
         <div class="container">
             <h5 class="text-center">Progress</h5>
             <hr>

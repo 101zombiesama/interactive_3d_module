@@ -28,7 +28,10 @@ var btn_damaged = document.getElementById("btn-damaged");
 var btn_missing = document.getElementById("btn-missing");
 var btn_golden = document.getElementById("btn-golden");
 var btn_implant = document.getElementById("btn-implant");
-var btn_view = document.getElementById("btn-view");
+
+var btn_fullViewMode = document.getElementById("btn-fullViewMode");
+var btn_boneViewMode = document.getElementById("btn-boneViewMode");
+var btn_teethViewMode = document.getElementById("btn-teethViewMode");
 
 var statusPanel = document.getElementById("status-panel");
 var descriptionPanel = document.getElementById("description-panel");
@@ -40,6 +43,8 @@ var inputSurfaceOcclusal = document.getElementById("inputSurfaceOcclusal");
 var inputSurfacePalatal = document.getElementById("inputSurfacePalatal");
 var btn_confirm = document.getElementById("btn-confirm");
 var validationAlert = document.getElementById("validationAlert");
+
+var btn_implantMode = document.getElementById("btn-implantMode");
 
 var futureStatus;
 
@@ -113,9 +118,16 @@ btn_confirm.addEventListener('click', e => {
     }
 })
 
-btn_view.addEventListener('click', e => {
-    toggleGumsVisibility();
+btn_fullViewMode.addEventListener('click', e => {
+    switchViewMode('fullView');
 });
+btn_boneViewMode.addEventListener('click', e => {
+    switchViewMode('boneView');
+});
+btn_teethViewMode.addEventListener('click', e => {
+    switchViewMode('teethView');
+});
+
 
 
 

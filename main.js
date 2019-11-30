@@ -77,20 +77,22 @@ function updateSelectedTooth(tooth){
         setFormData({ description: "", surfaces: [] })
     }
 
-    // make status ui visible
-    var statusPanel = document.getElementById("status-panel");
-    var statusBtn = document.getElementById(`btn-${selectedTooth.toothDossier.status}`);
-    var classList = [...statusBtn.classList];
-    if(classList.indexOf("btn-simple") != -1){
-        statusBtn.classList.remove("btn-simple")
-    }
-    if(!isVisible(statusPanel)){
-        showDiv(statusPanel);
-    }
-    if(selectedTooth.toothDossier.status == "caries" || selectedTooth.toothDossier.status == "damaged"){
-        showDiv(document.getElementById("description-panel"));
-    } else {
-        hideDiv(document.getElementById("description-panel"));
+    if (!isImplantMode) {
+        // make status ui visible
+        var statusPanel = document.getElementById("status-panel");
+        var statusBtn = document.getElementById(`btn-${selectedTooth.toothDossier.status}`);
+        var classList = [...statusBtn.classList];
+        if(classList.indexOf("btn-simple") != -1){
+            statusBtn.classList.remove("btn-simple")
+        }
+        if(!isVisible(statusPanel)){
+            showDiv(statusPanel);
+        }
+        if(selectedTooth.toothDossier.status == "caries" || selectedTooth.toothDossier.status == "damaged"){
+            showDiv(document.getElementById("description-panel"));
+        } else {
+            hideDiv(document.getElementById("description-panel"));
+        }
     }
 }
 
@@ -250,11 +252,51 @@ function setFormData(details){
     }
 }
 
-function toggleGumsVisibility(){
-    if(lower_gum_model.visible == false) lower_gum_model.visible = true;
-    else lower_gum_model.visible = false;
-    if(upper_gum_model.visible == false) upper_gum_model.visible = true;
-    else upper_gum_model.visible = false;
+function switchViewMode(mode) {
+    switch (mode) {
+        case 'fullView':
+            lower_teeth_model.visible = true;
+            upper_teeth_model.visible = true;
+            lower_bone_model.visible = true;
+            upper_bone_model.visible = true;
+            lower_gum_model.visible = true;
+            upper_gum_model.visible = true;
+            break;
+
+        case 'boneView':
+            lower_teeth_model.visible = true;
+            upper_teeth_model.visible = true;
+            lower_bone_model.visible = true;
+            upper_bone_model.visible = true;
+            lower_gum_model.visible = false;
+            upper_gum_model.visible = false;
+            break;
+        
+        case 'teethView':
+            lower_teeth_model.visible = true;
+            upper_teeth_model.visible = true;
+            lower_bone_model.visible = false;
+            upper_bone_model.visible = false;
+            lower_gum_model.visible = false;
+            upper_gum_model.visible = false;
+            break;
+    
+        default:
+            break;
+    }
+}
+
+function toggleImplantMode() {
+    if(isImplantMode) isImplantMode = false;
+    else isImplantMode = true;
+
+    var implantPanel = document.getElementById("implant-panel");
+    if(isImplantMode) {
+        showDiv(implantPanel);
+    } else {
+        hideDiv(implantPanel);
+    }
+    
 }
 
 function addModelInteraction() {
@@ -273,6 +315,22 @@ function addModelInteraction() {
         lower_implant_teeth_model.rotation.x = -sliderLower.value*1.57;
         upper_implant_teeth_model.rotation.x = sliderLower.value*1.57;
         upper_implant_teeth_model.position.y = -sliderLower.value / 60;
+        // opening bones
+        lower_bone_model.rotation.x = -sliderLower.value*1.57;
+        upper_bone_model.rotation.x = sliderLower.value*1.57;
+        upper_bone_model.position.y = -sliderLower.value / 60;
+    });
+
+    // handling gum and bone opacity with slider for implant mode
+    var sliderUpperOpacity = document.getElementById('sliderUpperOpacity');
+    var sliderLowerOpacity = document.getElementById('sliderLowerOpacity');
+    sliderUpperOpacity.addEventListener('input', event => {
+        upper_gum_model.children[0].material.opacity = 1 - sliderUpperOpacity.value;
+        upper_bone_model.children[0].material.opacity = 1 - sliderUpperOpacity.value;
+    });
+    sliderLowerOpacity.addEventListener('input', event => {
+        lower_gum_model.children[0].material.opacity = 1 - sliderLowerOpacity.value;
+        lower_bone_model.children[0].material.opacity = 1 - sliderLowerOpacity.value;
     });
 
     // click in empty area to clear selection
@@ -362,7 +420,7 @@ function addModelInteraction() {
 }
 
 modelState.registerListener(function(numMeshesLoaded) {
-    if(numMeshesLoaded == 8){
+    if(numMeshesLoaded == 10){
         addModelInteraction();
         scene.add(lower_gum_model);
         scene.add(lower_teeth_model);
@@ -370,6 +428,8 @@ modelState.registerListener(function(numMeshesLoaded) {
         scene.add(upper_teeth_model);
         scene.add(upper_implant_teeth_model);
         scene.add(lower_implant_teeth_model);
+        scene.add(upper_bone_model);
+        scene.add(lower_bone_model);
 
         hideDiv(document.getElementById("spinner"));
     }

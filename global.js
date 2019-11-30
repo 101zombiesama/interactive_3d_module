@@ -1,5 +1,8 @@
 var scene, camera, renderer, controls, domEvents;
-var mat_master, mat_caries, mat_damaged, mat_missing, mat_golden, mat_highlight, mat_selected, mat_screw;
+
+var mat_master, mat_caries, mat_damaged, mat_missing, mat_golden, mat_highlight, mat_selected, mat_screw, mat_upperGum,
+    mat_lowerGum, mat_lowerBone, mat_upperBone;
+
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var touch = new THREE.Vector2();
@@ -12,8 +15,10 @@ var upper_implant_teeth_model;
 var lower_implant_teeth_model;
 var screw_up_model;
 var screw_down_model;
+var upper_bone_model;
+var lower_bone_model;
 
-var screws =[];
+var isImplantMode = false;
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 

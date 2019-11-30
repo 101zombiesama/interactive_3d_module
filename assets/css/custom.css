@@ -97,6 +97,7 @@ i {
   margin-bottom: 3px;
 }
 
+
 @media screen and (max-width: 991px) {
   .header {
     visibility: hidden;
