@@ -1,7 +1,8 @@
 // functions event listeners
 
 var isMouseDown = false;
-var isTouched = false;
+// var isTouched = false;
+var isTouchDragged = false;
 var mousePosBeforeClick = {};
 var mousePosAfterClick = {};
 var touchStartPos = {};
@@ -15,26 +16,19 @@ window.addEventListener('mouseup', event => {
     isMouseDown = false;
     mousePosAfterClick.x = event.clientX;
     mousePosAfterClick.y = event.clientY;
-})
-// window.addEventListener('touchend', event => {
-//     console.log(event);
-//     isTouched = true;
-//     touchStartPos.x = event.touches[0].clientX;
-//     touchStartPos.y = event.touches[0].clientY;
-// })
-window.addEventListener('touchmove', event => {
-    console.log(event);
-    // isTouched = false;
-    // touchEndPos.x = event.touches[0].clientX;
-    // touchEndPos.y = event.touches[0].clientY;
-})
+});
 
-// set slider value to zero on window load
-// var sliderUpper = document.getElementById('sliderUpperJaw');
-// sliderUpper.value = 0;
+window.addEventListener('touchmove', event => {
+    console.log("Touch move", event);
+    isTouchDragged = true;
+});
+
 var sliderLower = document.getElementById('sliderLowerJaw');
 sliderLower.value = 0;
-
+var sliderUpperOpacity = document.getElementById('sliderUpperOpacity');
+var sliderLowerOpacity = document.getElementById('sliderLowerOpacity');
+sliderUpperOpacity.value = 0;
+sliderLowerOpacity.value = 0;
 
 function resetCameraView() {
     controls.target = new THREE.Vector3(0,0,-0.05);
@@ -352,19 +346,24 @@ function addModelInteraction() {
 
     });
     // selecting with touch
-    // window.addEventListener('touchend', event => {
-    //     touch.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     touch.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     console.log(event.clientX, event.clientY);
-    //     var element = document.elementFromPoint(event.clientX, event.clientY);
+    window.addEventListener('touchend', event => {
+        console.log(event);
+        touch.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
+        touch.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
+        console.log(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        var element = event.target;
 
-    //     raycaster.setFromCamera(touch, camera);
-    //     var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
-    //     if (intersects.length > 0 && JSON.stringify(touchStartPos) == JSON.stringify(touchEndPos) && element.nodeName == 'CANVAS') {
-    //         updateSelectedTooth(intersects[0].object);
-    //     }
+        raycaster.setFromCamera(touch, camera);
+        var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
+        if (intersects.length > 0 && !isTouchDragged && element.nodeName == 'CANVAS') {
+            updateSelectedTooth(intersects[0].object);
+        } else if (intersects.length <= 0) {
+            clearSelection();
+        }
 
-    // });
+        isTouchDragged = false;
+
+    });
 
     // hover highlighting with raycaster
     window.addEventListener('mousemove', event => {
