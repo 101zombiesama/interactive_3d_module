@@ -114,7 +114,7 @@ btn_confirm.addEventListener('click', e => {
 })
 
 btn_view.addEventListener('click', e => {
-    toggleGumsVisibility();
+    toggleWireframe();
 });
 
 

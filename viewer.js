@@ -6,7 +6,8 @@ import { ShaderPass } from './three.js-master/ShaderPass.js';
 import { OutlinePass } from './three.js-master/OutlinePass.js';
 import { FXAAShader } from './three.js-master/FXAAShader.js';
 import { VignetteShader } from './three.js-master/VignetteShader.js';
-import { GLTFLoader } from '/three.js-master/GLTFLoader.js';
+import { GLTFLoader } from './three.js-master/GLTFLoader.js';
+import { SubdivisionModifier } from './three.js-master/SubdivisionModifier.js';
 
 function initViews(){
     scene = new THREE.Scene();
@@ -115,6 +116,7 @@ mat_screw = new THREE.MeshStandardMaterial({
     envMap: textureCube,
     envMapIntensity: 0,
     side: THREE.DoubleSide,
+    vertexColors: THREE.FaceColors
     // wireframe : true
 });
 
@@ -129,7 +131,11 @@ function initModel(){
             var buffGeo = object.children[0].geometry;
             var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
             geo.mergeVertices();
+            
+            var modifier = new SubdivisionModifier( 1 );
+            var subdGeometry = modifier.modify( geo );
             sphere_model = new THREE.Mesh( geo, mat_screw );
+
             
             modelState.numMeshesLoaded ++;
 

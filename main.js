@@ -58,6 +58,10 @@ window.addEventListener('resize', event => {
 
 });
 
+function toggleWireframe() {
+    if (mat_screw.wireframe) mat_screw.wireframe = false;
+    else mat_screw.wireframe = true;
+}
 
 
 function addModelInteraction() {
@@ -73,18 +77,27 @@ function addModelInteraction() {
         var intersects = raycaster.intersectObjects([sphere_model]);
         if (intersects.length > 0){
             var face = intersects[0].face;
-            // console.log(intersects[0].object.geometry);
+            var point = intersects[0].point;
+            console.log("point", point)
+            console.log("face", face);
             var vertices = intersects[0].object.geometry.vertices;
             var mag = -0.05;
 
-            vertices[face.a].x += mag*face.normal.x;
-            vertices[face.a].y += mag*face.normal.y;
-            vertices[face.a].z += mag*face.normal.z;
+            // vertices[face.a].x += mag*face.normal.x;
+            // vertices[face.a].y += mag*face.normal.y;
+            // vertices[face.a].z += mag*face.normal.z;
+
+            vertices[face.a].x += mag*face.vertexNormals[0].x;
+            vertices[face.a].y += mag*face.vertexNormals[0].y;
+            vertices[face.a].z += mag*face.vertexNormals[0].z;
+
+            // face.color.setRGB( 0, 0, 1 );
 
             intersects[0].object.geometry.computeFaceNormals();
             intersects[0].object.geometry.computeVertexNormals();
             intersects[0].object.geometry.verticesNeedUpdate = true;
             intersects[0].object.geometry.normalNeedUpdate = true;
+            intersects[0].object.geometry.colorsNeedUpdate = true;
 
         }
 
