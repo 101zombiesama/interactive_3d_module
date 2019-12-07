@@ -118,4 +118,3 @@ btn_view.addEventListener('click', e => {
 });
 
 
-

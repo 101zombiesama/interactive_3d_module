@@ -54,6 +54,19 @@ mat_master = new THREE.MeshStandardMaterial({
     envMapIntensity: 1,
     side: THREE.DoubleSide
 });
+mat_lowerTeeth = new THREE.MeshStandardMaterial({
+    // color: new THREE.Color(0x96de8e),
+    map: t_albedo,
+    metalness: 0,
+    normalMap: t_normal,
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: t_roughness,
+    envMap: textureCube,
+    needsUpdate: true,
+    envMapIntensity: 1,
+    transparent: true,
+    opacity: 0.9
+});
 mat_caries = new THREE.MeshStandardMaterial({
     color: new THREE.Color(0xa3a379),
     map: t_albedo,
@@ -126,7 +139,7 @@ function initModel(){
     var loader = new THREE.OBJLoader();
     // var gltfLoader = new GLTFLoader();
     loader.load(
-        "./test/sphere.obj",
+        "./assets/models/teeth/lower_gum_offset3.obj",
         function ( object ) {
             var buffGeo = object.children[0].geometry;
             var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
@@ -134,9 +147,69 @@ function initModel(){
             
             var modifier = new SubdivisionModifier( 1 );
             var subdGeometry = modifier.modify( geo );
-            sphere_model = new THREE.Mesh( geo, mat_screw );
+            lower_gum_model = new THREE.Mesh( geo, mat_master );
 
             
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    loader.load(
+        "./assets/models/teeth/upper_gum_offset.obj",
+        function ( object ) {
+            var buffGeo = object.children[0].geometry;
+            var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
+            geo.mergeVertices();
+            
+            var modifier = new SubdivisionModifier( 1 );
+            var subdGeometry = modifier.modify( geo );
+            upper_gum_model = new THREE.Mesh( geo, mat_master );
+
+            
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    loader.load(
+        "./assets/models/teeth/bottom_teeth_offset.obj",
+        function ( object ) {
+            lower_teeth_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].requiredMaterial = mat_lowerTeeth;
+                object.children[i].material = object.children[i].requiredMaterial;
+                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
+            }
+            modelState.numMeshesLoaded ++;
+
+        },
+        function ( xhr ) {},
+        function ( error ) {
+            console.log(error.target);
+            console.log( 'An error happened' );
+
+        }
+    );
+    loader.load(
+        "./assets/models/teeth/upper_teeth_offset.obj",
+        function ( object ) {
+            upper_teeth_model = object;
+            for (var i=0; i<object.children.length; i++ ) {
+                object.children[i].requiredMaterial = mat_lowerTeeth;
+                object.children[i].material = object.children[i].requiredMaterial;
+                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
+            }
             modelState.numMeshesLoaded ++;
 
         },

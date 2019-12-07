@@ -59,12 +59,55 @@ window.addEventListener('resize', event => {
 });
 
 function toggleWireframe() {
-    if (mat_screw.wireframe) mat_screw.wireframe = false;
-    else mat_screw.wireframe = true;
+    if (mat_master.wireframe) mat_master.wireframe = false;
+    else mat_master.wireframe = true;
+}
+
+function saveToJson(object) {
+
+}
+var jsonArray = [];
+var objToArray = {};
+var tDown = false;
+
+window.addEventListener('keypress', e => {
+    if (e.key == 's') {
+        addObjToArray();
+        console.log(jsonArray);
+    };
+    if (e.key == 'd') {
+        var data = { data: jsonArray };
+        var json = JSON.stringify(data);
+        var blob = new Blob([json], {type: "application/json"});
+
+        var url  = URL.createObjectURL(blob);
+
+        var a = document.createElement('a');
+        a.download    = "backup.json";
+        a.href        = url;
+        a.textContent = "Download backup.json";
+
+        document.getElementById('content').appendChild(a);
+    }
+});
+
+
+function addObjToArray() {
+    jsonArray.push(objToArray);
+    objToArray = {};
 }
 
 
 function addModelInteraction() {
+
+    var sliderLower = document.getElementById('sliderLowerJaw');
+    sliderLower.addEventListener('input', event => {
+        // opening both gums and teeth
+        lower_teeth_model.rotation.x = -sliderLower.value*1.57;
+        lower_gum_model.rotation.x = -sliderLower.value*1.57;
+        upper_teeth_model.rotation.x = sliderLower.value*1.57;
+        upper_gum_model.rotation.x = sliderLower.value*1.57;
+    });
 
     // controls.enabled = false;
 
@@ -73,31 +116,55 @@ function addModelInteraction() {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        raycaster.setFromCamera( mouse, camera );
-        var intersects = raycaster.intersectObjects([sphere_model]);
-        if (intersects.length > 0){
-            var face = intersects[0].face;
-            var point = intersects[0].point;
-            console.log("point", point)
-            console.log("face", face);
-            var vertices = intersects[0].object.geometry.vertices;
-            var mag = -0.05;
+        if (JSON.stringify(mousePosAfterClick) == JSON.stringify(mousePosBeforeClick)) {
 
-            // vertices[face.a].x += mag*face.normal.x;
-            // vertices[face.a].y += mag*face.normal.y;
-            // vertices[face.a].z += mag*face.normal.z;
+            raycaster.setFromCamera( mouse, camera );
+            var intersects = raycaster.intersectObjects([lower_gum_model, upper_gum_model, ...lower_teeth_model.children, ...upper_teeth_model.children]);
+            if (intersects.length > 0){
 
-            vertices[face.a].x += mag*face.vertexNormals[0].x;
-            vertices[face.a].y += mag*face.vertexNormals[0].y;
-            vertices[face.a].z += mag*face.vertexNormals[0].z;
+                if (intersects[0].object.name.split('_')[0] == 't'){
+                    console.log("tooth clicked");
+                    objToArray.toothName = intersects[0].object.name;
+                    objToArray.faces = [];
+                }
+                
+                var face = intersects[0].face;
+                var vertices = intersects[0].object.geometry.vertices;
+                var mag = -0.002;
 
-            // face.color.setRGB( 0, 0, 1 );
+                var periodontitisMode = true;
 
-            intersects[0].object.geometry.computeFaceNormals();
-            intersects[0].object.geometry.computeVertexNormals();
-            intersects[0].object.geometry.verticesNeedUpdate = true;
-            intersects[0].object.geometry.normalNeedUpdate = true;
-            intersects[0].object.geometry.colorsNeedUpdate = true;
+                if (!periodontitisMode) {
+
+                    vertices[face.a].x += mag*face.vertexNormals[0].x;
+                    vertices[face.a].y += mag*face.vertexNormals[0].y;
+                    vertices[face.a].z += mag*face.vertexNormals[0].z;
+
+                } else {
+
+                    vertices[face.a].x += mag*face.vertexNormals[0].x;
+                    vertices[face.a].y += mag*face.vertexNormals[0].y*Math.cos(-sliderLower.value*1.57);
+                    vertices[face.a].z += mag*face.vertexNormals[0].z*Math.sin(-sliderLower.value*1.57);
+
+                    vertices[face.b].x += mag*face.vertexNormals[1].x;
+                    vertices[face.b].y += mag*face.vertexNormals[1].y*Math.cos(-sliderLower.value*1.57);
+                    vertices[face.b].z += mag*face.vertexNormals[1].z*Math.sin(-sliderLower.value*1.57);
+
+                    vertices[face.c].x += mag*face.vertexNormals[2].x;
+                    vertices[face.c].y += mag*face.vertexNormals[2].y*Math.cos(-sliderLower.value*1.57);
+                    vertices[face.c].z += mag*face.vertexNormals[2].z*Math.sin(-sliderLower.value*1.57);
+
+                    // adding the vertices to objTOarray object's vertices array
+                    objToArray.faces.push(face);
+
+                }
+
+                intersects[0].object.geometry.computeFaceNormals();
+                intersects[0].object.geometry.computeVertexNormals();
+                intersects[0].object.geometry.verticesNeedUpdate = true;
+                intersects[0].object.geometry.normalNeedUpdate = true;
+
+            }
 
         }
 
@@ -106,9 +173,12 @@ function addModelInteraction() {
 }
 
 modelState.registerListener(function(numMeshesLoaded) {
-    if(numMeshesLoaded == 1){
+    if(numMeshesLoaded == 4){
         addModelInteraction();
-        scene.add(sphere_model);
+        scene.add(lower_gum_model);
+        scene.add(lower_teeth_model);
+        scene.add(upper_teeth_model);
+        scene.add(upper_gum_model);
 
         hideDiv(document.getElementById("spinner"));
     }
