@@ -196,7 +196,7 @@ function initModel(){
     );
 
     loader.load(
-        "./assets/models/teeth/lower_gum_offset2.obj",
+        "./assets/models/teeth/lower_gum_offset3.obj",
         function ( object ) {
             lower_gum_model = object;
             for (var i=0; i<object.children.length; i++ ) {
@@ -270,7 +270,7 @@ function initModel(){
     );
 
     loader.load(
-        "./assets/models/teeth/screw_up.obj",
+        "./assets/models/teeth/screw_up_big_fat.obj",
         function ( object ) {
             screw_up_model = object;
             for (var i=0; i<object.children.length; i++ ) {
@@ -287,7 +287,7 @@ function initModel(){
         }
     );
     loader.load(
-        "./assets/models/teeth/screw_down.obj",
+        "./assets/models/teeth/screw_down_big_fat.obj",
         function ( object ) {
             screw_down_model = object;
             for (var i=0; i<object.children.length; i++ ) {
@@ -323,7 +323,7 @@ function initModel(){
         }
     );
     loader.load(
-        "./assets/models/teeth/lower_bone.obj",
+        "./assets/models/teeth/lower_bone3.obj",
         function ( object ) {
             lower_bone_model = object;
             for (var i=0; i<object.children.length; i++ ) {
