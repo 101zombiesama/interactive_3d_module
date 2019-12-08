@@ -130,7 +130,11 @@ btn_teethViewMode.addEventListener('click', e => {
     switchViewMode('teethView');
 });
 btn_isolateSelect.addEventListener('click', e => {
-    if (selectedTooth) toggleIsolateSelection(selectedTooth);
+    try {
+        toggleIsolateSelection(selectedTooth);
+    } catch (error) {
+        
+    }
 })
 btn_resetCamera.addEventListener('click', e => {
     resetCameraView();
