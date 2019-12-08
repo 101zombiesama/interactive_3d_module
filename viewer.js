@@ -426,6 +426,7 @@ function animate() {
     requestAnimationFrame( animate );
 
     controls.update();
+    TWEEN.update();
     // renderer.render( scene, camera );
     composer.render();
 

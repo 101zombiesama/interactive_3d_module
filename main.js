@@ -30,9 +30,19 @@ var sliderLowerOpacity = document.getElementById('sliderLowerOpacity');
 sliderUpperOpacity.value = 0;
 sliderLowerOpacity.value = 0;
 
-function resetCameraView() {
-    controls.target = new THREE.Vector3(0,0,-0.05);
+function resetCameraView() {    
+    var resetCameraTween = new TWEEN.Tween({ x: camera.position.x, y: camera.position.y, z: camera.position.z,
+                             tarx: controls.target.x, tary: controls.target.y, tarz: controls.target.z })
+                            .to({ x: 0.15, y: 0.02, z: -0.3,
+                                tarx: 0, tary: 0, tarz: -0.05 }, 1300)
+                            .onUpdate((object) => {
+                                camera.position.set(object.x, object.y, object.z);
+                                controls.target.set(object.tarx, object.tary, object.tarz)
+                            })
+                            .easing(TWEEN.Easing.Cubic.InOut)
+                            .start();
 };
+
 
 // reset orbit pivot
 document.addEventListener('keydown', event => {
@@ -289,6 +299,65 @@ function switchViewMode(mode) {
     
         default:
             break;
+    }
+}
+
+var isolated = false;
+
+function toggleIsolateSelection(tooth) {
+
+    if (!isolated) {
+        // compute centroid of tooth in WS
+        tooth.geometry.computeBoundingBox();
+        var centroid = new THREE.Vector3();
+        centroid.addVectors( tooth.geometry.boundingBox.min, tooth.geometry.boundingBox.max );
+        centroid.multiplyScalar( 0.5 );
+        centroid.applyMatrix4( tooth.matrixWorld );
+
+        for(let childTooth of lower_teeth_model.children) {
+            if (childTooth.name != tooth.name) childTooth.visible = false;
+            else childTooth.visible = true;
+        }
+        for(let childTooth of upper_teeth_model.children) {
+            if (childTooth.name != tooth.name) childTooth.visible = false;
+            else childTooth.visible = true;
+        }
+        lower_gum_model.visible = false;
+        lower_bone_model.visible = false;
+        upper_gum_model.visible = false;
+        upper_bone_model.visible = false;
+
+        // focus on tooth
+        var resetCameraTween = new TWEEN.Tween({ x: camera.position.x, y: camera.position.y, z: camera.position.z,
+            tarx: controls.target.x, tary: controls.target.y, tarz: controls.target.z })
+           .to({ x:centroid.x, y: centroid.y, z: centroid.z - 0.2,
+               tarx: centroid.x, tary: centroid.y, tarz: centroid.z }, 1300)
+           .onUpdate((object) => {
+               camera.position.set(object.x, object.y, object.z);
+               controls.target.set(object.tarx, object.tary, object.tarz)
+           })
+           .easing(TWEEN.Easing.Cubic.InOut)
+           .start();
+
+        isolated = true;
+    }
+    else {
+
+        for(let childTooth of lower_teeth_model.children) {
+            childTooth.visible = true;
+        }
+        for(let childTooth of upper_teeth_model.children) {
+            childTooth.visible = true;
+        }
+        lower_gum_model.visible = true;
+        lower_bone_model.visible = true;
+        upper_gum_model.visible = true;
+        upper_bone_model.visible = true;
+
+        // reset camera view
+        resetCameraView();
+
+        isolated = false;
     }
 }
 

@@ -32,6 +32,8 @@ var btn_implant = document.getElementById("btn-implant");
 var btn_fullViewMode = document.getElementById("btn-fullViewMode");
 var btn_boneViewMode = document.getElementById("btn-boneViewMode");
 var btn_teethViewMode = document.getElementById("btn-teethViewMode");
+var btn_isolateSelect = document.getElementById("btn-isolateSelect");
+var btn_resetCamera = document.getElementById("btn-resetCamera");
 
 var statusPanel = document.getElementById("status-panel");
 var descriptionPanel = document.getElementById("description-panel");
@@ -126,6 +128,12 @@ btn_boneViewMode.addEventListener('click', e => {
 });
 btn_teethViewMode.addEventListener('click', e => {
     switchViewMode('teethView');
+});
+btn_isolateSelect.addEventListener('click', e => {
+    toggleIsolateSelection(selectedTooth);
+})
+btn_resetCamera.addEventListener('click', e => {
+    resetCameraView();
 });
 
 // handling parodontal input
