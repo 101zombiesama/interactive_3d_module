@@ -358,11 +358,11 @@ function addModelInteraction() {
     var sliderUpperOpacity = document.getElementById('sliderUpperOpacity');
     var sliderLowerOpacity = document.getElementById('sliderLowerOpacity');
     sliderUpperOpacity.addEventListener('input', event => {
-        upper_gum_model.children[0].material.opacity = 1 - sliderUpperOpacity.value;
+        upper_gum_model.material.opacity = 1 - sliderUpperOpacity.value;
         upper_bone_model.children[0].material.opacity = 1 - sliderUpperOpacity.value;
     });
     sliderLowerOpacity.addEventListener('input', event => {
-        lower_gum_model.children[0].material.opacity = 1 - sliderLowerOpacity.value;
+        lower_gum_model.material.opacity = 1 - sliderLowerOpacity.value;
         lower_bone_model.children[0].material.opacity = 1 - sliderLowerOpacity.value;
     });
 

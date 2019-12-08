@@ -201,7 +201,7 @@ function initModel(){
             var buffGeo = object.children[0].geometry;
             var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
             geo.mergeVertices();
-            lower_gum_model = new THREE.Mesh( geo, mat_master );
+            lower_gum_model = new THREE.Mesh( geo, mat_lowerGum );
             
             modelState.numMeshesLoaded ++;
 
@@ -220,7 +220,7 @@ function initModel(){
             var buffGeo = object.children[0].geometry;
             var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
             geo.mergeVertices();
-            upper_gum_model = new THREE.Mesh( geo, mat_master );
+            upper_gum_model = new THREE.Mesh( geo, mat_upperGum );
             modelState.numMeshesLoaded ++;
 
         },
