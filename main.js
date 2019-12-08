@@ -71,6 +71,9 @@ function updateSelectedTooth(tooth){
         setFormData({ description: "", surfaces: [] })
     }
 
+    // setting parodontal data
+    setParoData(selectedTooth.toothDossier.parodontitis);
+
     if (!isImplantMode) {
         // make status ui visible
         var statusPanel = document.getElementById("status-panel");
@@ -234,6 +237,7 @@ function setBtnActiveState(btn){
 
 // following function is used to set the form data from the tooth object
 function setFormData(details){
+    // setting the tooth status details
     var inputDescription = document.getElementById("inputDescription");
     var toothSurfaceChecks = document.getElementsByClassName("toothSurfaceCheck");
     inputDescription.value = details.description;
@@ -243,6 +247,14 @@ function setFormData(details){
         } else {
             surfaceCheck.checked = false;
         }
+    }
+
+}
+
+function setParoData(data) {
+    for (var i = 0; i < 6; i++ ) {
+        var input = document.getElementById(`parodata-${i+1}`);
+        input.value = data[i+1];
     }
 }
 
@@ -291,6 +303,33 @@ function toggleImplantMode() {
         hideDiv(implantPanel);
     }
     
+}
+
+function morphGum(tooth, face, value) {
+    var object;
+    if(Number(tooth.name.split('_')[1]) > 30){
+        object = lower_gum_model;
+    } else {
+        object = upper_gum_model;
+    }
+    var vertices = object.geometry.vertices;
+    var mag = -0.00075*value;
+    vertices[face.a].x += mag*face.vertexNormals[0].x;
+    vertices[face.a].y += mag*face.vertexNormals[0].y*Math.cos(-sliderLower.value*1.57);
+    vertices[face.a].z += mag*face.vertexNormals[0].z*Math.sin(-sliderLower.value*1.57);
+
+    vertices[face.b].x += mag*face.vertexNormals[1].x;
+    vertices[face.b].y += mag*face.vertexNormals[1].y*Math.cos(-sliderLower.value*1.57);
+    vertices[face.b].z += mag*face.vertexNormals[1].z*Math.sin(-sliderLower.value*1.57);
+
+    vertices[face.c].x += mag*face.vertexNormals[2].x;
+    vertices[face.c].y += mag*face.vertexNormals[2].y*Math.cos(-sliderLower.value*1.57);
+    vertices[face.c].z += mag*face.vertexNormals[2].z*Math.sin(-sliderLower.value*1.57);
+
+    object.geometry.computeFaceNormals();
+    object.geometry.computeVertexNormals();
+    object.geometry.verticesNeedUpdate = true;
+    object.geometry.normalNeedUpdate = true;
 }
 
 function addModelInteraction() {

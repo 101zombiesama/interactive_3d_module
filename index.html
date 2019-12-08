@@ -51,35 +51,36 @@
         </div>
         <div class="flex-content">
             <hr style="background-color: #464646;">
-            <a title="Full view" class="nav" id="btn-fullViewMode"><i><img width="30px" src="./assets/custom_icons/fullView-icon.png" alt=""></i></a>
+            <a title="Full view" class="nav" id="btn-fullViewMode"><i><img width="30px"
+                        src="./assets/custom_icons/fullView-icon.png" alt=""></i></a>
         </div>
         <div class="flex-content">
-            <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img width="30px" src="./assets/custom_icons/boneView-icon.png" alt=""></i></a>
+            <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img width="30px"
+                        src="./assets/custom_icons/boneView-icon.png" alt=""></i></a>
         </div>
         <div class="flex-content">
-            <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img width="30px" src="./assets/custom_icons/teethView-icon.svg" alt=""></i></a>
+            <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img width="30px"
+                        src="./assets/custom_icons/teethView-icon.svg" alt=""></i></a>
         </div>
         <div class="dropright">
-                <hr style="background-color: #464646;">
-                <a title="Transparent gums" class="nav" data-toggle="dropdown" id="btn-teethViewMode"><i><img width="30px" src="./assets/custom_icons/opacity-icon.png" alt=""></i></a>
-                <div class="dropdown-menu" style="background-color: #27293d;">
-                    <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1" step="0.005" value="0">
-                    <div class="dropdown-divider"></div>
-                    <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1" step="0.005" value="0">
-                </div>
-              </div>
-
-    </div>
-
-    <div class="sidebar-right" id="implant-panel" data-color="azure" data-background-color="white"
-        style="display: none;">
-        <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1" step="0.005" value="0">
-        <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1" step="0.005" value="0">
-        <div class="grid-container">
-            <button disabled type="button" class="btn btn-primary" id="btn-addImplant"><img width="30px" src="./assets/custom_icons/addImplant.png" alt=""></button>
-            <button disabled type="button" class="btn btn-primary" id="btn-removeImplant"><img width="30px" src="./assets/custom_icons/removeImplant.png" alt=""></button>
+            <hr style="background-color: #464646;">
+            <a title="Transparent gums" class="nav" data-toggle="dropdown" id="btn-teethViewMode"><i><img width="30px"
+                        src="./assets/custom_icons/opacity-icon.png" alt=""></i></a>
+            <div class="dropdown-menu" style="background-color: #27293d;">
+                <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1"
+                    step="0.005" value="0">
+                <div class="dropdown-divider"></div>
+                <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1"
+                    step="0.005" value="0">
+            </div>
         </div>
+        <!-- <div class="flex-content">
+            <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img width="30px"
+                        src="./assets/custom_icons/paradontitis-icon.png" alt=""></i></a>
+        </div> -->
+
     </div>
+
 
     <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white"
         style="display: none;">
@@ -95,18 +96,20 @@
         <div class="card" id="description-panel" style="display: none;">
             <div class="card-body">
                 <h6 class="text-center">Diseased Tooth Details</h6>
-                <hr>
+                <hr style="background-color: #404040;">
                 <form id="detailsForm">
                     <div class="form-group">
                         <label for="inputDescription">Description</label>
-                        <textarea style="border: 1px solid #2a324d;" class="form-control" name="inputDescription" id="inputDescription" cols="30" rows="10"></textarea>
+                        <textarea style="border: 1px solid #2a324d;" class="form-control" name="inputDescription"
+                            id="inputDescription" cols="30" rows="10"></textarea>
                     </div>
                     <label for="inputDescription">Tooth Surface</label>
                     <span style="font-size: smaller;"> <i>(required...)</i> </span>
                     <div class="form-group">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input class="form-check-input toothSurfaceCheck" type="checkbox" id="inputSurfacePalatal" value="palatal">
+                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                    id="inputSurfacePalatal" value="palatal">
                                 Palatal
                                 <span class="form-check-sign">
                                     <span class="check"></span>
@@ -114,48 +117,82 @@
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input toothSurfaceCheck" type="checkbox" id="inputSurfaceMesial" value="mesial">
-                                    Mesial
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
+                            <label class="form-check-label">
+                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                    id="inputSurfaceMesial" value="mesial">
+                                Mesial
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
                         </div>
                         <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input toothSurfaceCheck" type="checkbox" id="inputSurfaceBuccal" value="buccal">
-                                    Buccal
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
+                            <label class="form-check-label">
+                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                    id="inputSurfaceBuccal" value="buccal">
+                                Buccal
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input toothSurfaceCheck" type="checkbox" id="inputSurfaceDistal" value="distal">
-                                    Distal
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input toothSurfaceCheck" type="checkbox" id="inputSurfaceOcclusal" value="occlusal">
-                                        Occlusal
-                                        <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-                                    </label>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                    id="inputSurfaceDistal" value="distal">
+                                Distal
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
                         </div>
-                    <span id="validationAlert" style="display: none; font-size: small; color: red;"><i>At least one surface needs to be selected!</i></span>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                    id="inputSurfaceOcclusal" value="occlusal">
+                                Occlusal
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <span id="validationAlert" style="display: none; font-size: small; color: red;"><i>At least one
+                            surface needs to be selected!</i></span>
                     <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
                     <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
                 </form>
+            </div>
+        </div>
+        <hr style="background-color: #404040;">
+        <h6 class="text-center">Parodontitis</h6>
+        
+        <div class="grid-container-3col">
+            <div class="grid-container">
+                <label>1</label>
+                <input class="form-control" id="parodata-1" placeholder="mm" value="0">
+            </div>
+            <div class="grid-container">
+                <label>2</label>
+                <input class="form-control" id="parodata-2" placeholder="mm" value="0">
+            </div>
+            <div class="grid-container">
+                <label>3</label>
+                <input class="form-control" id="parodata-3" placeholder="mm" value="0">
+            </div>
+            <div class="grid-container">
+                <label>4</label>
+                <input class="form-control" id="parodata-4" placeholder="mm" value="0">
+            </div>
+            <div class="grid-container">
+                <label>5</label>
+                <input class="form-control" id="parodata-5" placeholder="mm" value="0">
+            </div>
+            <div class="grid-container">
+                <label>6</label>
+                <input class="form-control" id="parodata-6" placeholder="mm" value="0">
             </div>
         </div>
 
@@ -168,13 +205,15 @@
             <h5 class="text-center">Progress</h5>
             <hr>
             <ul>
-                <li style="color: rgb(193, 255, 193);">Implant option implemented (bone and transparency to the bone will be added soon)</li>
+                <li style="color: rgb(193, 255, 193);">Implant option implemented (bone and transparency to the bone
+                    will be added soon)</li>
                 <li style="color: rgb(193, 255, 193);">Single slider for both jaws</li>
                 <li style="color: rgb(193, 255, 193);">Antialiasing and postprocessing</li>
                 <li style="color: rgb(193, 255, 193);">Selection and highlight outline</li>
-                
+
                 <li style="color: rgb(255, 234, 138);">Working on | Modeling and adding bone</li>
-                <li style="color: rgb(255, 234, 138);">Working on | Saving the tooth details for passing on to the database</li>
+                <li style="color: rgb(255, 234, 138);">Working on | Saving the tooth details for passing on to the
+                    database</li>
                 <li style="color: rgb(255, 234, 138);">Working on | saving Periodontitis details </li>
                 <li style="color: rgb(255, 234, 138);">Working on | saving dental model and exporting</li>
             </ul>
@@ -187,6 +226,7 @@
     <script src="three.js-master\threex.domevents-master\threex.domevents.js"></script>
 
     <script src="global.js"></script>
+    <script src="parodontalPoints.js"></script>
     <script type="module" src="viewer.js"></script>
     <script src="main.js"></script>
     <script src="ui.js"></script>

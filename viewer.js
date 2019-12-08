@@ -1,4 +1,4 @@
-(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+// (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
 import { EffectComposer } from './three.js-master/EffectComposer.js';
 import { RenderPass } from './three.js-master/RenderPass.js';
@@ -161,7 +161,7 @@ function initModel(){
             for (var i=0; i<object.children.length; i++ ) {
                 object.children[i].requiredMaterial = mat_master;
                 object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
+                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {}, parodontitis: { 1: '0', 2: '0', 3: '0', 4: '0', 5: '0',6: '0' } }
             }
             modelState.numMeshesLoaded ++;
 
@@ -182,7 +182,7 @@ function initModel(){
                 object.children[i].requiredMaterial = mat_master;
                 
                 object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {} }
+                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {}, parodontitis: { 1: '0', 2: '0', 3: '0', 4: '0', 5: '0',6: '0' } }              
             }
             modelState.numMeshesLoaded ++;
 
@@ -198,10 +198,11 @@ function initModel(){
     loader.load(
         "./assets/models/teeth/lower_gum_offset3.obj",
         function ( object ) {
-            lower_gum_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_lowerGum;
-            }
+            var buffGeo = object.children[0].geometry;
+            var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
+            geo.mergeVertices();
+            lower_gum_model = new THREE.Mesh( geo, mat_master );
+            
             modelState.numMeshesLoaded ++;
 
         },
@@ -216,10 +217,10 @@ function initModel(){
     loader.load(
         "./assets/models/teeth/upper_gum_offset.obj",
         function ( object ) {
-            upper_gum_model = object;
-            for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_upperGum;
-            }
+            var buffGeo = object.children[0].geometry;
+            var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
+            geo.mergeVertices();
+            upper_gum_model = new THREE.Mesh( geo, mat_master );
             modelState.numMeshesLoaded ++;
 
         },

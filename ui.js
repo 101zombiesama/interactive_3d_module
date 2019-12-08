@@ -128,6 +128,68 @@ btn_teethViewMode.addEventListener('click', e => {
     switchViewMode('teethView');
 });
 
+// handling parodontal input
+var paro_1 = document.getElementById("parodata-1");
+paro_1.addEventListener('input', e => {
+    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[1]);
+    selectedTooth.toothDossier.parodontitis[1] = e.target.value;
+    var result = parodontalPoints.find(obj => {
+        return obj.toothName == selectedTooth.name;
+    });
+    morphGum(selectedTooth, result.faces[0], value);
+});
+
+var paro_2 = document.getElementById("parodata-2");
+paro_2.addEventListener('input', e => {
+    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[2]);
+    selectedTooth.toothDossier.parodontitis[2] = e.target.value;
+    var result = parodontalPoints.find(obj => {
+        return obj.toothName == selectedTooth.name;
+    });
+    morphGum(selectedTooth, result.faces[1], value);
+});
+
+var paro_3 = document.getElementById("parodata-3");
+paro_3.addEventListener('input', e => {
+    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[3]);
+    selectedTooth.toothDossier.parodontitis[3] = e.target.value;
+    var result = parodontalPoints.find(obj => {
+        return obj.toothName == selectedTooth.name;
+    });
+    morphGum(selectedTooth, result.faces[2], value);
+});
+
+var paro_4 = document.getElementById("parodata-4");
+paro_4.addEventListener('input', e => {
+    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[4]);
+    selectedTooth.toothDossier.parodontitis[4] = e.target.value;
+    var result = parodontalPoints.find(obj => {
+        return obj.toothName == selectedTooth.name;
+    });
+    morphGum(selectedTooth, result.faces[3], value);
+});
+
+var paro_5 = document.getElementById("parodata-5");
+paro_5.addEventListener('input', e => {
+    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[5]);
+    selectedTooth.toothDossier.parodontitis[5] = e.target.value;
+    var result = parodontalPoints.find(obj => {
+        return obj.toothName == selectedTooth.name;
+    });
+    morphGum(selectedTooth, result.faces[4], value);
+});
+
+var paro_6 = document.getElementById("parodata-6");
+paro_6.addEventListener('input', e => {
+    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[6]);
+    selectedTooth.toothDossier.parodontitis[6] = e.target.value;
+    var result = parodontalPoints.find(obj => {
+        return obj.toothName == selectedTooth.name;
+    });
+    morphGum(selectedTooth, result.faces[5], value);
+});
+
+
 
 
 
