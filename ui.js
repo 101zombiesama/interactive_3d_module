@@ -29,6 +29,8 @@ var btn_missing = document.getElementById("btn-missing");
 var btn_golden = document.getElementById("btn-golden");
 var btn_implant = document.getElementById("btn-implant");
 
+var btn_open = document.getElementById("btn-open");
+var btn_save = document.getElementById("btn-save");
 var btn_fullViewMode = document.getElementById("btn-fullViewMode");
 var btn_boneViewMode = document.getElementById("btn-boneViewMode");
 var btn_teethViewMode = document.getElementById("btn-teethViewMode");
@@ -118,7 +120,22 @@ btn_confirm.addEventListener('click', e => {
     } else {
         showDiv(validationAlert);
     }
-})
+});
+
+btn_open.addEventListener('click', e => {
+    if (sculptMode) {
+        sculptMode = false;
+        controls.enabled = true
+    }
+    else {
+        sculptMode = true;
+        controls.enabled = false;
+    }
+});
+
+btn_save.addEventListener('click', e => {
+    resetSculpt(selectedTooth);
+});
 
 btn_fullViewMode.addEventListener('click', e => {
     switchViewMode('fullView');

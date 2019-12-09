@@ -19,6 +19,7 @@ var upper_bone_model;
 var lower_bone_model;
 
 var isImplantMode = false;
+var sculptMode = false;
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 

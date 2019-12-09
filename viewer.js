@@ -177,12 +177,19 @@ function initModel(){
     loader.load(
         "./assets/models/teeth/upper_teeth_offset.obj",
         function ( object ) {
-            upper_teeth_model = object;
+            upper_teeth_model = new THREE.Group();
             for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].requiredMaterial = mat_master;
+
+                var buffGeo = object.children[i].geometry;
+                var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
+                geo.mergeVertices();
+                var mesh = new THREE.Mesh( geo, mat_master );
+
+                mesh.requiredMaterial = mat_master;
                 
-                object.children[i].material = object.children[i].requiredMaterial;
-                object.children[i].toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {}, parodontitis: { 1: '0', 2: '0', 3: '0', 4: '0', 5: '0',6: '0' } }              
+                mesh.material = mesh.requiredMaterial;
+                mesh.toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {}, parodontitis: { 1: '0', 2: '0', 3: '0', 4: '0', 5: '0',6: '0' } }  
+                upper_teeth_model.add(mesh);            
             }
             modelState.numMeshesLoaded ++;
 

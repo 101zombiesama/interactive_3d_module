@@ -14,10 +14,10 @@ function sculptPush(object, face, mag) {
     vertices[face.c].y += mag*face.vertexNormals[2].y;
     vertices[face.c].z += mag*face.vertexNormals[2].z;
 
-    intersects[0].object.geometry.computeFaceNormals();
-    intersects[0].object.geometry.computeVertexNormals();
-    intersects[0].object.geometry.verticesNeedUpdate = true;
-    intersects[0].object.geometry.normalNeedUpdate = true;
+    object.geometry.computeFaceNormals();
+    object.geometry.computeVertexNormals();
+    object.geometry.verticesNeedUpdate = true;
+    object.geometry.normalNeedUpdate = true;
 
     // updating history of thre vertices of this face
     updateSculptHistory(object, face.a, mag);
@@ -27,16 +27,49 @@ function sculptPush(object, face, mag) {
 }
 
 function initiateSculpt(object) {
-    object.sculptHisory = {};
+    object.hasScupltHistory = true;
+    object.sculptHistory = { offset: {}, normal: {} };
 }
 
-function updateSculptHistory(object, vertexId, offset) {
+function resetSculpt(object) {
+    if (object.hasScupltHistory) {
+        console.log(object);
+        console.log(object.geometry);
+        var vertices = object.geometry.vertices;
+        for (let vertexId in object.sculptHistory.offset) {
+            vertices[vertexId].x += -object.sculptHistory[vertexId]*object.sculptHistory.normal[vertexId].x;
+            vertices[vertexId].y += -object.sculptHistory[vertexId]*object.sculptHistory.normal[vertexId].y;
+            vertices[vertexId].z += -object.sculptHistory[vertexId]*object.sculptHistory.normal[vertexId].z;
+
+            object.geometry.computeFaceNormals();
+            object.geometry.computeVertexNormals();
+            object.geometry.verticesNeedUpdate = true;
+            object.geometry.normalNeedUpdate = true;
+        }
+
+        object.hasScupltHistory = false;
+
+    }
+}
+
+function updateSculptHistory(object, face, vertexId, offset) {
     if (object.hasScupltHistory) {
         // if this vertex already has sculpting history then modify it otherwise create new history entry
-        if (object.sculptHisory[vertexId]) {
-            object.sculptHisory[vertexId] += offset;
+        if (object.sculptHistory.offset[vertexId]) {
+
+            object.sculptHistory.offset[vertexId] += offset;
+
+            if (face.a == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[0];
+            if (face.b == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[1];
+            if (face.c == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[2];
+
         } else {
-            object.sculptHisory[vertexId] = offset;
+            object.sculptHistory.offset[vertexId] = offset;
+
+            if (face.a == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[0];
+            if (face.b == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[1];
+            if (face.c == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[2];
+
         }
     } else {
         initiateSculpt(object)
@@ -57,13 +90,13 @@ window.addEventListener('mousemove', e => {
 
             if (previuosFace && JSON.stringify(intersects[0].face) != JSON.stringify(previuosFace)) {
                 previuosFace = intersects[0].face
-                sculptPush(intersects[0].face);
+                sculptPush(selectedTooth, intersects[0].face, -0.0005);
             } else if (!previuosFace) {
                 previuosFace = intersects[0].face
-                sculptPush(intersects[0].face);
+                sculptPush(selectedTooth, intersects[0].face, -0.0005);
             }
 
         }
 
     }
-})
+});
