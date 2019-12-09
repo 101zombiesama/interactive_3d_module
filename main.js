@@ -180,6 +180,8 @@ modelState.registerListener(function(numMeshesLoaded) {
         scene.add(upper_teeth_model);
         scene.add(upper_gum_model);
 
+        console.log(lower_gum_model.geometry)
+
         hideDiv(document.getElementById("spinner"));
     }
   });

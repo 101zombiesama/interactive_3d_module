@@ -4,6 +4,8 @@ var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var touch = new THREE.Vector2();
 
+var sculptMode = true;
+
 var sphere_model;
 var lower_teeth_model;
 var upper_teeth_model;
