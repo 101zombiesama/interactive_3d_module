@@ -208,7 +208,7 @@ function initModel(){
                 mesh.name = object.children[i].name;
                 mesh.material = mesh.requiredMaterial;
                 mesh.toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {}, parodontitis: { 1: '0', 2: '0', 3: '0', 4: '0', 5: '0',6: '0' } }  
-                upper_teeth_model.add(mesh);            
+                upper_teeth_model.add(mesh);       
             }
             modelState.numMeshesLoaded ++;
 

@@ -6,24 +6,10 @@ function sculptPush(camera, object, face, mag) {
     var faceNormal = new THREE.Vector3(face.normal.x, face.normal.y, face.normal.z);
     camera.getWorldDirection( camDirection );
     var angle = faceNormal.angleTo(camDirection);
-    console.log(angle);
     // only forward facing faces will be affected
     if (angle > Math.PI/2) {
 
         var vertices = object.geometry.vertices;
-
-        // pushing along vertex normals
-        // vertices[face.a].x += mag*face.vertexNormals[0].x;
-        // vertices[face.a].y += mag*face.vertexNormals[0].y;
-        // vertices[face.a].z += mag*face.vertexNormals[0].z;
-
-        // vertices[face.b].x += mag*face.vertexNormals[1].x;
-        // vertices[face.b].y += mag*face.vertexNormals[1].y;
-        // vertices[face.b].z += mag*face.vertexNormals[1].z;
-
-        // vertices[face.c].x += mag*face.vertexNormals[2].x;
-        // vertices[face.c].y += mag*face.vertexNormals[2].y;
-        // vertices[face.c].z += mag*face.vertexNormals[2].z;
 
         // pushing vertices along face normals
         vertices[face.a].x += mag*face.normal.x;
@@ -86,15 +72,12 @@ function updateSculptHistory(object, face, vertexId, offset) {
     if (object.hasScupltHistory) {
         if (object.sculptHistory[vertexId]) {
             object.sculptHistory[vertexId].push(face.normal);
-            console.log("if block");
         } else {
             object.sculptHistory[vertexId] = [face.normal];
-            console.log("else block");
         }
     } else {
         initiateSculpt(object)
     }
-    // console.log(object.sculptHistory);
 }
 
 function paint(object, face) {
