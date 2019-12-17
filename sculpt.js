@@ -1,3 +1,5 @@
+var strength = -0.000125;
+
 function sculptPush(camera, object, face, mag) {
 
     var camDirection = new THREE.Vector3();
@@ -36,16 +38,16 @@ function sculptPush(camera, object, face, mag) {
         vertices[face.c].y += mag*face.normal.y;
         vertices[face.c].z += mag*face.normal.z;
 
+        // updating history of thre vertices of this face
+        updateSculptHistory(object, face, face.a, mag);
+        updateSculptHistory(object, face, face.b, mag);
+        updateSculptHistory(object, face, face.c, mag);
+
         object.geometry.computeFaceNormals();
         object.geometry.computeVertexNormals();
         object.geometry.verticesNeedUpdate = true;
         object.geometry.normalNeedUpdate = true;
         
-
-        // updating history of thre vertices of this face
-        updateSculptHistory(object, face, face.a, mag);
-        updateSculptHistory(object, face, face.b, mag);
-        updateSculptHistory(object, face, face.c, mag);
 
     }
 
@@ -53,23 +55,26 @@ function sculptPush(camera, object, face, mag) {
 
 function initiateSculpt(object) {
     object.hasScupltHistory = true;
-    object.sculptHistory = { offset: {}, normal: {} };
+    object.sculptHistory = {};
 }
 
 function resetSculpt(object) {
     if (object.hasScupltHistory) {
         var vertices = object.geometry.vertices;
-        console.log(vertices);
-        console.log(object.sculptHistory)
-        for (let vertexId in object.sculptHistory.offset) {
-            vertices[vertexId].x += -object.sculptHistory.offset[vertexId]*object.sculptHistory.normal[vertexId].x;
-            vertices[vertexId].y += -object.sculptHistory.offset[vertexId]*object.sculptHistory.normal[vertexId].y;
-            vertices[vertexId].z += -object.sculptHistory.offset[vertexId]*object.sculptHistory.normal[vertexId].z;
+        for (let vertexId in object.sculptHistory) {
+            var directionHistory = object.sculptHistory[vertexId];
+            for (var i = directionHistory.length - 1; i >= 0; i--) {
+                vertices[vertexId].x += -strength*directionHistory[i].x;
+                vertices[vertexId].y += -strength*directionHistory[i].y;
+                vertices[vertexId].z += -strength*directionHistory[i].z;
 
-            object.geometry.computeFaceNormals();
-            object.geometry.computeVertexNormals();
-            object.geometry.verticesNeedUpdate = true;
-            object.geometry.normalNeedUpdate = true;
+                object.geometry.computeFaceNormals();
+                object.geometry.computeVertexNormals();
+                object.geometry.verticesNeedUpdate = true;
+                object.geometry.normalNeedUpdate = true;
+
+            }
+
         }
 
         object.hasScupltHistory = false;
@@ -79,28 +84,17 @@ function resetSculpt(object) {
 
 function updateSculptHistory(object, face, vertexId, offset) {
     if (object.hasScupltHistory) {
-        // if this vertex already has sculpting history then modify it otherwise create new history entry
-        if (object.sculptHistory.offset[vertexId]) {
-
-            object.sculptHistory.offset[vertexId] += offset;
-
-            // if (face.a == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[0];
-            // if (face.b == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[1];
-            // if (face.c == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[2];
-            object.sculptHistory.normal[vertexId] = face.normal;
-
+        if (object.sculptHistory[vertexId]) {
+            object.sculptHistory[vertexId].push(face.normal);
+            console.log("if block");
         } else {
-            object.sculptHistory.offset[vertexId] = offset;
-
-            // if (face.a == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[0];
-            // if (face.b == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[1];
-            // if (face.c == vertexId) object.sculptHistory.normal[vertexId] = face.vertexNormals[2];
-            object.sculptHistory.normal[vertexId] = face.normal;
-
+            object.sculptHistory[vertexId] = [face.normal];
+            console.log("else block");
         }
     } else {
         initiateSculpt(object)
     }
+    // console.log(object.sculptHistory);
 }
 
 function paint(object, face) {
@@ -113,30 +107,33 @@ function paint(object, face) {
     object.geometry.colorsNeedUpdate = true;
 }
 
+var previuosFace;
+
 window.addEventListener('mousemove', e => {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     if (isMouseDown && sculptMode) {
-
-        var previuosFace;
 
         raycaster.setFromCamera( mouse, camera );
         var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
 
         if (intersects.length > 0 && intersects[0].object.name == selectedTooth.name) {
 
-            if (previuosFace && JSON.stringify(intersects[0].face) != JSON.stringify(previuosFace)) {
-                previuosFace = intersects[0].face;
-                paint(intersects[0].object, intersects[0].face);
-                sculptPush(camera, selectedTooth, intersects[0].face, -0.0001);
+            // if (previuosFace && JSON.stringify(intersects[0].face) != JSON.stringify(previuosFace)) {
+            //     previuosFace = intersects[0].face;
+            //     // paint(intersects[0].object, intersects[0].face);
+            //     sculptPush(camera, selectedTooth, intersects[0].face, -0.0001);
+            //     console.log("if statement");
 
-            } else if (!previuosFace) {
-                previuosFace = intersects[0].face;
-                paint(intersects[0].object, intersects[0].face);
-                sculptPush(camera, selectedTooth, intersects[0].face, -0.0001);
-                console.log(intersects[0].uv);
+            // } else if (!previuosFace) {
+            //     previuosFace = intersects[0].face;
+            //     // paint(intersects[0].object, intersects[0].face);
+            //     sculptPush(camera, selectedTooth, intersects[0].face, -0.0001);
+            //     console.log("else statement");
                 
-            }
+            // }
+
+            sculptPush(camera, selectedTooth, intersects[0].face, strength);
 
         }
 
