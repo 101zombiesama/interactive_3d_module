@@ -55,7 +55,9 @@ mat_master = new THREE.MeshStandardMaterial({
     envMap: textureCube,
     needsUpdate: true,
     envMapIntensity: 1,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
+    vertexColors: THREE.VertexColors,
+    needsUpdate: true
 });
 mat_upperGum = new THREE.MeshStandardMaterial({
     // color: new THREE.Color(0x96de8e),
@@ -68,6 +70,7 @@ mat_upperGum = new THREE.MeshStandardMaterial({
     needsUpdate: true,
     envMapIntensity: 1,
     transparent: true,
+    vertexColors: THREE.VertexColors,
     side: THREE.DoubleSide
 });
 mat_lowerGum = new THREE.MeshStandardMaterial({
@@ -179,14 +182,30 @@ function initModel(){
         function ( object ) {
             upper_teeth_model = new THREE.Group();
             for (var i=0; i<object.children.length; i++ ) {
-
+                console.log(object.children[i].name);
                 var buffGeo = object.children[i].geometry;
                 var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
                 geo.mergeVertices();
+
+                for (var j=0; j < geo.faces.length; j++) {
+                    var face = geo.faces[j];
+                    // var color = new THREE.Color( 0xffffff );
+                    
+                    // face.vertexColors[0] = new THREE.Color( 0xffffff ).setHex( Math.random() * 0xffffff );
+                    // face.vertexColors[1] = new THREE.Color( 0xffffff ).setHex( Math.random() * 0xffffff );
+                    // face.vertexColors[2] = new THREE.Color( 0xffffff ).setHex( Math.random() * 0xffffff );
+
+                    face.vertexColors[0] = new THREE.Color();
+                    face.vertexColors[1] = new THREE.Color();
+                    face.vertexColors[2] = new THREE.Color();
+                    // geo.vertexColorsNeedUpdate = true;
+                }
+
+
                 var mesh = new THREE.Mesh( geo, mat_master );
 
                 mesh.requiredMaterial = mat_master;
-                
+                mesh.name = object.children[i].name;
                 mesh.material = mesh.requiredMaterial;
                 mesh.toothDossier = { name: object.children[i].name, status: "healthy", detailsAvailable: false, details: {}, parodontitis: { 1: '0', 2: '0', 3: '0', 4: '0', 5: '0',6: '0' } }  
                 upper_teeth_model.add(mesh);            
@@ -227,6 +246,17 @@ function initModel(){
             var buffGeo = object.children[0].geometry;
             var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
             geo.mergeVertices();
+
+            // for (var i=0; i < geo.faces.length; i++) {
+            //     var face = geo.faces[i];
+            //     // var color = new THREE.Color( 0xffffff );
+			    
+            //     face.vertexColors[0] = new THREE.Color( 0xffffff ).setHex( Math.random() * 0xffffff );
+            //     face.vertexColors[1] = new THREE.Color( 0xffffff ).setHex( Math.random() * 0xffffff );
+            //     face.vertexColors[2] = new THREE.Color( 0xffffff ).setHex( Math.random() * 0xffffff );
+            //     geo.vertexColorsNeedUpdate = true;
+            // }
+
             upper_gum_model = new THREE.Mesh( geo, mat_upperGum );
             modelState.numMeshesLoaded ++;
 
@@ -263,6 +293,7 @@ function initModel(){
         function ( object ) {
             upper_implant_teeth_model = object;
             for (var i=0; i<object.children.length; i++ ) {
+                console.log(object.children[i].name);
                 object.children[i].material = mat_master;
                 object.children[i].visible = false;
             }

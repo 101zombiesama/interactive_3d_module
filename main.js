@@ -65,6 +65,7 @@ window.addEventListener('resize', event => {
 var selectedTooth;
 
 function updateSelectedTooth(tooth){
+    console.log(tooth.geometry);
     clearSelection();
     highlightSelected(tooth);
     clearHighlight();
@@ -212,6 +213,7 @@ function implantTooth(tooth){
     tooth.material = mat_missing;
     tooth.requiredMaterial = mat_missing;
     var toothNumber = tooth.name.split('_')[1];
+    console.log('tooth', tooth);
     var requiredImplantTooth = scene.getObjectByName(`i_t_${toothNumber}`);
     requiredImplantTooth.visible = true;
     addScrew(tooth);
