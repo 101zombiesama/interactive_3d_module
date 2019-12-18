@@ -44,10 +44,10 @@
     <div class="sidebar" data-color="azure" data-background-color="white">
 
         <div class="flex-content">
-            <a class="nav"><i class="far fa-folder-open"></i></a>
+            <a class="nav" id="btn-open"><i class="far fa-folder-open"></i></a>
         </div>
         <div class="flex-content">
-            <a class="nav"><i class="far fa-save"></i></a>
+            <a class="nav" id="btn-save"><i class="far fa-save"></i></a>
         </div>
         <div class="flex-content">
             <hr style="background-color: #464646;">
@@ -85,7 +85,7 @@
 
     </div>
 
-
+    <!--
     <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white"
         style="display: none;">
         <div class="grid-container">
@@ -165,7 +165,7 @@
                     </div>
                     <span id="validationAlert" style="display: none; font-size: small; color: red;"><i>At least one
                             surface needs to be selected!</i></span>
-                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> 
                     <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
                 </form>
             </div>
@@ -176,7 +176,7 @@
         <div class="grid-container-3col">
             <div class="grid-container">
                 <label>1</label>
-                <input class="form-control" id="parodata-1" placeholder="mm" value="0">
+                <input type="number" class="form-control" id="parodata-1" placeholder="mm" value="0">
             </div>
             <div class="grid-container">
                 <label>2</label>
@@ -200,9 +200,153 @@
             </div>
         </div>
 
+    </div> -->
 
-
+    <div class="right-accordian-panel">
+        <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+            <div class="card card-plain">
+                <div class="card-header" role="tab" id="headingTwo">
+                    <div class="tab-heading text-center">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo" style="color: white;">
+                            STATUS
+    
+                            <i class="tim-icons icon-minimal-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="card-body">
+                        <div class="grid-container">
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-caries">Caries</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-golden">Golden</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-implant">Implant</button>
+                        </div>
+                        <div class="card" id="description-panel" style="display: none;">
+                            <div class="card-body">
+                                <h6 class="text-center">Diseased Tooth Details</h6>
+                                <hr style="background-color: #404040;">
+                                <form id="detailsForm">
+                                    <div class="form-group">
+                                        <label for="inputDescription">Description</label>
+                                        <textarea style="border: 1px solid #2a324d;" class="form-control" name="inputDescription"
+                                            id="inputDescription" cols="30" rows="10"></textarea>
+                                    </div>
+                                    <label for="inputDescription">Tooth Surface</label>
+                                    <span style="font-size: smaller;"> <i>(required...)</i> </span>
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                    id="inputSurfacePalatal" value="palatal">
+                                                Palatal
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                    id="inputSurfaceMesial" value="mesial">
+                                                Mesial
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                    id="inputSurfaceBuccal" value="buccal">
+                                                Buccal
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                    id="inputSurfaceDistal" value="distal">
+                                                Distal
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                    id="inputSurfaceOcclusal" value="occlusal">
+                                                Occlusal
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <span id="validationAlert" style="display: none; font-size: small; color: red;"><i>At least one
+                                            surface needs to be selected!</i></span>
+                                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+                                    <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-plain">
+                <div class="card-header" role="tab" id="headingThree">
+                    <div class="tab-heading text-center">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                            aria-expanded="false" aria-controls="collapseThree" style="color: white;">
+                            PARODONTITIS
+    
+                            <i class="tim-icons icon-minimal-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="card-body">
+                        <div class="grid-container-3col">
+                            <div class="grid-container">
+                                <label>1</label>
+                                <input type="number" min="-5" max="20" class="form-control" id="parodata-1" placeholder="mm" value="0">
+                            </div>
+                            <div class="grid-container">
+                                <label>2</label>
+                                <input type="number" min="-5" max="20" class="form-control" id="parodata-2" placeholder="mm" value="0">
+                            </div>
+                            <div class="grid-container">
+                                <label>3</label>
+                                <input type="number" min="-5" max="20" class="form-control" id="parodata-3" placeholder="mm" value="0">
+                            </div>
+                            <div class="grid-container">
+                                <label>4</label>
+                                <input type="number" min="-5" max="20" class="form-control" id="parodata-4" placeholder="mm" value="0">
+                            </div>
+                            <div class="grid-container">
+                                <label>5</label>
+                                <input type="number" min="-5" max="20" class="form-control" id="parodata-5" placeholder="mm" value="0">
+                            </div>
+                            <div class="grid-container">
+                                <label>6</label>
+                                <input type="number" min="-5" max="20" class="form-control" id="parodata-6" placeholder="mm" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+      
+      
 
     <div class="progress" style="display: none;">
         <div class="container">
@@ -234,6 +378,7 @@
     <script src="parodontalPoints.js"></script>
     <script type="module" src="viewer.js"></script>
     <script src="main.js"></script>
+    <script src="sculpt.js"></script>
     <script src="ui.js"></script>
 
     <!-- black dashboard files -->

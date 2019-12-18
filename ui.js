@@ -20,6 +20,20 @@ function validateForm(){
         }
     else return false;
 }
+function disableStatusBtns(bool){
+    var buttons = [];
+    buttons.push(document.getElementById("btn-healthy"));
+    buttons.push(document.getElementById("btn-caries"));
+    buttons.push(document.getElementById("btn-damaged"));
+    buttons.push(document.getElementById("btn-missing"));
+    buttons.push(document.getElementById("btn-golden"));
+    buttons.push(document.getElementById("btn-implant"));
+    
+    for (let btn of buttons) {
+        btn.disabled = bool;
+    }
+
+}
 
 // adding click listeners to the status buttons
 var btn_healthy = document.getElementById("btn-healthy");
@@ -29,13 +43,15 @@ var btn_missing = document.getElementById("btn-missing");
 var btn_golden = document.getElementById("btn-golden");
 var btn_implant = document.getElementById("btn-implant");
 
+var btn_open = document.getElementById("btn-open");
+var btn_save = document.getElementById("btn-save");
 var btn_fullViewMode = document.getElementById("btn-fullViewMode");
 var btn_boneViewMode = document.getElementById("btn-boneViewMode");
 var btn_teethViewMode = document.getElementById("btn-teethViewMode");
 var btn_isolateSelect = document.getElementById("btn-isolateSelect");
 var btn_resetCamera = document.getElementById("btn-resetCamera");
 
-var statusPanel = document.getElementById("status-panel");
+// var statusPanel = document.getElementById("status-panel");
 var descriptionPanel = document.getElementById("description-panel");
 var inputDescription = document.getElementById("inputDescription");
 var inputSurfaceMesial = document.getElementById("inputSurfaceMesial");
@@ -44,6 +60,7 @@ var inputSurfaceDistal = document.getElementById("inputSurfaceDistal");
 var inputSurfaceOcclusal = document.getElementById("inputSurfaceOcclusal");
 var inputSurfacePalatal = document.getElementById("inputSurfacePalatal");
 var btn_confirm = document.getElementById("btn-confirm");
+
 var validationAlert = document.getElementById("validationAlert");
 
 var btn_implantMode = document.getElementById("btn-implantMode");
@@ -112,13 +129,27 @@ btn_confirm.addEventListener('click', e => {
             surfaces: surfaces
         });
         hideDiv(validationAlert);
-        hideDiv(descriptionPanel);
-        hideDiv(statusPanel);
-        clearSelection();
+        // hideDiv(descriptionPanel);
     } else {
         showDiv(validationAlert);
     }
 })
+
+// sculpt 
+btn_open.addEventListener('click', e => {
+    if (sculptMode) {
+        sculptMode = false;
+        controls.enabled = true
+    }
+    else {
+        sculptMode = true;
+        controls.enabled = false;
+    }
+});
+
+btn_save.addEventListener('click', e => {
+    resetSculpt(selectedTooth);
+});
 
 btn_fullViewMode.addEventListener('click', e => {
     switchViewMode('fullView');
@@ -143,62 +174,86 @@ btn_resetCamera.addEventListener('click', e => {
 // handling parodontal input
 var paro_1 = document.getElementById("parodata-1");
 paro_1.addEventListener('input', e => {
-    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[1]);
-    selectedTooth.toothDossier.parodontitis[1] = e.target.value;
-    var result = parodontalPoints.find(obj => {
-        return obj.toothName == selectedTooth.name;
-    });
-    morphGum(selectedTooth, result.faces[0], value);
+    if (selectedTooth && e.target.value <= 20 && e.target.value >= -5) {
+        var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[1]);
+        selectedTooth.toothDossier.parodontitis[1] = e.target.value;
+        var result = parodontalPoints.find(obj => {
+            return obj.toothName == selectedTooth.name;
+        });
+        morphGum(selectedTooth, result.faces[0], value);
+    } else {
+        e.target.value = selectedTooth.toothDossier.parodontitis[1];
+    }
 });
 
 var paro_2 = document.getElementById("parodata-2");
 paro_2.addEventListener('input', e => {
-    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[2]);
-    selectedTooth.toothDossier.parodontitis[2] = e.target.value;
-    var result = parodontalPoints.find(obj => {
-        return obj.toothName == selectedTooth.name;
-    });
-    morphGum(selectedTooth, result.faces[1], value);
+    if (selectedTooth && e.target.value <= 20 && e.target.value >= -5) {
+        var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[2]);
+        selectedTooth.toothDossier.parodontitis[2] = e.target.value;
+        var result = parodontalPoints.find(obj => {
+            return obj.toothName == selectedTooth.name;
+        });
+        morphGum(selectedTooth, result.faces[1], value);
+    } else {
+        e.target.value = selectedTooth.toothDossier.parodontitis[2];
+    }
 });
 
 var paro_3 = document.getElementById("parodata-3");
 paro_3.addEventListener('input', e => {
-    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[3]);
-    selectedTooth.toothDossier.parodontitis[3] = e.target.value;
-    var result = parodontalPoints.find(obj => {
-        return obj.toothName == selectedTooth.name;
-    });
-    morphGum(selectedTooth, result.faces[2], value);
+    if (selectedTooth && e.target.value <= 20 && e.target.value >= -5) {
+        var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[3]);
+        selectedTooth.toothDossier.parodontitis[3] = e.target.value;
+        var result = parodontalPoints.find(obj => {
+            return obj.toothName == selectedTooth.name;
+        });
+        morphGum(selectedTooth, result.faces[2], value);
+    } else {
+        e.target.value = selectedTooth.toothDossier.parodontitis[3];
+    }
 });
 
 var paro_4 = document.getElementById("parodata-4");
 paro_4.addEventListener('input', e => {
-    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[4]);
-    selectedTooth.toothDossier.parodontitis[4] = e.target.value;
-    var result = parodontalPoints.find(obj => {
-        return obj.toothName == selectedTooth.name;
-    });
-    morphGum(selectedTooth, result.faces[3], value);
+    if (selectedTooth && e.target.value <= 20 && e.target.value >= -5) {
+        var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[4]);
+        selectedTooth.toothDossier.parodontitis[4] = e.target.value;
+        var result = parodontalPoints.find(obj => {
+            return obj.toothName == selectedTooth.name;
+        });
+        morphGum(selectedTooth, result.faces[3], value);
+    } else {
+        e.target.value = selectedTooth.toothDossier.parodontitis[4];
+    }
 });
 
 var paro_5 = document.getElementById("parodata-5");
 paro_5.addEventListener('input', e => {
-    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[5]);
-    selectedTooth.toothDossier.parodontitis[5] = e.target.value;
-    var result = parodontalPoints.find(obj => {
-        return obj.toothName == selectedTooth.name;
-    });
-    morphGum(selectedTooth, result.faces[4], value);
+    if (selectedTooth && e.target.value <= 20 && e.target.value >= -5) {
+        var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[5]);
+        selectedTooth.toothDossier.parodontitis[5] = e.target.value;
+        var result = parodontalPoints.find(obj => {
+            return obj.toothName == selectedTooth.name;
+        });
+        morphGum(selectedTooth, result.faces[4], value);
+    } else {
+        e.target.value = selectedTooth.toothDossier.parodontitis[5];
+    }
 });
 
 var paro_6 = document.getElementById("parodata-6");
 paro_6.addEventListener('input', e => {
-    var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[6]);
-    selectedTooth.toothDossier.parodontitis[6] = e.target.value;
-    var result = parodontalPoints.find(obj => {
-        return obj.toothName == selectedTooth.name;
-    });
-    morphGum(selectedTooth, result.faces[5], value);
+    if (selectedTooth && e.target.value <= 20 && e.target.value >= -5) {
+        var value = Number(e.target.value) - Number(selectedTooth.toothDossier.parodontitis[6]);
+        selectedTooth.toothDossier.parodontitis[6] = e.target.value;
+        var result = parodontalPoints.find(obj => {
+            return obj.toothName == selectedTooth.name;
+        });
+        morphGum(selectedTooth, result.faces[5], value);
+    } else {
+        e.target.value = selectedTooth.toothDossier.parodontitis[6];
+    }
 });
 
 

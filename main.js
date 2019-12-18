@@ -71,6 +71,9 @@ function updateSelectedTooth(tooth){
     // tooth.material = mat_selected;
     selectedTooth = tooth;
 
+    // enable the status buttons
+    disableStatusBtns(false);
+
     // set active states of button when selected new tooth
     setBtnActiveState(document.getElementById(`btn-${selectedTooth.toothDossier.status}`));
 
@@ -86,15 +89,15 @@ function updateSelectedTooth(tooth){
 
     if (!isImplantMode) {
         // make status ui visible
-        var statusPanel = document.getElementById("status-panel");
+        // var statusPanel = document.getElementById("status-panel");
         var statusBtn = document.getElementById(`btn-${selectedTooth.toothDossier.status}`);
         var classList = [...statusBtn.classList];
         if(classList.indexOf("btn-simple") != -1){
             statusBtn.classList.remove("btn-simple")
         }
-        if(!isVisible(statusPanel)){
-            showDiv(statusPanel);
-        }
+        // if(!isVisible(statusPanel)){
+        //     showDiv(statusPanel);
+        // }
         if(selectedTooth.toothDossier.status == "caries" || selectedTooth.toothDossier.status == "damaged"){
             showDiv(document.getElementById("description-panel"));
         } else {
@@ -107,12 +110,15 @@ function clearSelection(){
     outlinePassSelected.selectedObjects = [];
     selectedTooth = null;
 
+    // disbale the status buttons
+    disableStatusBtns(true);
+
     // hide status ui
-    var statusPanel = document.getElementById("status-panel");
+    // var statusPanel = document.getElementById("status-panel");
     var descriptionPanel = document.getElementById("description-panel");
-    if(isVisible(statusPanel)){
-        hideDiv(statusPanel);
-    }
+    // if(isVisible(statusPanel)){
+    //     hideDiv(statusPanel);
+    // }
     if(isVisible(descriptionPanel)){
         hideDiv(descriptionPanel);
     }
@@ -178,7 +184,7 @@ function changeToothStatus(tooth, status){
         tooth.toothDossier.details = {};
     }
     // Hiding validation error after successful change of status
-    hideDiv(validationAlert);
+    // hideDiv(validationAlert);
 }
 
 function addScrew(tooth){
