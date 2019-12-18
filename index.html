@@ -204,6 +204,7 @@
 
     <div class="right-accordian-panel">
         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+            <!-- second collapse -->
             <div class="card card-plain">
                 <div class="card-header" role="tab" id="headingTwo">
                     <div class="tab-heading text-center">
@@ -301,6 +302,7 @@
                     </div>
                 </div>
             </div>
+            <!-- third collapse -->
             <div class="card card-plain">
                 <div class="card-header" role="tab" id="headingThree">
                     <div class="tab-heading text-center">
@@ -343,30 +345,75 @@
                     </div>
                 </div>
             </div>
+            <!-- fourth collapse -->
+            <div class="card card-plain">
+                <div class="card-header" role="tab" id="headingFour">
+                    <div class="tab-heading text-center">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                            aria-expanded="false" aria-controls="collapseFour" style="color: white;">
+                            SCULPT
+    
+                            <i class="tim-icons icon-minimal-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                        id="inputSurfaceOcclusal" value="occlusal">
+                                    Sculpt Mode
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPush">Push</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPull">Pull</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- fifth collapse -->
+            <div class="card card-plain">
+                <div class="card-header" role="tab" id="headingFive">
+                    <div class="tab-heading text-center">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                            aria-expanded="false" aria-controls="collapseFive" style="color: white;">
+                            PAINT
+    
+                            <i class="tim-icons icon-minimal-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                        id="inputSurfaceOcclusal" value="occlusal">
+                                    Paint Mode
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPush">Paint</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPull">Erase</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-      
-      
 
-    <div class="progress" style="display: none;">
-        <div class="container">
-            <h5 class="text-center">Progress</h5>
-            <hr>
-            <ul>
-                <li style="color: rgb(193, 255, 193);">Implant option implemented (bone and transparency to the bone
-                    will be added soon)</li>
-                <li style="color: rgb(193, 255, 193);">Single slider for both jaws</li>
-                <li style="color: rgb(193, 255, 193);">Antialiasing and postprocessing</li>
-                <li style="color: rgb(193, 255, 193);">Selection and highlight outline</li>
-
-                <li style="color: rgb(255, 234, 138);">Working on | Modeling and adding bone</li>
-                <li style="color: rgb(255, 234, 138);">Working on | Saving the tooth details for passing on to the
-                    database</li>
-                <li style="color: rgb(255, 234, 138);">Working on | saving Periodontitis details </li>
-                <li style="color: rgb(255, 234, 138);">Working on | saving dental model and exporting</li>
-            </ul>
-        </div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
     <script src="three.js-master\OrbitControls.js"></script>
