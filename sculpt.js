@@ -176,7 +176,7 @@ window.addEventListener('mousemove', e => {
                 if (dotProduct < 0) dotProduct = 0;
                 var strengthFactor = (1-Math.pow(distDict[vertexIndex], brushExponent)) * dotProduct;
                 if (strengthFactor < 0) strengthFactor = 0;
-                sculptPushVertex(selectedTooth, intersects[0].face.normal, point, strength*strengthFactor);
+                sculptPushVertex(selectedTooth, averageNormal, point, strength*strengthFactor);
 
             }
 
