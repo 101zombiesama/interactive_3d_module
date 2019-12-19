@@ -39,6 +39,24 @@ function sculptPush(camera, object, face, mag) {
 
 }
 
+function sculptPushVertex(object, face, vertex, mag) {
+    var vertices = object.geometry.vertices;
+
+    // pushing vertices along face normals
+    vertex.x += mag*face.normal.x;
+    vertex.y += mag*face.normal.y;
+    vertex.z += mag*face.normal.z;
+    
+
+    // updating history of thre vertices of this face
+    // updateSculptHistory(object, face, face.a, mag);
+
+    object.geometry.computeFaceNormals();
+    object.geometry.computeVertexNormals();
+    object.geometry.verticesNeedUpdate = true;
+    object.geometry.normalNeedUpdate = true;
+}
+
 function initiateSculpt(object) {
     object.hasScupltHistory = true;
     object.sculptHistory = {};
@@ -116,7 +134,20 @@ window.addEventListener('mousemove', e => {
                 
             // }
 
-            sculptPush(camera, selectedTooth, intersects[0].face, strength);
+            var ray = raycaster.ray;
+            var vertices = intersects[0].object.geometry.vertices;
+            var affectedPoints = [];
+            for (let point of vertices) {
+                var dist = ray.distanceSqToPoint(point)*1000000;
+                if (dist < 500) {
+                    point['strengthFactor'] = 2/(dist + 1);
+                    affectedPoints.push(point);
+
+                    sculptPushVertex(selectedTooth, intersects[0].face, point, strength*point.strengthFactor);
+                }
+            }
+            // console.log(affectedPoints.length, affectedPoints[0]);
+            // sculptPush(camera, selectedTooth, intersects[0].face, strength);
 
         }
 
