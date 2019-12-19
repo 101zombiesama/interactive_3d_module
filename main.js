@@ -23,6 +23,12 @@ window.addEventListener('touchmove', event => {
     isTouchDragged = true;
 });
 
+function getMouseDragDistance(p1, p2){
+    var pos_initial = new THREE.Vector2(p1.x, p1.y);
+    var pos_final = new THREE.Vector2(p2.x, p2.y);
+    return pos_initial.distanceTo(pos_final);
+}
+
 var sliderLower = document.getElementById('sliderLowerJaw');
 sliderLower.value = 0;
 var sliderUpperOpacity = document.getElementById('sliderUpperOpacity');
