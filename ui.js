@@ -261,7 +261,7 @@ paro_6.addEventListener('input', e => {
 });
 
 // handling changing the action modes and their submodes
-document.getElementById('sculptModeCheck').addEventListener('CheckboxStateChange', e => {
+document.getElementById('sculptModeCheck').addEventListener('change', e => {
     setMode('sculptMode', e.target.checked);
 });
 
