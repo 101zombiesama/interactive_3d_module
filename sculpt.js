@@ -1,5 +1,3 @@
-var strength = -0.000125;
-
 function sculptPush(camera, object, face, mag) {
 
     var camDirection = new THREE.Vector3();
@@ -50,9 +48,9 @@ function resetSculpt(object) {
         for (let vertexId in object.sculptHistory) {
             var directionHistory = object.sculptHistory[vertexId];
             for (var i = directionHistory.length - 1; i >= 0; i--) {
-                vertices[vertexId].x += -strength*directionHistory[i].x;
-                vertices[vertexId].y += -strength*directionHistory[i].y;
-                vertices[vertexId].z += -strength*directionHistory[i].z;
+                vertices[vertexId].x += -sculptStrength*directionHistory[i].x;
+                vertices[vertexId].y += -sculptStrength*directionHistory[i].y;
+                vertices[vertexId].z += -sculptStrength*directionHistory[i].z;
 
                 object.geometry.computeFaceNormals();
                 object.geometry.computeVertexNormals();
@@ -102,7 +100,7 @@ window.addEventListener('mousemove', e => {
 
         if (intersects.length > 0 && intersects[0].object.name == selectedTooth.name) {
 
-            sculptPush(camera, selectedTooth, intersects[0].face, strength);
+            sculptPush(camera, selectedTooth, intersects[0].face, sculptStrength);
 
         }
 

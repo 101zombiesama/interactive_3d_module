@@ -378,16 +378,59 @@ function setMode(modename, bool) {
     switch (modename) {
         case 'sculptMode':
             sculptMode = bool;
+
+            var modeCheckBox = document.getElementById(`${modename}Check`);
+            modeCheckBox.checked = bool;
+            controls.enabled = !bool;
+
+            if (bool) {
+                disableMultipleButtons([
+                    'btn-sculptPush',
+                    'btn-sculptPull'
+                ], false);
+            } else {
+                disableMultipleButtons([
+                    'btn-sculptPush',
+                    'btn-sculptPull'
+                ], true);
+            }
             break;
+        case 'sculptPush':
+            // sculptPush = bool;
+            if (!bool) {
+                sculptStrength = Math.abs(sculptStrength);
+            } else {
+                sculptStrength = -Math.abs(sculptStrength);
+            }
+            break;
+            
         case 'paintMode':
             paintMode = bool;
+
+            var modeCheckBox = document.getElementById(`${modename}Check`);
+            modeCheckBox.checked = bool;
+            controls.enabled = !bool;
+
+            if (bool) {
+                disableMultipleButtons([
+                    'btn-paintPaint',
+                    'btn-paintErase'
+                ], false);
+            } else {
+                disableMultipleButtons([
+                    'btn-paintPaint',
+                    'btn-paintErase'
+                ], true);
+            }
             break;
+        case 'paintPaint':
+            paintPaint = bool;
+            break;
+        
         default:
             break;
     }
-    var modeCheckBox = document.getElementById(`${modename}Check`);
-    modeCheckBox.checked = bool;
-    controls.enabled = !bool;
+    
 }
 
 function morphGum(tooth, face, value) {

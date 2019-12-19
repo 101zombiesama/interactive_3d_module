@@ -22,9 +22,9 @@ var isImplantMode = false;
 var sculptMode = false;
 var paintMode = false;
 var sculptPush = true;
-var sculptPull = false;
 var paintPaint = true;
-var paintErase = false;
+
+var sculptStrength = -0.000125;
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 

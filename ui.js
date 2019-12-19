@@ -150,20 +150,10 @@ btn_confirm.addEventListener('click', e => {
 })
 
 // sculpt 
-btn_open.addEventListener('click', e => {
-    if (sculptMode) {
-        sculptMode = false;
-        controls.enabled = true
-    }
-    else {
-        sculptMode = true;
-        controls.enabled = false;
-    }
-});
 
-btn_save.addEventListener('click', e => {
-    resetSculpt(selectedTooth);
-});
+// btn_save.addEventListener('click', e => {
+//     resetSculpt(selectedTooth);
+// });
 
 btn_fullViewMode.addEventListener('click', e => {
     switchViewMode('fullView');
@@ -270,11 +260,20 @@ paro_6.addEventListener('input', e => {
     }
 });
 
-// handling changing the action modes
+// handling changing the action modes and their submodes
 document.getElementById('sculptModeCheck').addEventListener('CheckboxStateChange', e => {
     setMode('sculptMode', e.target.checked);
 });
 
+document.getElementById('btn-sculptPush').addEventListener('click', e => {
+    setBtnActiveState(e.target, 'sculptMode-btn');
+    setMode('sculptPush', true);
+});
+
+document.getElementById('btn-sculptPull').addEventListener('click', e => {
+    setBtnActiveState(e.target, 'sculptMode-btn');
+    setMode('sculptPush', false);
+});
 
 
 
