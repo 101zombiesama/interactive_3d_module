@@ -20,6 +20,11 @@ var lower_bone_model;
 
 var isImplantMode = false;
 var sculptMode = false;
+var paintMode = false;
+var sculptPush = true;
+var sculptPull = false;
+var paintPaint = true;
+var paintErase = false;
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 

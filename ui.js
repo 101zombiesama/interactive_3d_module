@@ -20,20 +20,34 @@ function validateForm(){
         }
     else return false;
 }
-function disableStatusBtns(bool){
-    var buttons = [];
-    buttons.push(document.getElementById("btn-healthy"));
-    buttons.push(document.getElementById("btn-caries"));
-    buttons.push(document.getElementById("btn-damaged"));
-    buttons.push(document.getElementById("btn-missing"));
-    buttons.push(document.getElementById("btn-golden"));
-    buttons.push(document.getElementById("btn-implant"));
-    
-    for (let btn of buttons) {
+
+function disableMultipleButtons(buttonIds, bool){
+    for (let btnId of buttonIds) {
+        var btn = document.getElementById(btnId);
         btn.disabled = bool;
     }
+}
+
+function disableStatusBtns(bool){
+    disableMultipleButtons([
+        "btn-healthy",
+        "btn-caries",
+        "btn-damaged",
+        "btn-missing",
+        "btn-golden",
+        "btn-implant",
+    ], bool);
 
 }
+
+function disableModeCheckbox(mode, bool){
+    var checkbox = document.getElementById(`${mode}Check`);
+    checkbox.disabled = bool;
+}
+
+disableStatusBtns(true);
+disableModeCheckbox('sculptMode', true);
+disableModeCheckbox('paintMode', true);
 
 // adding click listeners to the status buttons
 var btn_healthy = document.getElementById("btn-healthy");
@@ -69,7 +83,7 @@ var futureStatus;
 
 btn_healthy.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "healthy");
-    setBtnActiveState(btn_healthy);
+    setBtnActiveState(btn_healthy, "status-btn");
     if(isVisible(descriptionPanel)){
         setTimeout(() => {
             hideDiv(descriptionPanel)
@@ -79,18 +93,18 @@ btn_healthy.addEventListener('click', e => {
 btn_caries.addEventListener('click', e => {
     // changeToothStatus(selectedTooth, "caries");
     futureStatus = "caries";
-    setBtnActiveState(btn_caries);
+    setBtnActiveState(btn_caries, "status-btn");
     showDiv(descriptionPanel);
 });
 btn_damaged.addEventListener('click', e => {
     // changeToothStatus(selectedTooth, "damaged");
     futureStatus = "damaged";
-    setBtnActiveState(btn_damaged);
+    setBtnActiveState(btn_damaged, "status-btn");
     showDiv(descriptionPanel);
 });
 btn_missing.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "missing");
-    setBtnActiveState(btn_missing);
+    setBtnActiveState(btn_missing, "status-btn");
     if(isVisible(descriptionPanel)){
         setTimeout(() => {
             hideDiv(descriptionPanel)
@@ -99,7 +113,7 @@ btn_missing.addEventListener('click', e => {
 });
 btn_golden.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "golden");
-    setBtnActiveState(btn_golden);
+    setBtnActiveState(btn_golden, "status-btn");
     if(isVisible(descriptionPanel)){
         setTimeout(() => {
             hideDiv(descriptionPanel)
@@ -108,7 +122,7 @@ btn_golden.addEventListener('click', e => {
 });
 btn_implant.addEventListener('click', e => {
     changeToothStatus(selectedTooth, "implant");
-    setBtnActiveState(btn_implant);
+    setBtnActiveState(btn_implant, "status-btn");
     if(isVisible(descriptionPanel)){
         setTimeout(() => {
             hideDiv(descriptionPanel)
@@ -254,6 +268,11 @@ paro_6.addEventListener('input', e => {
     } else {
         e.target.value = selectedTooth.toothDossier.parodontitis[6];
     }
+});
+
+// handling changing the action modes
+document.getElementById('sculptModeCheck').addEventListener('CheckboxStateChange', e => {
+    setMode('sculptMode', e.target.checked);
 });
 
 

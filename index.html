@@ -85,123 +85,6 @@
 
     </div>
 
-    <!--
-    <div class="sidebar-right" id="status-panel" data-color="azure" data-background-color="white"
-        style="display: none;">
-        <div class="grid-container">
-            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button>
-            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-caries">Caries</button>
-            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
-            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
-            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-golden">Golden</button>
-            <button type="button" class="btn btn-primary btn-simple status-btn" id="btn-implant">Implant</button>
-        </div>
-
-        <div class="card" id="description-panel" style="display: none;">
-            <div class="card-body">
-                <h6 class="text-center">Diseased Tooth Details</h6>
-                <hr style="background-color: #404040;">
-                <form id="detailsForm">
-                    <div class="form-group">
-                        <label for="inputDescription">Description</label>
-                        <textarea style="border: 1px solid #2a324d;" class="form-control" name="inputDescription"
-                            id="inputDescription" cols="30" rows="10"></textarea>
-                    </div>
-                    <label for="inputDescription">Tooth Surface</label>
-                    <span style="font-size: smaller;"> <i>(required...)</i> </span>
-                    <div class="form-group">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                    id="inputSurfacePalatal" value="palatal">
-                                Palatal
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                    id="inputSurfaceMesial" value="mesial">
-                                Mesial
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                    id="inputSurfaceBuccal" value="buccal">
-                                Buccal
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                    id="inputSurfaceDistal" value="distal">
-                                Distal
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                    id="inputSurfaceOcclusal" value="occlusal">
-                                Occlusal
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    <span id="validationAlert" style="display: none; font-size: small; color: red;"><i>At least one
-                            surface needs to be selected!</i></span>
-                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> 
-                    <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
-                </form>
-            </div>
-        </div>
-        <hr style="background-color: #404040;">
-        <h6 class="text-center">Parodontitis</h6>
-        
-        <div class="grid-container-3col">
-            <div class="grid-container">
-                <label>1</label>
-                <input type="number" class="form-control" id="parodata-1" placeholder="mm" value="0">
-            </div>
-            <div class="grid-container">
-                <label>2</label>
-                <input class="form-control" id="parodata-2" placeholder="mm" value="0">
-            </div>
-            <div class="grid-container">
-                <label>3</label>
-                <input class="form-control" id="parodata-3" placeholder="mm" value="0">
-            </div>
-            <div class="grid-container">
-                <label>4</label>
-                <input class="form-control" id="parodata-4" placeholder="mm" value="0">
-            </div>
-            <div class="grid-container">
-                <label>5</label>
-                <input class="form-control" id="parodata-5" placeholder="mm" value="0">
-            </div>
-            <div class="grid-container">
-                <label>6</label>
-                <input class="form-control" id="parodata-6" placeholder="mm" value="0">
-            </div>
-        </div>
-
-    </div> -->
-
     <div class="right-accordian-panel">
         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
             <!-- second collapse -->
@@ -362,8 +245,8 @@
                         <div class="container">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                        id="inputSurfaceOcclusal" value="occlusal">
+                                    <input disabled class="form-check-input" type="checkbox"
+                                        id="sculptModeCheck">
                                     Sculpt Mode
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -372,8 +255,8 @@
                             </div>
                         </div>
                         <div class="grid-container">
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPush">Push</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPull">Pull</button>
+                            <button disabled type="button" class="btn btn-primary" id="btn-sculptPush">Push</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple" id="btn-sculptPull">Pull</button>
                         </div>
                     </div>
                 </div>
@@ -395,8 +278,8 @@
                         <div class="container">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                        id="inputSurfaceOcclusal" value="occlusal">
+                                    <input class="form-check-input" type="checkbox"
+                                        id="paintModeCheck">
                                     Paint Mode
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -405,8 +288,8 @@
                             </div>
                         </div>
                         <div class="grid-container">
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPush">Paint</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-sculptPull">Erase</button>
+                            <button disabled type="button" class="btn btn-primary" id="btn-paintPaint">Paint</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple" id="btn-paintErase">Erase</button>
                         </div>
                     </div>
                 </div>

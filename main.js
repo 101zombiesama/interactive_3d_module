@@ -71,11 +71,13 @@ function updateSelectedTooth(tooth){
     // tooth.material = mat_selected;
     selectedTooth = tooth;
 
-    // enable the status buttons
+    // enabling the btns and checkbox inputs
     disableStatusBtns(false);
+    disableModeCheckbox('sculptMode', false);
+    disableModeCheckbox('paintMode', false);
 
     // set active states of button when selected new tooth
-    setBtnActiveState(document.getElementById(`btn-${selectedTooth.toothDossier.status}`));
+    setBtnActiveState(document.getElementById(`btn-${selectedTooth.toothDossier.status}`), "status-btn");
 
     // set the form states i.e description and checkboxes according to the selected tooth data
     if (selectedTooth.toothDossier.detailsAvailable == true) {
@@ -110,8 +112,12 @@ function clearSelection(){
     outlinePassSelected.selectedObjects = [];
     selectedTooth = null;
 
-    // disbale the status buttons
+    // disbaling the status buttons and checkbox inputs
     disableStatusBtns(true);
+    disableModeCheckbox('sculptMode', true);
+    disableModeCheckbox('paintMode', true);
+    setMode('sculptMode', false);
+    setMode('paintMode', false);
 
     // hide status ui
     // var statusPanel = document.getElementById("status-panel");
@@ -235,9 +241,9 @@ function changeToothDetails(tooth, details) {
     tooth.toothDossier.details = details;
 }
 
-function setBtnActiveState(btn){
+function setBtnActiveState(btn, classname){
     // setting all other button to not active first
-    var statusBtns = document.getElementsByClassName("status-btn");
+    var statusBtns = document.getElementsByClassName(classname);
     for (let button of statusBtns){
         var buttonClassList = [...button.classList];
         if(buttonClassList.indexOf("btn-simple") == -1){
@@ -250,6 +256,7 @@ function setBtnActiveState(btn){
         btn.classList.remove("btn-simple");
     }
 }
+
 
 // following function is used to set the form data from the tooth object
 function setFormData(details){
@@ -367,17 +374,20 @@ function toggleIsolateSelection(tooth) {
     }
 }
 
-function toggleImplantMode() {
-    if(isImplantMode) isImplantMode = false;
-    else isImplantMode = true;
-
-    var implantPanel = document.getElementById("implant-panel");
-    if(isImplantMode) {
-        showDiv(implantPanel);
-    } else {
-        hideDiv(implantPanel);
+function setMode(modename, bool) {
+    switch (modename) {
+        case 'sculptMode':
+            sculptMode = bool;
+            break;
+        case 'paintMode':
+            paintMode = bool;
+            break;
+        default:
+            break;
     }
-    
+    var modeCheckBox = document.getElementById(`${modename}Check`);
+    modeCheckBox.checked = bool;
+    controls.enabled = !bool;
 }
 
 function morphGum(tooth, face, value) {
