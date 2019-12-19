@@ -544,6 +544,10 @@ function addModelInteraction() {
 
 modelState.registerListener(function(numMeshesLoaded) {
     if(numMeshesLoaded == 10){
+        // disabling all action modes to initiate
+        setMode('sculptMode', false);
+        setMode('paintMode', false);
+
         addModelInteraction();
         scene.add(lower_gum_model);
         scene.add(lower_teeth_model);
