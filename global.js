@@ -24,7 +24,7 @@ var paintMode = false;
 var sculptPush = true;
 var paintPaint = true;
 
-var sculptStrength = -0.000125;
+var sculptStrength = -0.0005;
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 

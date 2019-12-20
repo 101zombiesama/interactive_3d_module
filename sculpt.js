@@ -1,3 +1,10 @@
+
+var distanceMultiplier = 100;
+var brushRadius = distanceMultiplier*0.004;
+var brushExponent = 2;
+var dragDist = 0; 
+var projectionPlane = new THREE.Plane();
+
 function sculptPush(camera, object, face, mag) {
 
     var camDirection = new THREE.Vector3();
@@ -35,6 +42,101 @@ function sculptPush(camera, object, face, mag) {
 
     }
 
+}
+
+function sculptPushVertex(object, direction, vertex, mag) {
+    var vertices = object.geometry.vertices;
+
+    // pushing vertices along face normals
+    vertex.x += mag*direction.x;
+    vertex.y += mag*direction.y;
+    vertex.z += mag*direction.z;
+
+    object.geometry.computeFaceNormals();
+    object.geometry.computeVertexNormals();
+    object.geometry.verticesNeedUpdate = true;
+    object.geometry.normalsNeedUpdate = true;
+    object.geometry.elementsNeedUpdate = true;
+}
+
+function flatten(intersectsArr, projectionPlane) {
+    var toothNum = selectedTooth.name.split('_')[1];
+    var angle = Number(toothNum) < 30 ? sliderLower.value*1.57 : -sliderLower.value*1.57;
+    var offset_y = Number(toothNum) < 30 ? -sliderLower.value / 60 : 0;
+    
+    projectionPlane.constant = 0;
+    projectionPlane.normal = new THREE.Vector3(1,0,0);
+    var vertices = intersectsArr[0].object.geometry.vertices;
+    var faces = intersectsArr[0].object.geometry.faces;
+
+    // creating correlation matrix
+    var vertexCorrMatrix = [['vindices', 'vertices', 'vertexNormals', 'distancesFromIntersection'], [], [], [], []];
+
+
+    for (let face of faces) {
+        var faceVertices = [face.a, face.b, face.c];
+        for (let i = 0; i < faceVertices.length; i++) {
+            var vindex = faceVertices[i];
+            var point = vertices[vindex];
+            var intersection = intersectsArr[0].point;
+            var pointClone = point.clone().applyAxisAngle(new THREE.Vector3(1,0,0), angle);
+            pointClone.y += offset_y;
+            if (vertexCorrMatrix[1].indexOf(vindex) == -1) {
+                var distance = pointClone.distanceTo(intersection)*distanceMultiplier;
+                if (distance < brushRadius) {
+                    vertexCorrMatrix[1].push(vindex);
+                    vertexCorrMatrix[2].push(point);
+                    vertexCorrMatrix[3].push(face.vertexNormals[i]);
+                    vertexCorrMatrix[4].push(distance);
+                }
+            }
+        }
+    }
+
+    if (vertexCorrMatrix[1].length == 0) return;
+
+    var averageNormal = calculateAvergaeNormal(vertexCorrMatrix);
+    projectionPlane.normal = averageNormal;
+
+    // get the farthest point in the correlationMatrix and placing the projectionPlane
+    var farthestPoint = vertexCorrMatrix[2][vertexCorrMatrix[4].indexOf(Math.max(...vertexCorrMatrix[4]))];
+    var farthestPointClone = farthestPoint.clone().applyAxisAngle(new THREE.Vector3(1,0,0), angle);
+    farthestPointClone.y += offset_y;
+    var pToPlane = projectionPlane.distanceToPoint(farthestPointClone);
+    projectionPlane.constant = -pToPlane;
+
+    // looping through all vertices in radius to push towards the projectionPlane;
+    for (let [i ,vid] of vertexCorrMatrix[1].entries()) {
+        var point = vertices[vid];
+        var pointClone = point.clone().applyAxisAngle(new THREE.Vector3(1,0,0), angle);
+        pointClone.y += offset_y;
+        var distPointToPlane = projectionPlane.distanceToPoint(pointClone)*distanceMultiplier;
+        if (distPointToPlane < 0) distPointToPlane = 0;
+        // console.log(distPointToPlane);
+        var strengthFactor = (1-Math.pow(distPointToPlane, brushExponent));
+        if (strengthFactor < 0) strengthFactor = 0;
+        // console.log(strengthFactor);
+        sculptPushVertex(selectedTooth, averageNormal, point, sculptStrength*strengthFactor);
+
+    }
+
+}
+
+function calculateAvergaeNormal (vertexCorrMatrix) {
+    var normal_x = 0;
+    var normal_y = 0;
+    var normal_z = 0;
+    var count = 0;
+    for (let i = 0; i < vertexCorrMatrix[1].length; i++) {
+        var normal = vertexCorrMatrix[3][i];
+        normal_x += normal.x;
+        normal_y += normal.y;
+        normal_z += normal.z;
+        count ++;
+    }
+    var avg = { x: normal_x/count, y: normal_y/count, z: normal_z/count };
+    var averageNormal = new THREE.Vector3(avg.x, avg.y, avg.z);
+    return averageNormal;
 }
 
 function initiateSculpt(object) {
@@ -88,19 +190,19 @@ function paint(object, face) {
     object.geometry.colorsNeedUpdate = true;
 }
 
-var previuosFace;
-
 window.addEventListener('mousemove', e => {
+    dragDist++;
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    if (isMouseDown && sculptMode) {
-
+    if (isMouseDown && sculptMode && dragDist > 3) {
+        dragDist = 0;
         raycaster.setFromCamera( mouse, camera );
         var intersects = raycaster.intersectObjects([...lower_teeth_model.children, ...upper_teeth_model.children]);
 
         if (intersects.length > 0 && intersects[0].object.name == selectedTooth.name) {
 
-            sculptPush(camera, selectedTooth, intersects[0].face, sculptStrength);
+            // sculptPush(camera, selectedTooth, intersects[0].face, sculptStrength);
+            flatten(intersects, projectionPlane);
 
         }
 
