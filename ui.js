@@ -134,7 +134,11 @@ btn_open.addEventListener('click', e => {
 });
 
 btn_save.addEventListener('click', e => {
-    resetSculpt(selectedTooth);
+    // resetSculpt(selectedTooth);
+    if (paintMode){
+        paintEraseMode = !paintEraseMode;
+        console.log(`paintEraseMode is: ${paintEraseMode}`);
+    }
 });
 
 btn_fullViewMode.addEventListener('click', e => {

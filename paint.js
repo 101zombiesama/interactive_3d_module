@@ -1,5 +1,6 @@
 
 function paint(intersectsArr, color) {
+
     var vertices = intersectsArr[0].object.geometry.vertices;
     var faces = intersectsArr[0].object.geometry.faces;
     var face = intersectsArr[0].face;
@@ -30,9 +31,22 @@ function paint(intersectsArr, color) {
         }
     }
     
-    for (let [i, affectedface] of affectedfacesCorrMatrix[1].entries()) {
-        affectedface.vertexColors[affectedfacesCorrMatrix[2][i]].copy(color);
+
+    // paintPaintMode
+    
+    // paintEraseMode
+    if (paintEraseMode) {
+        for (let [i, affectedface] of affectedfacesCorrMatrix[1].entries()) {
+            var emptyColor = new THREE.Color();
+            affectedface.vertexColors[affectedfacesCorrMatrix[2][i]].copy(emptyColor);
+        }
     }
+    else {
+        for (let [i, affectedface] of affectedfacesCorrMatrix[1].entries()) {
+            affectedface.vertexColors[affectedfacesCorrMatrix[2][i]].copy(color);
+        }
+    }
+    
 
     intersectsArr[0].object.geometry.colorsNeedUpdate = true;
 }
@@ -52,4 +66,5 @@ window.addEventListener('mousemove', e => {
         }
 
     }
+    
 });
