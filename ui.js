@@ -123,12 +123,12 @@ btn_confirm.addEventListener('click', e => {
 });
 
 btn_open.addEventListener('click', e => {
-    if (paintMode) {
-        paintMode = false;
+    if (sculptMode) {
+        sculptMode = false;
         controls.enabled = true
     }
     else {
-        paintMode = true;
+        sculptMode = true;
         controls.enabled = false;
     }
 });

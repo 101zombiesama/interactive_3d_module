@@ -1,7 +1,7 @@
 var strength = -0.0005;
 var distanceMultiplier = 100;
 var brushRadius = distanceMultiplier*0.004;
-var brushExponent = 2;
+var brushExponent = 1;
 var projectionPlane = new THREE.Plane();
 
 // 0.000125
@@ -107,21 +107,45 @@ function flatten(intersectsArr, projectionPlane) {
     var pToPlane = projectionPlane.distanceToPoint(farthestPointClone);
     projectionPlane.constant = -pToPlane;
 
+    
+    // get the max distance from a vertex to plane
+    var distancesFromPlane = [];
+    for (let vid of vertexCorrMatrix[1]) {
+        var point = vertices[vid];
+        var pointClone = point.clone().applyAxisAngle(new THREE.Vector3(1,0,0), angle);
+        pointClone.y += offset_y;
+        var dist = projectionPlane.distanceToPoint(pointClone);
+        if (dist < 0) dist = 0;
+        distancesFromPlane.push(dist);
+    }
+
+    // get max distance from the plane and map the distance values in range 0 - 1
+    var maxDist = Math.max(...distancesFromPlane);
+
+
+    // console.log(projectionPlane.distanceToPoint(farthestPoint), maxDist);
+
+
     // looping through all vertices in radius to push towards the projectionPlane;
     for (let [i ,vid] of vertexCorrMatrix[1].entries()) {
         var point = vertices[vid];
         var pointClone = point.clone().applyAxisAngle(new THREE.Vector3(1,0,0), angle);
         pointClone.y += offset_y;
-        var distPointToPlane = projectionPlane.distanceToPoint(pointClone)*distanceMultiplier;
+        var distPointToPlane = projectionPlane.distanceToPoint(pointClone);
         if (distPointToPlane < 0) distPointToPlane = 0;
-        // console.log(distPointToPlane);
-        var strengthFactor = (1-Math.pow(distPointToPlane, brushExponent));
+        // mapping to range 0 - 1
+        var distScaled = maxDist > 0 ? scale(distPointToPlane, 0, maxDist, 0, 1) : 0;
+        var strengthFactor = (Math.pow(distScaled, brushExponent));
         if (strengthFactor < 0) strengthFactor = 0;
-        // console.log(strengthFactor);
         sculptPushVertex(selectedTooth, averageNormal, point, strength*strengthFactor);
 
     }
 
+}
+
+// function to map a number to different range
+function scale(num, in_min, in_max, out_min, out_max) {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 function initiateSculpt(object) {
