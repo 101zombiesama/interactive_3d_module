@@ -396,13 +396,8 @@ function setMode(modename, bool) {
             }
             break;
         case 'sculptPush':
-            // sculptPush = bool;
             if (sculptMode){
-                if (!bool) {
-                    sculptStrength = Math.abs(sculptStrength);
-                } else {
-                    sculptStrength = -Math.abs(sculptStrength);
-                }
+                sculptPush = bool;
             }
             break;
             

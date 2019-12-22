@@ -30,9 +30,6 @@ function paint(intersectsArr, color) {
         }
     }
     
-
-    // paintPaintMode
-    console.log(affectedfacesCorrMatrix[1].length);
     // paintEraseMode
     if (paintErase) {
         for (let [i, affectedface] of affectedfacesCorrMatrix[1].entries()) {
