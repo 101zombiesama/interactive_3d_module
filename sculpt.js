@@ -118,13 +118,7 @@ function flatten(intersectsArr, projectionPlane) {
         if (dist < 0) dist = 0;
         distancesFromPlane.push(dist);
     }
-
-    // get max distance from the plane and map the distance values in range 0 - 1
     var maxDist = Math.max(...distancesFromPlane);
-
-
-    // console.log(projectionPlane.distanceToPoint(farthestPoint), maxDist);
-
 
     // looping through all vertices in radius to push towards the projectionPlane;
     for (let [i ,vid] of vertexCorrMatrix[1].entries()) {
