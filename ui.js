@@ -263,6 +263,9 @@ paro_6.addEventListener('input', e => {
 // handling changing the action modes and their submodes
 document.getElementById('sculptModeCheck').addEventListener('change', e => {
     setMode('sculptMode', e.target.checked);
+    // for disabling the sculotmode checkbox when sculpting
+    if (e.target.checked) disableModeCheckbox('paintMode', true);
+    else disableModeCheckbox('paintMode', false);
 });
 
 document.getElementById('btn-sculptPush').addEventListener('click', e => {
@@ -273,6 +276,23 @@ document.getElementById('btn-sculptPush').addEventListener('click', e => {
 document.getElementById('btn-sculptPull').addEventListener('click', e => {
     setBtnActiveState(e.target, 'sculptMode-btn');
     setMode('sculptPush', false);
+});
+
+document.getElementById('paintModeCheck').addEventListener('change', e => {
+    setMode('paintMode', e.target.checked);
+    // for disabling the sculotmode checkbox when painting
+    if (e.target.checked) disableModeCheckbox('sculptMode', true);
+    else disableModeCheckbox('sculptMode', false);
+});
+
+document.getElementById('btn-paintPaint').addEventListener('click', e => {
+    setBtnActiveState(e.target, 'paintMode-btn');
+    setMode('paintErase', false);
+});
+
+document.getElementById('btn-paintErase').addEventListener('click', e => {
+    setBtnActiveState(e.target, 'paintMode-btn');
+    setMode('paintErase', true);
 });
 
 

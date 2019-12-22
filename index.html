@@ -51,20 +51,20 @@
         </div>
         <div class="flex-content">
             <hr style="background-color: #464646;">
-            <a title="Full view" class="nav" id="btn-fullViewMode"><i><img width="30px"
+            <a title="Full view" class="nav" id="btn-fullViewMode"><i><img class="invert" width="30px"
                         src="./assets/custom_icons/fullView-icon.png" alt=""></i></a>
         </div>
         <div class="flex-content">
-            <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img width="30px"
+            <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img class="invert" width="30px"
                         src="./assets/custom_icons/boneView-icon.png" alt=""></i></a>
         </div>
         <div class="flex-content">
-            <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img width="30px"
+            <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img class="invert" width="30px"
                         src="./assets/custom_icons/teethView-icon.svg" alt=""></i></a>
         </div>
         <div class="dropright">
             <hr style="background-color: #464646;">
-            <a title="Transparent gums" class="nav" data-toggle="dropdown" id="btn-teethViewMode"><i><img width="30px"
+            <a title="Transparent gums" class="nav" data-toggle="dropdown" id="btn-teethViewMode"><i><img class="invert" width="30px"
                         src="./assets/custom_icons/opacity-icon.png" alt=""></i></a>
             <div class="dropdown-menu" style="background-color: #27293d;">
                 <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1"
@@ -75,11 +75,11 @@
             </div>
         </div>
         <div class="flex-content">
-            <a title="Teeth view" class="nav" id="btn-isolateSelect"><i><img width="30px"
+            <a title="Teeth view" class="nav" id="btn-isolateSelect"><i><img class="invert" width="30px"
                         src="./assets/custom_icons/isolateSelect-icon.svg" alt=""></i></a>
         </div>
         <div class="flex-content">
-            <a title="Teeth view" class="nav" id="btn-resetCamera"><i><img width="30px"
+            <a title="Teeth view" class="nav" id="btn-resetCamera"><i><img class="invert" width="30px"
                         src="./assets/custom_icons/resetCamera-icon.svg" alt=""></i></a>
         </div>
 
@@ -92,7 +92,7 @@
                 <div class="card-header" role="tab" id="headingTwo">
                     <div class="tab-heading text-center">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                            aria-expanded="false" aria-controls="collapseTwo" style="color: white;">
+                            aria-expanded="false" aria-controls="collapseTwo" style="color: black; font-weight: bold">
                             STATUS
     
                             <i class="tim-icons icon-minimal-down"></i>
@@ -102,7 +102,7 @@
                 <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="card-body">
                         <div class="grid-container">
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button>
+                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button s>
                             <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-caries">Caries</button>
                             <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
                             <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
@@ -111,19 +111,19 @@
                         </div>
                         <div class="card" id="description-panel" style="display: none;">
                             <div class="card-body">
-                                <h6 class="text-center">Diseased Tooth Details</h6>
+                                <h6 style="color: black;" class="text-center">Diseased Tooth Details</h6>
                                 <hr style="background-color: #404040;">
                                 <form id="detailsForm">
                                     <div class="form-group">
-                                        <label for="inputDescription">Description</label>
-                                        <textarea style="border: 1px solid #2a324d;" class="form-control" name="inputDescription"
+                                        <label style="color: black;" for="inputDescription">Description</label>
+                                        <textarea style="border: 1px solid #2a324d; color: black;" class="form-control" name="inputDescription"
                                             id="inputDescription" cols="30" rows="10"></textarea>
                                     </div>
-                                    <label for="inputDescription">Tooth Surface</label>
+                                    <label style="color: black;" for="inputDescription">Tooth Surface</label>
                                     <span style="font-size: smaller;"> <i>(required...)</i> </span>
                                     <div class="form-group">
                                         <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
+                                            <label style="color: black;" class="form-check-label">
                                                 <input class="form-check-input toothSurfaceCheck" type="checkbox"
                                                     id="inputSurfacePalatal" value="palatal">
                                                 Palatal
@@ -133,7 +133,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
+                                            <label style="color: black;" class="form-check-label">
                                                 <input class="form-check-input toothSurfaceCheck" type="checkbox"
                                                     id="inputSurfaceMesial" value="mesial">
                                                 Mesial
@@ -143,7 +143,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
+                                            <label style="color: black;" class="form-check-label">
                                                 <input class="form-check-input toothSurfaceCheck" type="checkbox"
                                                     id="inputSurfaceBuccal" value="buccal">
                                                 Buccal
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
+                                            <label style="color: black;" class="form-check-label">
                                                 <input class="form-check-input toothSurfaceCheck" type="checkbox"
                                                     id="inputSurfaceDistal" value="distal">
                                                 Distal
@@ -165,7 +165,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
+                                            <label style="color: black;" class="form-check-label">
                                                 <input class="form-check-input toothSurfaceCheck" type="checkbox"
                                                     id="inputSurfaceOcclusal" value="occlusal">
                                                 Occlusal
@@ -190,7 +190,7 @@
                 <div class="card-header" role="tab" id="headingThree">
                     <div class="tab-heading text-center">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                            aria-expanded="false" aria-controls="collapseThree" style="color: white;">
+                            aria-expanded="false" aria-controls="collapseThree" style="color: black; font-weight: bold">
                             PARODONTITIS
     
                             <i class="tim-icons icon-minimal-down"></i>
@@ -201,28 +201,28 @@
                     <div class="card-body">
                         <div class="grid-container-3col">
                             <div class="grid-container">
-                                <label>1</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-1" placeholder="mm" value="0">
+                                <label style="color: black;">1</label>
+                                <input style="color: black;" type="number" min="-5" max="20" class="form-control" id="parodata-1" placeholder="mm" value="0">
                             </div>
                             <div class="grid-container">
-                                <label>2</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-2" placeholder="mm" value="0">
+                                <label style="color: black;">2</label>
+                                <input style="color: black;" type="number" min="-5" max="20" class="form-control" id="parodata-2" placeholder="mm" value="0">
                             </div>
                             <div class="grid-container">
-                                <label>3</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-3" placeholder="mm" value="0">
+                                <label style="color: black;">3</label>
+                                <input style="color: black;" type="number" min="-5" max="20" class="form-control" id="parodata-3" placeholder="mm" value="0">
                             </div>
                             <div class="grid-container">
-                                <label>4</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-4" placeholder="mm" value="0">
+                                <label style="color: black;">4</label>
+                                <input style="color: black;" type="number" min="-5" max="20" class="form-control" id="parodata-4" placeholder="mm" value="0">
                             </div>
                             <div class="grid-container">
-                                <label>5</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-5" placeholder="mm" value="0">
+                                <label style="color: black;">5</label>
+                                <input style="color: black;" type="number" min="-5" max="20" class="form-control" id="parodata-5" placeholder="mm" value="0">
                             </div>
                             <div class="grid-container">
-                                <label>6</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-6" placeholder="mm" value="0">
+                                <label style="color: black;">6</label>
+                                <input style="color: black;" type="number" min="-5" max="20" class="form-control" id="parodata-6" placeholder="mm" value="0">
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                 <div class="card-header" role="tab" id="headingFour">
                     <div class="tab-heading text-center">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
-                            aria-expanded="false" aria-controls="collapseFour" style="color: white;">
+                            aria-expanded="false" aria-controls="collapseFour" style="color: black; font-weight: bold">
                             TOOTH DETAILS
     
                             <i class="tim-icons icon-minimal-down"></i>
@@ -253,7 +253,7 @@
                 <div class="card-header" role="tab" id="headingFive">
                     <div class="tab-heading text-center">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
-                            aria-expanded="false" aria-controls="collapseFive" style="color: white;">
+                            aria-expanded="false" aria-controls="collapseFive" style="color: black; font-weight: bold">
                             SCULPT
     
                             <i class="tim-icons icon-minimal-down"></i>
@@ -264,7 +264,7 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="form-check form-check-inline">
-                                <label class="form-check-label">
+                                <label style="color: black;" class="form-check-label">
                                     <input disabled class="form-check-input" type="checkbox"
                                         id="sculptModeCheck">
                                     Sculpt Mode
@@ -286,7 +286,7 @@
                 <div class="card-header" role="tab" id="headingSix">
                     <div class="tab-heading text-center">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"
-                            aria-expanded="false" aria-controls="collapseSix" style="color: white;">
+                            aria-expanded="false" aria-controls="collapseSix" style="color: black; font-weight: bold">
                             PAINT
     
                             <i class="tim-icons icon-minimal-down"></i>
@@ -297,7 +297,7 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="form-check form-check-inline">
-                                <label class="form-check-label">
+                                <label style="color: black;" class="form-check-label">
                                     <input class="form-check-input" type="checkbox"
                                         id="paintModeCheck">
                                     Paint Mode
@@ -329,6 +329,7 @@
     <script type="module" src="viewer.js"></script>
     <script src="main.js"></script>
     <script src="sculpt.js"></script>
+    <script src="paint.js"></script>
     <script src="ui.js"></script>
 
     <!-- black dashboard files -->

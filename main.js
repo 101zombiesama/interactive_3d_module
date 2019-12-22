@@ -397,10 +397,12 @@ function setMode(modename, bool) {
             break;
         case 'sculptPush':
             // sculptPush = bool;
-            if (!bool) {
-                sculptStrength = Math.abs(sculptStrength);
-            } else {
-                sculptStrength = -Math.abs(sculptStrength);
+            if (sculptMode){
+                if (!bool) {
+                    sculptStrength = Math.abs(sculptStrength);
+                } else {
+                    sculptStrength = -Math.abs(sculptStrength);
+                }
             }
             break;
             
@@ -423,8 +425,10 @@ function setMode(modename, bool) {
                 ], true);
             }
             break;
-        case 'paintPaint':
-            paintPaint = bool;
+        case 'paintErase':
+            if (paintMode){
+                paintErase = bool;
+            }
             break;
         
         default:

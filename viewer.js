@@ -55,7 +55,20 @@ mat_master = new THREE.MeshStandardMaterial({
     envMap: textureCube,
     needsUpdate: true,
     envMapIntensity: 1,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
+    vertexColors: THREE.VertexColors, //for polypainting
+});
+mat_master_withoutVertexColor = new THREE.MeshStandardMaterial({
+    // color: new THREE.Color(0x96de8e),
+    map: t_albedo,
+    metalness: 0,
+    normalMap: t_normal,
+    normalScale: new THREE.Vector2( 1, 1 ),
+    roughnessMap: t_roughness,
+    envMap: textureCube,
+    needsUpdate: true,
+    envMapIntensity: 1,
+    side: THREE.DoubleSide,
 });
 mat_upperGum = new THREE.MeshStandardMaterial({
     // color: new THREE.Color(0x96de8e),
@@ -163,6 +176,14 @@ function initModel(){
                 var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
                 geo.mergeVertices();
 
+                // initializing the vertex colors with empty colors
+                for (var j=0; j < geo.faces.length; j++) {
+                    var face = geo.faces[j];
+                    face.vertexColors[0] = new THREE.Color();
+                    face.vertexColors[1] = new THREE.Color();
+                    face.vertexColors[2] = new THREE.Color();
+                }
+
                 var mesh = new THREE.Mesh( geo, mat_master );
 
                 mesh.requiredMaterial = mat_master;
@@ -190,6 +211,14 @@ function initModel(){
                 var buffGeo = object.children[i].geometry;
                 var geo = new THREE.Geometry().fromBufferGeometry( buffGeo );
                 geo.mergeVertices();
+                
+                // initializing the vertex colors with empty colors
+                for (var j=0; j < geo.faces.length; j++) {
+                    var face = geo.faces[j];
+                    face.vertexColors[0] = new THREE.Color();
+                    face.vertexColors[1] = new THREE.Color();
+                    face.vertexColors[2] = new THREE.Color();
+                }
 
                 var mesh = new THREE.Mesh( geo, mat_master );
 
@@ -253,7 +282,7 @@ function initModel(){
         function ( object ) {
             lower_implant_teeth_model = object;
             for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
+                object.children[i].material = mat_master_withoutVertexColor;
                 object.children[i].visible = false;
             }
             modelState.numMeshesLoaded ++;
@@ -271,7 +300,7 @@ function initModel(){
         function ( object ) {
             upper_implant_teeth_model = object;
             for (var i=0; i<object.children.length; i++ ) {
-                object.children[i].material = mat_master;
+                object.children[i].material = mat_master_withoutVertexColor;
                 object.children[i].visible = false;
             }
             modelState.numMeshesLoaded ++;

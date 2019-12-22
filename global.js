@@ -1,6 +1,6 @@
 var scene, camera, renderer, controls, domEvents;
 
-var mat_master, mat_caries, mat_damaged, mat_missing, mat_golden, mat_highlight, mat_selected, mat_screw, mat_upperGum,
+var mat_master, mat_master_withoutVertexColor, mat_caries, mat_damaged, mat_missing, mat_golden, mat_highlight, mat_selected, mat_screw, mat_upperGum,
     mat_lowerGum, mat_lowerBone, mat_upperBone;
 
 var raycaster = new THREE.Raycaster();
@@ -22,9 +22,10 @@ var isImplantMode = false;
 var sculptMode = false;
 var paintMode = false;
 var sculptPush = true;
-var paintPaint = true;
+var paintErase = false;
 
 var sculptStrength = -0.0005;
+var paintColor = new THREE.Color( 0x3250a8 );
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 
