@@ -25,7 +25,7 @@ var sculptPush = true;
 var paintErase = false;
 
 var sculptStrength = -0.0005;
-var paintColor = new THREE.Color( 0x3250a8 );
+var paintColor = new THREE.Color( 0x24221f );
 
 var composer, outlinePassHighlight, outlinePassSelected, effectFXAA, effectVignette;
 
