@@ -295,6 +295,12 @@ document.getElementById('btn-paintErase').addEventListener('click', e => {
     setMode('paintErase', true);
 });
 
+// setting the paint Color after choosing the color
+document.getElementById("inputPaintColor").addEventListener('change', e => {
+    // set color value
+    paintColor.set(`#${e.target.value}`);
+})
+
 
 
 
