@@ -22,7 +22,7 @@ function initViews() {
 		10000
 	);
 	camera.lookAt(new THREE.Vector3(0, 0, -0.05));
-	camera.position.set(-0.15, 0.02, -0.3);
+	camera.position.set(0.15, 0.02, -0.3);
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
