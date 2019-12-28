@@ -84,268 +84,271 @@
 
     </div> -->
 
-    <div class="right-accordian-panel">
-        <div class="card-header">
-            <div class="grid-container-4col">
-                <div class="grid-center">
-                    <a title="Teeth view" class="nav" id="btn-open"><i><img class="invert" width="30px"
-                        src="./assets/custom_icons/folder-icon.png" alt=""></i></a>
-                </div>
-                <div class="grid-center">
-                    <a title="Teeth view" class="nav" id="btn-open"><i><img class="invert" width="30px"
-                        src="./assets/custom_icons/save-icon.png" alt=""></i></a>
-                </div>
-                <div class="grid-center">
-                    <div class="dropright">
-                        <a title="Transparent gums" class="nav" data-toggle="dropdown" id=""><i><img class="invert" width="30px"
-                                    src="./assets/custom_icons/transparency-icon.png" alt=""></i></a>
-                        <div class="dropdown-menu">
-                            <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1"
-                                step="0.005" value="0">
-                            <div class="dropdown-divider"></div>
-                            <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1"
-                                step="0.005" value="0">
-                        </div>
+    <div class="main-layout">
+        <div class="root" id="root"></div>
+        <div class="right-accordian-panel">
+            <div class="card-header">
+                <div class="grid-container-4col">
+                    <div class="grid-center">
+                        <a title="Teeth view" class="nav" id="btn-open"><i><img class="invert" width="30px"
+                            src="./assets/custom_icons/folder-icon.png" alt=""></i></a>
                     </div>
-                </div>
-                <div class="grid-center">
-                    <a title="Teeth view" class="nav" id="btn-resetCamera"><i><img class="invert" width="30px"
-                                src="./assets/custom_icons/reset-icon.png" alt=""></i></a>
-                </div>
-                <div class="grid-center">
-                    
-                    <a title="Full view" class="nav" id="btn-fullViewMode"><i><img class="invert" width="30px"
-                                src="./assets/custom_icons/fullView-icon.png" alt=""></i></a>
-                </div>
-                <div class="grid-center">
-                    <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img class="invert" width="30px"
-                                src="./assets/custom_icons/boneView-icon.png" alt=""></i></a>
-                </div>
-                <div class="grid-center">
-                    <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img class="invert" width="30px"
-                                src="./assets/custom_icons/teethView-icon.svg" alt=""></i></a>
-                </div>
-                <div class="grid-center">
-                    <a title="Teeth view" class="nav" id="btn-isolateSelect"><i><img class="invert" width="30px"
-                                src="./assets/custom_icons/isolateSelect-icon.svg" alt=""></i></a>
-                </div>
-            </div>
-        </div>
-        <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
-            <!-- second collapse -->
-            <div class="card card-plain">
-                <div class="card-header" role="tab" id="headingTwo">
-                    <div class="tab-heading text-center">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                            aria-expanded="false" aria-controls="collapseTwo">
-                            STATUS
-    
-                            <i class="tim-icons icon-minimal-down"></i>
-                        </a>
+                    <div class="grid-center">
+                        <a title="Teeth view" class="nav" id="btn-open"><i><img class="invert" width="30px"
+                            src="./assets/custom_icons/save-icon.png" alt=""></i></a>
                     </div>
-                </div>
-                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="card-body">
-                        <div class="grid-container">
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button s>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-caries">Caries</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-golden">Golden</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-implant">Implant</button>
-                        </div>
-                        <div class="card" id="description-panel" style="display: none;">
-                            <div class="card-body">
-                                <h6 class="text-center">Diseased Tooth Details</h6>
-                                <hr>
-                                <form id="detailsForm">
-                                    <div class="form-group">
-                                        <label for="inputDescription">Description</label>
-                                        <textarea class="form-control" name="inputDescription"
-                                            id="inputDescription" cols="30" rows="4"></textarea>
-                                    </div>
-                                    <label for="inputDescription">Tooth Surface</label>
-                                    <span style="font-size: smaller;"> <i>(required...)</i> </span>
-                                    <div class="form-group">
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                                    id="inputSurfacePalatal" value="palatal">
-                                                Palatal
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                                    id="inputSurfaceMesial" value="mesial">
-                                                Mesial
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                                    id="inputSurfaceBuccal" value="buccal">
-                                                Buccal
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                                    id="inputSurfaceDistal" value="distal">
-                                                Distal
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input toothSurfaceCheck" type="checkbox"
-                                                    id="inputSurfaceOcclusal" value="occlusal">
-                                                Occlusal
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <span id="validationAlert" style="display: none; font-size: small;"><i>At least one
-                                            surface needs to be selected!</i></span>
-                                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
-                                    <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
-                                </form>
+                    <div class="grid-center">
+                        <div class="dropright">
+                            <a title="Transparent gums" class="nav" data-toggle="dropdown" id=""><i><img class="invert" width="30px"
+                                        src="./assets/custom_icons/transparency-icon.png" alt=""></i></a>
+                            <div class="dropdown-menu">
+                                <input style="padding: 5px;" type="range" class="custom-range" id="sliderUpperOpacity" min="0" max="1"
+                                    step="0.005" value="0">
+                                <div class="dropdown-divider"></div>
+                                <input style="padding: 5px;" type="range" class="custom-range" id="sliderLowerOpacity" min="0" max="1"
+                                    step="0.005" value="0">
                             </div>
                         </div>
+                    </div>
+                    <div class="grid-center">
+                        <a title="Teeth view" class="nav" id="btn-resetCamera"><i><img class="invert" width="30px"
+                                    src="./assets/custom_icons/reset-icon.png" alt=""></i></a>
+                    </div>
+                    <div class="grid-center">
+                        
+                        <a title="Full view" class="nav" id="btn-fullViewMode"><i><img class="invert" width="30px"
+                                    src="./assets/custom_icons/fullView-icon.png" alt=""></i></a>
+                    </div>
+                    <div class="grid-center">
+                        <a title="Bone view" class="nav" id="btn-boneViewMode"><i><img class="invert" width="30px"
+                                    src="./assets/custom_icons/boneView-icon.png" alt=""></i></a>
+                    </div>
+                    <div class="grid-center">
+                        <a title="Teeth view" class="nav" id="btn-teethViewMode"><i><img class="invert" width="30px"
+                                    src="./assets/custom_icons/teethView-icon.svg" alt=""></i></a>
+                    </div>
+                    <div class="grid-center">
+                        <a title="Teeth view" class="nav" id="btn-isolateSelect"><i><img class="invert" width="30px"
+                                    src="./assets/custom_icons/isolateSelect-icon.svg" alt=""></i></a>
                     </div>
                 </div>
             </div>
-            <!-- third collapse -->
-            <div class="card card-plain">
-                <div class="card-header" role="tab" id="headingThree">
-                    <div class="tab-heading text-center">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                            aria-expanded="false" aria-controls="collapseThree">
-                            PARODONTITIS
-    
-                            <i class="tim-icons icon-minimal-down"></i>
-                        </a>
+            <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+                <!-- second collapse -->
+                <div class="card card-plain">
+                    <div class="card-header" role="tab" id="headingTwo">
+                        <div class="tab-heading text-center">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
+                                STATUS
+        
+                                <i class="tim-icons icon-minimal-down"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="card-body">
-                        <div class="grid-container-3col">
+                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="card-body">
                             <div class="grid-container">
-                                <label>1</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-1" placeholder="mm" value="0">
+                                <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-healthy">Healthy</button s>
+                                <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-caries">Caries</button>
+                                <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-damaged">Damaged</button>
+                                <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-missing">Missing</button>
+                                <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-golden">Golden</button>
+                                <button disabled type="button" class="btn btn-primary btn-simple status-btn" id="btn-implant">Implant</button>
                             </div>
-                            <div class="grid-container">
-                                <label>2</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-2" placeholder="mm" value="0">
-                            </div>
-                            <div class="grid-container">
-                                <label>3</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-3" placeholder="mm" value="0">
-                            </div>
-                            <div class="grid-container">
-                                <label>4</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-4" placeholder="mm" value="0">
-                            </div>
-                            <div class="grid-container">
-                                <label>5</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-5" placeholder="mm" value="0">
-                            </div>
-                            <div class="grid-container">
-                                <label>6</label>
-                                <input type="number" min="-5" max="20" class="form-control" id="parodata-6" placeholder="mm" value="0">
+                            <div class="card" id="description-panel" style="display: none;">
+                                <div class="card-body">
+                                    <h6 class="text-center">Diseased Tooth Details</h6>
+                                    <hr>
+                                    <form id="detailsForm">
+                                        <div class="form-group">
+                                            <label for="inputDescription">Description</label>
+                                            <textarea class="form-control" name="inputDescription"
+                                                id="inputDescription" cols="30" rows="4"></textarea>
+                                        </div>
+                                        <label for="inputDescription">Tooth Surface</label>
+                                        <span style="font-size: smaller;"> <i>(required...)</i> </span>
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                        id="inputSurfacePalatal" value="palatal">
+                                                    Palatal
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                        id="inputSurfaceMesial" value="mesial">
+                                                    Mesial
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                        id="inputSurfaceBuccal" value="buccal">
+                                                    Buccal
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                        id="inputSurfaceDistal" value="distal">
+                                                    Distal
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input toothSurfaceCheck" type="checkbox"
+                                                        id="inputSurfaceOcclusal" value="occlusal">
+                                                    Occlusal
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <span id="validationAlert" style="display: none; font-size: small;"><i>At least one
+                                                surface needs to be selected!</i></span>
+                                        <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+                                        <button type="button" class="btn btn-primary" id="btn-confirm">Confirm</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- fourth collapse -->
-            <div class="card card-plain">
-                <div class="card-header" role="tab" id="headingFour">
-                    <div class="tab-heading text-center">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
-                            aria-expanded="false" aria-controls="collapseFour">
-                            TOOTH DETAILS
-    
-                            <i class="tim-icons icon-minimal-down"></i>
-                        </a>
+                <!-- third collapse -->
+                <div class="card card-plain">
+                    <div class="card-header" role="tab" id="headingThree">
+                        <div class="tab-heading text-center">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                                aria-expanded="false" aria-controls="collapseThree">
+                                PARODONTITIS
+        
+                                <i class="tim-icons icon-minimal-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="card-body">
+                            <div class="grid-container-3col">
+                                <div class="grid-container">
+                                    <label>1</label>
+                                    <input type="number" min="-5" max="20" class="form-control" id="parodata-1" placeholder="mm" value="0">
+                                </div>
+                                <div class="grid-container">
+                                    <label>2</label>
+                                    <input type="number" min="-5" max="20" class="form-control" id="parodata-2" placeholder="mm" value="0">
+                                </div>
+                                <div class="grid-container">
+                                    <label>3</label>
+                                    <input type="number" min="-5" max="20" class="form-control" id="parodata-3" placeholder="mm" value="0">
+                                </div>
+                                <div class="grid-container">
+                                    <label>4</label>
+                                    <input type="number" min="-5" max="20" class="form-control" id="parodata-4" placeholder="mm" value="0">
+                                </div>
+                                <div class="grid-container">
+                                    <label>5</label>
+                                    <input type="number" min="-5" max="20" class="form-control" id="parodata-5" placeholder="mm" value="0">
+                                </div>
+                                <div class="grid-container">
+                                    <label>6</label>
+                                    <input type="number" min="-5" max="20" class="form-control" id="parodata-6" placeholder="mm" value="0">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-                    <div class="card-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo nam vel deleniti dolore, 
-                        accusamus maiores optio reprehenderit rerum similique assumenda provident? Sunt in et 
-                        quaerat laborum. Sed aperiam fugit suscipit.
+                <!-- fourth collapse -->
+                <div class="card card-plain">
+                    <div class="card-header" role="tab" id="headingFour">
+                        <div class="tab-heading text-center">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                                aria-expanded="false" aria-controls="collapseFour">
+                                TOOTH DETAILS
+        
+                                <i class="tim-icons icon-minimal-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+                        <div class="card-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo nam vel deleniti dolore, 
+                            accusamus maiores optio reprehenderit rerum similique assumenda provident? Sunt in et 
+                            quaerat laborum. Sed aperiam fugit suscipit.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- fifth collapse -->
-            <div class="card card-plain">
-                <div class="card-header" role="tab" id="headingFive">
-                    <div class="tab-heading text-center">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
-                            aria-expanded="false" aria-controls="collapseFive">
-                            TOOLS
-    
-                            <i class="tim-icons icon-minimal-down"></i>
-                        </a>
+                <!-- fifth collapse -->
+                <div class="card card-plain">
+                    <div class="card-header" role="tab" id="headingFive">
+                        <div class="tab-heading text-center">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                                aria-expanded="false" aria-controls="collapseFive">
+                                TOOLS
+        
+                                <i class="tim-icons icon-minimal-down"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input disabled class="form-check-input" type="checkbox"
-                                        id="sculptModeCheck">
-                                    Sculpt Mode
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
+                    <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input disabled class="form-check-input" type="checkbox"
+                                            id="sculptModeCheck">
+                                        Sculpt Mode
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <button disabled type="button" class="btn btn-primary sculptMode-btn" id="btn-sculptPush">Push</button>
+                                <button disabled type="button" class="btn btn-primary btn-simple sculptMode-btn" id="btn-sculptPull">Pull</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox"
+                                            id="paintModeCheck">
+                                        Paint Mode
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <button disabled type="button" class="btn btn-primary paintMode-btn" id="btn-paintPaint">Paint</button>
+                                <button disabled type="button" class="btn btn-primary btn-simple paintMode-btn" id="btn-paintErase">Erase</button>                            
+                            </div>
+                            <div class="grid-container">
+                                <label class="">
+                                    Color:
                                 </label>
+                                <input id="inputPaintColor" size="1" class="jscolor" value="ab2567">
                             </div>
-                        </div>
-                        <div class="grid-container">
-                            <button disabled type="button" class="btn btn-primary sculptMode-btn" id="btn-sculptPush">Push</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple sculptMode-btn" id="btn-sculptPull">Pull</button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox"
-                                        id="paintModeCheck">
-                                    Paint Mode
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="grid-container">
-                            <button disabled type="button" class="btn btn-primary paintMode-btn" id="btn-paintPaint">Paint</button>
-                            <button disabled type="button" class="btn btn-primary btn-simple paintMode-btn" id="btn-paintErase">Erase</button>                            
-                        </div>
-                        <div class="grid-container">
-                            <label class="">
-                                Color:
-                            </label>
-                            <input id="inputPaintColor" size="1" class="jscolor" value="ab2567">
                         </div>
                     </div>
                 </div>
