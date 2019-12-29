@@ -80,8 +80,8 @@ function updateSelectedTooth(tooth){
     setBtnActiveState(document.getElementById(`btn-${selectedTooth.toothDossier.status}`), "status-btn");
 
     // set the form states i.e description and checkboxes according to the selected tooth data
-    if (selectedTooth.toothDossier.detailsAvailable == true) {
-        setFormData(selectedTooth.toothDossier.details);
+    if (selectedTooth.toothDossier.statusDetailsAvailable == true) {
+        setFormData(selectedTooth.toothDossier.statusDetails);
     } else {
         setFormData({ description: "", surfaces: [] })
     }
@@ -155,39 +155,39 @@ function changeToothStatus(tooth, status){
     if(tooth.toothDossier.status == 'healthy'){
         tooth.material = mat_master;
         tooth.requiredMaterial = mat_master;
-        tooth.toothDossier.detailsAvailable = false;
-        tooth.toothDossier.details = {};
+        tooth.toothDossier.statusDetailsAvailable = false;
+        tooth.toothDossier.statusDetails = {};
     }
     if(tooth.toothDossier.status == 'caries'){
         tooth.material = mat_caries;
         tooth.requiredMaterial = mat_caries;
-        tooth.toothDossier.detailsAvailable = true;
-        tooth.toothDossier.details.description = "";
-        tooth.toothDossier.details.surfaces = [];
+        tooth.toothDossier.statusDetailsAvailable = true;
+        tooth.toothDossier.statusDetails.description = "";
+        tooth.toothDossier.statusDetails.surfaces = [];
     }
     if(tooth.toothDossier.status == 'damaged'){
         tooth.material = mat_damaged;
         tooth.requiredMaterial = mat_damaged;
-        tooth.toothDossier.detailsAvailable = true;
-        tooth.toothDossier.details.description = "";
-        tooth.toothDossier.details.surfaces = [];
+        tooth.toothDossier.statusDetailsAvailable = true;
+        tooth.toothDossier.statusDetails.description = "";
+        tooth.toothDossier.statusDetails.surfaces = [];
     }
     if(tooth.toothDossier.status == 'missing'){
         tooth.material = mat_missing;
         tooth.requiredMaterial = mat_missing;
-        tooth.toothDossier.detailsAvailable = false;
-        tooth.toothDossier.details = {};
+        tooth.toothDossier.statusDetailsAvailable = false;
+        tooth.toothDossier.statusDetails = {};
     }
     if(tooth.toothDossier.status == 'golden'){
         tooth.material = mat_golden;
         tooth.requiredMaterial = mat_golden;
-        tooth.toothDossier.detailsAvailable = false;
-        tooth.toothDossier.details = {};
+        tooth.toothDossier.statusDetailsAvailable = false;
+        tooth.toothDossier.statusDetails = {};
     }
     if(tooth.toothDossier.status == 'implant'){
         implantTooth(tooth);
-        tooth.toothDossier.detailsAvailable = false;
-        tooth.toothDossier.details = {};
+        tooth.toothDossier.statusDetailsAvailable = false;
+        tooth.toothDossier.statusDetails = {};
     }
     // Hiding validation error after successful change of status
     // hideDiv(validationAlert);
@@ -237,8 +237,8 @@ function resetImplantTooth(tooth){
     removeScrew(tooth);
 }
 
-function changeToothDetails(tooth, details) {
-    tooth.toothDossier.details = details;
+function changeToothStatusDetails(tooth, statusDetails) {
+    tooth.toothDossier.statusDetails = statusDetails;
 }
 
 function setBtnActiveState(btn, classname){
@@ -259,13 +259,13 @@ function setBtnActiveState(btn, classname){
 
 
 // following function is used to set the form data from the tooth object
-function setFormData(details){
-    // setting the tooth status details
+function setFormData(statusDetails){
+    // setting the tooth status statusDetails
     var inputDescription = document.getElementById("inputDescription");
     var toothSurfaceChecks = document.getElementsByClassName("toothSurfaceCheck");
-    inputDescription.value = details.description;
+    inputDescription.value = statusDetails.description;
     for (let surfaceCheck of toothSurfaceChecks) {
-        if (details.surfaces.indexOf(surfaceCheck.value.toLowerCase()) != -1) {
+        if (statusDetails.surfaces.indexOf(surfaceCheck.value.toLowerCase()) != -1) {
             surfaceCheck.checked = true;
         } else {
             surfaceCheck.checked = false;

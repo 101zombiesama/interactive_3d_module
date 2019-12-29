@@ -183,6 +183,14 @@ input[type="number"] {
   padding: 5px;
 }
 
+.tooth-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 5px;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;

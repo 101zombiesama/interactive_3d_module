@@ -196,8 +196,8 @@ function initModel() {
 				mesh.toothDossier = {
 					name: object.children[i].name,
 					status: "healthy",
-					detailsAvailable: false,
-					details: {},
+					statusDetailsAvailable: false,
+					statusDetails: {},
 					parodontitis: {
 						1: '0',
 						2: '0',
@@ -245,8 +245,8 @@ function initModel() {
 				mesh.toothDossier = {
 					name: object.children[i].name,
 					status: "healthy",
-					detailsAvailable: false,
-					details: {},
+					statusDetailsAvailable: false,
+					statusDetails: {},
 					parodontitis: {
 						1: '0',
 						2: '0',

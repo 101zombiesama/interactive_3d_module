@@ -138,7 +138,7 @@ btn_confirm.addEventListener('click', e => {
     }
     if (validateForm()){
         changeToothStatus(selectedTooth, futureStatus);
-        changeToothDetails(selectedTooth, {
+        changeToothStatusDetails(selectedTooth, {
             description: inputDescription.value,
             surfaces: surfaces
         });
@@ -149,11 +149,11 @@ btn_confirm.addEventListener('click', e => {
     }
 })
 
-// sculpt 
-
-// btn_save.addEventListener('click', e => {
-//     resetSculpt(selectedTooth);
-// });
+btn_open.addEventListener('click', e => {
+    if (selectedTooth) {
+        console.log(selectedTooth.toothDossier);
+    }
+})
 
 btn_fullViewMode.addEventListener('click', e => {
     switchViewMode('fullView');
