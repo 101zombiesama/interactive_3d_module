@@ -121,12 +121,7 @@ function clearSelection(){
     setMode('sculptMode', false);
     setMode('paintMode', false);
 
-    // hide status ui
-    // var statusPanel = document.getElementById("status-panel");
     var descriptionPanel = document.getElementById("description-panel");
-    // if(isVisible(statusPanel)){
-    //     hideDiv(statusPanel);
-    // }
     if(isVisible(descriptionPanel)){
         hideDiv(descriptionPanel);
     }
@@ -191,8 +186,6 @@ function changeToothStatus(tooth, status){
         tooth.toothDossier.statusDetailsAvailable = false;
         tooth.toothDossier.statusDetails = {};
     }
-    // Hiding validation error after successful change of status
-    // hideDiv(validationAlert);
 }
 
 function addScrew(tooth){

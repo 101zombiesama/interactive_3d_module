@@ -501,8 +501,6 @@ effectFXAA.uniforms['resolution'].value.set(1 / window.innerWidth, 1 / window.in
 composer.addPass(effectFXAA);
 
 effectVignette = new ShaderPass(VignetteShader);
-// effectFXAA.uniforms[ 'offset' ].value.set(1);
-// effectFXAA.uniforms[ 'darkness' ].value.set(1);
 composer.addPass(effectVignette);
 
 
