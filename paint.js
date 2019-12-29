@@ -2,6 +2,10 @@ var emptyColor = new THREE.Color();
 
 function paint(intersectsArr, color) {
 
+    var toothNum = selectedTooth.name.split('_')[1];
+    var angle = Number(toothNum) < 30 ? sliderLower.value*1.57 : -sliderLower.value*1.57;
+    var offset_y = Number(toothNum) < 30 ? -sliderLower.value / 60 : 0;
+
     var vertices = intersectsArr[0].object.geometry.vertices;
     var faces = intersectsArr[0].object.geometry.faces;
     var face = intersectsArr[0].face;
@@ -10,7 +14,9 @@ function paint(intersectsArr, color) {
     // creating vertexCorrMatrix
     var vertexCorrMatrix = [['vindices', 'distanceFromIntersestion'], [], []];
     for (let [i, vertex] of vertices.entries()) {
-        var dist = vertex.distanceTo(intersectsArr[0].point)*100;
+        var vertexClone = vertex.clone().applyAxisAngle(x_directionVector, angle);
+        vertexClone.y += offset_y;
+        var dist = vertexClone.distanceTo(intersectsArr[0].point)*100;
         if (dist < 0.2) {
             vertexCorrMatrix[1].push(i);
             vertexCorrMatrix[2].push(dist);
