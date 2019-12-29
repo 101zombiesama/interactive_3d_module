@@ -205,6 +205,12 @@ function initModel() {
 						4: '0',
 						5: '0',
 						6: '0'
+					},
+					toothDetails: {
+						mobility: 0,
+						furcation: 0,
+						bleeding: 0,
+						plaque: 0
 					}
 				}
 				lower_teeth_model.add(mesh);
@@ -254,6 +260,12 @@ function initModel() {
 						4: '0',
 						5: '0',
 						6: '0'
+					},
+					toothDetails: {
+						mobility: 0,
+						furcation: 0,
+						bleeding: 0,
+						plaque: 0
 					}
 				}
 				upper_teeth_model.add(mesh);

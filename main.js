@@ -88,6 +88,8 @@ function updateSelectedTooth(tooth){
 
     // setting parodontal data
     setParoData(selectedTooth.toothDossier.parodontitis);
+    // setting toothDetails
+    setToothDetails(selectedTooth.toothDossier.toothDetails);
 
     if (!isImplantMode) {
         // make status ui visible
@@ -258,7 +260,7 @@ function setBtnActiveState(btn, classname){
 }
 
 
-// following function is used to set the form data from the tooth object
+// following function is used to set the form data of statusDetails from the tooth object
 function setFormData(statusDetails){
     // setting the tooth status statusDetails
     var inputDescription = document.getElementById("inputDescription");
@@ -279,6 +281,13 @@ function setParoData(data) {
         var input = document.getElementById(`parodata-${i+1}`);
         input.value = data[i+1];
     }
+}
+
+function setToothDetails(toothDetails) {
+    document.getElementById("toothDetails-mobility").value = toothDetails.mobility;
+    document.getElementById("toothDetails-furcation").value = toothDetails.furcation;
+    document.getElementById("toothDetails-bleeding").value = toothDetails.bleeding;
+    document.getElementById("toothDetails-plaque").value = toothDetails.plaque;
 }
 
 function switchViewMode(mode) {

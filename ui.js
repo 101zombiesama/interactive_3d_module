@@ -65,7 +65,7 @@ var btn_teethViewMode = document.getElementById("btn-teethViewMode");
 var btn_isolateSelect = document.getElementById("btn-isolateSelect");
 var btn_resetCamera = document.getElementById("btn-resetCamera");
 
-// var statusPanel = document.getElementById("status-panel");
+
 var descriptionPanel = document.getElementById("description-panel");
 var inputDescription = document.getElementById("inputDescription");
 var inputSurfaceMesial = document.getElementById("inputSurfaceMesial");
@@ -74,6 +74,11 @@ var inputSurfaceDistal = document.getElementById("inputSurfaceDistal");
 var inputSurfaceOcclusal = document.getElementById("inputSurfaceOcclusal");
 var inputSurfacePalatal = document.getElementById("inputSurfacePalatal");
 var btn_confirm = document.getElementById("btn-confirm");
+
+var inputMobility = document.getElementById("toothDetails-mobility");
+var inputFurcation = document.getElementById("toothDetails-furcation");
+var inputBleeding = document.getElementById("toothDetails-bleeding");
+var inputPlaque = document.getElementById("toothDetails-plaque");
 
 var validationAlert = document.getElementById("validationAlert");
 
@@ -257,6 +262,28 @@ paro_6.addEventListener('input', e => {
         morphGum(selectedTooth, result.faces[5], value);
     } else {
         e.target.value = selectedTooth.toothDossier.parodontitis[6];
+    }
+});
+
+// handling changing tooth detials mobility, furcation, bleeding and plaque
+inputMobility.addEventListener('input', e => {
+    if (selectedTooth) {
+        selectedTooth.toothDossier.toothDetails.mobility = e.target.value;
+    }
+});
+inputFurcation.addEventListener('input', e => {
+    if (selectedTooth) {
+        selectedTooth.toothDossier.toothDetails.furcation = e.target.value;
+    }
+});
+inputBleeding.addEventListener('input', e => {
+    if (selectedTooth) {
+        selectedTooth.toothDossier.toothDetails.bleeding = e.target.value;
+    }
+});
+inputPlaque.addEventListener('input', e => {
+    if (selectedTooth) {
+        selectedTooth.toothDossier.toothDetails.plaque = e.target.value;
     }
 });
 
