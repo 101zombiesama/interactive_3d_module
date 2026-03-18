@@ -1,0 +1,11 @@
+{
+  "name": "interactive-3d-module",
+  "version": "1.0.0",
+  "description": "Interactive 3D dental visualization tool",
+  "scripts": {
+    "dev": "http-server . -p 3000 -o --cors"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
